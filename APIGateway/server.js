@@ -19,7 +19,7 @@ class Server {
   startTheServer() {
     this.includeRoutes();
 
-    const port = process.env.NODE_SERVER_POST || 8000;
+    const port = process.env.NODE_SERVER_PORT || 8000;
     const host = process.env.NODE_SERVER_HOST || 'localhost';
 
     this.http.listen(port, host, () => {
@@ -29,4 +29,4 @@ class Server {
 }
 
 const server = new Server();
-server.startTheServer();
+export default server;

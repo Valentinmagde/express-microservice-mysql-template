@@ -1,4 +1,5 @@
 import httpProxy from 'express-http-proxy';
+import bodyParser from 'body-parser';
 
 const userServiceProxy = httpProxy('http://localhost:4000');
 const productServiceProxy = httpProxy('http://localhost:3000');
@@ -11,11 +12,15 @@ class Routes {
 
   /* creating app Routes starts */
   appRoutes() {
+    this.app.use(bodyParser.json());
+    this.app.use(bodyParser.urlencoded({ extended: true }));
+
     this.app.get('/getUserDetails/:userId', (req, res) => {
       userServiceProxy(req, res);
     });
 
     this.app.post('/register', (req, res) => {
+      console.log(req.body);
       userServiceProxy(req, res);
     });
 
