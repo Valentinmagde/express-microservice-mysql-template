@@ -1,9 +1,9 @@
 /* eslint-disable class-methods-use-this */
 /* eslint-disable no-console */
-const bodyParser = require('body-parser');
-const cors = require('cors');
-const ExpressConfigModule = require('./express-config');
-const JWT = require('./../utils/jwt');
+import bodyParser from 'body-parser';
+import cors from 'cors';
+import ExpressConfigModule from './express-config.js';
+import JWT from './../utils/jwt.js';
 
 class AppConfig {
   constructor(app) {
@@ -20,12 +20,9 @@ class AppConfig {
   }
 
   loadAppLevelConfig() {
-    this.app.use(
-      bodyParser.json(),
-    );
-    this.app.use(
-      cors(),
-    );
+    this.app.use( bodyParser.json());
+    this.app.use(bodyParser.urlencoded({ extended: true }));
+    this.app.use(cors());
   }
 
   loadExpressConfig() {
@@ -33,4 +30,5 @@ class AppConfig {
     new JWT(this.app).setJWTConfig();
   }
 }
-module.exports = AppConfig;
+
+export default AppConfig;

@@ -1,6 +1,7 @@
+import User from '../models/user-model.js';
 import { mongoDB } from './../config/db.js';
 
-class QueryHandler {
+class UserService {
   constructor() {
     this.mongodb = mongoDB;
   }
@@ -68,15 +69,33 @@ class QueryHandler {
   registerUser(data) {
     return new Promise(async (resolve, reject) => {
       try {
-        console.log(data);
-        const [DB, ObjectID, DBClient] = await this.mongodb.onConnect();
-        DB.collection('user').insertOne(data, (err, result) => {
-          DBClient.close();
-          if (err) {
-            reject(err);
-          }
-          resolve(result);
-        });
+            console.log(data);
+            const user = new User({
+                username: req.body.username,
+                email: req.body.email,
+                lastname: req.body.lastname,
+                gender: req.body.gender,
+                password: bcrypt.hashSync(req.body.password, 8),
+            });
+        
+            await user.save(data, (err, result) => {
+            DBClient.close();
+            if (err) {
+                reject(err);
+            }
+            resolve(result);
+            });
+
+            const createdUser = await user.save();
+            
+            res.send({
+            _id: createdUser._id,
+            name: createdUser.name,
+            email: createdUser.email,
+            isAdmin: createdUser.isAdmin,
+            isSeller: user.isSeller,
+            token: generateToken(createdUser),
+            });
       } catch (error) {
         reject(error);
       }
@@ -84,5 +103,5 @@ class QueryHandler {
   }
 }
 
-const queryHandler = new QueryHandler()
-export default queryHandler;
+const userService = new UserService()
+export default userService;

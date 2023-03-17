@@ -1,9 +1,9 @@
 /* eslint-disable no-console */
-const express = require('express');
-const http = require('http');
-
-const AppConfig = require('./config/app-config');
-const Routes = require('./routes');
+import express from 'express';
+import http from 'http';
+import AppConfig from './config/app-config.js';
+import { mongoDB } from './config/db.js';
+import Routes from './routes.js';
 
 class Server {
   constructor() {
@@ -25,6 +25,9 @@ class Server {
     this.appConfig();
     this.includeRoutes();
 
+    // Connect to database
+    mongoDB.onConnect();
+
     const port = process.env.NODE_SERVER_POST || 4000;
     const host = process.env.NODE_SERVER_HOST || 'localhost';
 
@@ -34,4 +37,5 @@ class Server {
   }
 }
 
-module.exports = new Server();
+const server = new Server()
+export default server ;

@@ -1,4 +1,5 @@
-const routeHandler = require('./handlers/route-handler');
+import userController from './controllers/v1/user-controller.js';
+// import routeHandler from './handlers/route-handler.js';
 
 class Routes {
   constructor(app) {
@@ -7,14 +8,17 @@ class Routes {
 
   /* creating app Routes starts */
   appRoutes() {
-    this.app.post('/register', routeHandler.registerRouteHandler);
-    this.app.post('/login', routeHandler.loginRouteHandler);
-    this.app.get('/user/:userId', routeHandler.getUserDetailsHandler);
-    this.app.get('*', routeHandler.routeNotFoundHandler);
+
+    // Users routes
+    this.app.post('/register', userController.registerRouteHandler);
+    this.app.post('/login', userController.loginRouteHandler);
+    this.app.get('/user/:userId', userController.getUserDetailsHandler);
+    this.app.get('*', userController.routeNotFoundHandler);
   }
 
   routesConfig() {
     this.appRoutes();
   }
 }
-module.exports = Routes;
+
+export default Routes;

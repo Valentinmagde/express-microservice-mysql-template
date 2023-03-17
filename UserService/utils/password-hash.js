@@ -1,5 +1,5 @@
 /* eslint-disable class-methods-use-this */
-const bcrypt = require('bcrypt');
+import bcrypt from 'bcrypt';
 
 class PasswordHash {
   createHash(password) {
@@ -11,4 +11,5 @@ class PasswordHash {
   }
 }
 
-module.exports = new PasswordHash();
+const passwordHash = new PasswordHash();
+export default passwordHash;

@@ -1,6 +1,6 @@
 /* eslint-disable class-methods-use-this */
-const helper = require('./../handlers/query-handler');
-const CONSTANTS = require('./../config/constants');
+import queryHandler from './../handlers/query-handler.js';
+import CONSTANTS from './../config/constants.js';
 
 class RouteHandler {
   async getUserDetailsHandler(request, response) {
@@ -12,7 +12,7 @@ class RouteHandler {
       });
     } else {
       try {
-        const userDetails = await helper.getUserDetails(userid.trim());
+        const userDetails = await queryHandler.getUserDetails(userid.trim());
         if (userDetails === undefined) {
           response.status(CONSTANTS.SERVER_NOT_FOUND_HTTP_CODE).json({
             error: true,
@@ -50,7 +50,7 @@ class RouteHandler {
       });
     } else {
       try {
-        const result = await helper.login(data);
+        const result = await queryHandler.login(data);
         if (result === null || result === undefined) {
           response.status(CONSTANTS.SERVER_NOT_FOUND_HTTP_CODE).json({
             error: true,
@@ -80,6 +80,7 @@ class RouteHandler {
       gender: request.body.gender === '' || request.body.gender === undefined ? null : request.body.gender.trim(),
       password: request.body.password === '' || request.body.password === undefined ? null : request.body.password.trim(),
     };
+
     if (data.name === '' || data.name === null) {
       response.status(CONSTANTS.SERVER_ERROR_HTTP_CODE).json({
         error: true,
@@ -108,7 +109,7 @@ class RouteHandler {
     } else {
       try {
         data.online = 'Y';
-        const result = await helper.registerUser(data);
+        const result = await queryHandler.registerUser(data);
         if (result === null || result === undefined) {
           response.status(CONSTANTS.SERVER_INTERNAL_ERROR_HTTP_CODE).json({
             error: false,
@@ -138,4 +139,5 @@ class RouteHandler {
   }
 }
 
-module.exports = new RouteHandler();
+const routeHandler = new RouteHandler();
+export default routeHandler;

@@ -7,4 +7,5 @@ class ExpressConfig {
     this.app.set('view engine', 'html');
   }
 }
-module.exports = ExpressConfig;
+
+export default ExpressConfig;

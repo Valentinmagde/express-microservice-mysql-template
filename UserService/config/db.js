@@ -1,5 +1,5 @@
-const mongodb = require('mongodb');
-const redis = require('redis');
+import mongodb from 'mongoose';
+import redis from 'redis';
 
 class MongoDB {
   constructor() {
@@ -24,5 +24,7 @@ class MongoDB {
     });
   }
 }
-module.exports.MongoDB = new MongoDB();
-module.exports.redisClient = redis.createClient();
+
+const mongoDB = new MongoDB();
+const redisClient = redis.createClient();
+export { mongoDB, redisClient }

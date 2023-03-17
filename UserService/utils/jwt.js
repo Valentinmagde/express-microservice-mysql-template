@@ -1,5 +1,5 @@
-const expressJwt = require('express-jwt');
-const publicRoutes = require('./jwt-route');
+import expressJwt from 'express-jwt';
+import publicRoutes from './jwt-route.js';
 
 class JWT {
   constructor(app) {
@@ -18,4 +18,4 @@ class JWT {
 }
 
 
-module.exports = JWT;
+export default JWT;
