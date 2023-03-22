@@ -20,7 +20,6 @@ class Routes {
     });
 
     this.app.post('/register', (req, res) => {
-      console.log(req.body);
       userServiceProxy(req, res);
     });
 

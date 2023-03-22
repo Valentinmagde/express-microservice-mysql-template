@@ -1,5 +1,9 @@
+import { Application } from "express";
+
 class ExpressConfig {
-  constructor(app) {
+  private app;
+  
+  constructor(app: Application) {
     this.app = app;
   }
 

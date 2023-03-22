@@ -1,14 +1,17 @@
 /* eslint-disable no-console */
 import express from 'express';
 import http from 'http';
-import AppConfig from './config/app-config.js';
-import { mongoDB } from './config/db.js';
-import Routes from './routes.js';
+import AppConfig from './config/app-config';
+import { mongoDB } from './config/db';
+import Routes from './routes';
 
 class Server {
+  private app;
+  private http;
+  
   constructor() {
     this.app = express();
-    this.http = http.Server(this.app);
+    this.http = new http.Server(this.app);
   }
 
   appConfig() {
@@ -21,15 +24,18 @@ class Server {
   }
   /* Including app Routes ends */
 
+  /** Connect to database */
+  connectToDB() {
+    mongoDB.onConnect();
+  }
+
   startTheServer() {
     this.appConfig();
     this.includeRoutes();
+    this.connectToDB();
 
-    // Connect to database
-    mongoDB.onConnect();
-
-    const port = process.env.NODE_SERVER_POST || 4000;
-    const host = process.env.NODE_SERVER_HOST || 'localhost';
+    const port: any = process.env.NODE_SERVER_POST || 4000;
+    const host: any = process.env.NODE_SERVER_HOST || 'localhost';
 
     this.http.listen(port, host, () => {
       console.log(`Listening on http://${host}:${port}`);

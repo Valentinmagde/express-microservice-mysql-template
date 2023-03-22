@@ -6,8 +6,8 @@ const CONSTANTS = {
     USERID_NOT_FOUND : 'User Id can\'t be empty.',
     EMAIL_NOT_FOUND : 'Email can\'t be empty.',
     GENDER_NOT_FOUND : 'Gender can\'t be empty.',
-    PASSWORD_NOT_FOUND : 'Password can\'t be empty.',
     USER_NOT_FOUND : 'User does not exits.',
+    USERNAME_DETAIL_FAILED: 'User details failed',
     /* Validation related  constants ends */
 
     /* General Errors  constants start */

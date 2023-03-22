@@ -1,8 +1,10 @@
-import userController from './controllers/v1/user-controller.js';
-// import routeHandler from './handlers/route-handler.js';
+import userController from 'controllers/v1/user-controller';
+import { Application } from 'express';
 
 class Routes {
-  constructor(app) {
+  private app: Application;
+
+  constructor(app: Application) {
     this.app = app;
   }
 
