@@ -1,4 +1,11 @@
-/* Validation related  constants starts */
+/** 
+ * Validation related  constants starts
+ * 
+ * @author Valentin Magde <valentinmagde@gmail.com>
+ * @since 2023-22-03
+ * 
+ * @returns constant
+ */
 const CONSTANTS = {
     PASSWORD_NOT_FOUND : 'password can\'t be empty.',
     USERNAME_NOT_FOUND : 'User name can\'t be empty.',

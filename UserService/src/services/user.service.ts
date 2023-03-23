@@ -1,6 +1,6 @@
-import User from '../models/user-model';
+import User from '../models/user.model';
 import { mongoDB } from '../config/db';
-import passwordHash from 'utils/password-hash';
+import passwordHash from '../utils/password.hash';
 
 /**
  * @author Valentin Magde <valentinmagde@gmail.com>
@@ -31,27 +31,21 @@ class UserService {
    * @param any data 
    * @returns any user
    */
-  public login(data: any) {
+  public async login(data: any) {
     return new Promise(async (resolve, reject) => {
-      // try {
-      //   DB.collection('user').findOneAndUpdate(
-      //     data,
-      //     {
-      //       $set: {
-      //         online: 'Y',
-      //       },
-      //     },
-      //     (error, result) => {
-      //       DBClient.close();
-      //       if (error) {
-      //         reject(error);
-      //       }
-      //       result.lastErrorObject.updatedExisting ? resolve(result.value._id) : resolve(null);
-      //     },
-      //   );
-      // } catch (error) {
-      //   reject(error);
-      // }
+      try {
+        // const user = await User.findOneAndUpdate(data, { $set: { online: 'Y' } });
+        const user = await User.findOne({email: data.email});
+        
+        if(user && passwordHash.compareHash(data.password, user.password)) {
+          await User.findOneAndUpdate({email: data.email}, { $set: { online: 'Y' } });
+          resolve(user);
+        }
+
+        resolve(user);
+      } catch (error) {
+        reject(error);
+      }
     });
   }
 

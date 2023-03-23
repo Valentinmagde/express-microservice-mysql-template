@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import CONSTANTS from "../../config/constants";
-import userService from "../../services/user-service";
+import userService from "../../services/user.service";
 import Controller from "../controller";
 
 /**
@@ -75,10 +75,11 @@ class UserController extends Controller {
    */
   public async loginRouteHandler(req: Request, res: Response) {
     const data = {
-        name: req.body.name === '' || req.body.name === undefined ? null : (req.body.name).trim(),
-        password: req.body.password === '' || req.body.password === undefined ? null : req.body.password.trim(),
+      email: req.body.email === '' || req.body.email === undefined ? null : (req.body.email).trim(),
+      password: req.body.password === '' || req.body.password === undefined ? null : req.body.password.trim(),
     };
-    if (data.name === '' || data.name === null) {
+    
+    if (data.email === '' || data.email === null) {
         res.status(CONSTANTS.SERVER_ERROR_HTTP_CODE).json({
         error: true,
         message: CONSTANTS.USERNAME_NOT_FOUND,
@@ -89,26 +90,28 @@ class UserController extends Controller {
         message: CONSTANTS.PASSWORD_NOT_FOUND,
         });
     } else {
-        try {
-        const result = await userService.login(data);
+      userService.login(data)
+      .then(result => {
         if (result === null || result === undefined) {
-            res.status(CONSTANTS.SERVER_NOT_FOUND_HTTP_CODE).json({
-            error: true,
-            message: CONSTANTS.USER_LOGIN_FAILED,
-            });
-        } else {
+          res.status(CONSTANTS.SERVER_NOT_FOUND_HTTP_CODE).json({
+          error: true,
+          message: CONSTANTS.USER_LOGIN_FAILED,
+          });
+        } 
+        else {
             res.status(CONSTANTS.SERVER_NOT_FOUND_HTTP_CODE).json({
             error: false,
             userId: result,
             message: CONSTANTS.USER_LOGIN_OK,
             });
         }
-        } catch (error) {
+      })
+      .catch(error => {
         res.status(CONSTANTS.SERVER_NOT_FOUND_HTTP_CODE).json({
             error: true,
-            message: CONSTANTS.USER_LOGIN_FAILED,
+            message: error.message,
         });
-        }
+      })
     }
   }
     
@@ -161,7 +164,6 @@ class UserController extends Controller {
     } else {
       userService.registerUser(data)
       .then((result) => {
-        console.log(data);
         if (result === null || result === undefined) {
           res.status(CONSTANTS.SERVER_INTERNAL_ERROR_HTTP_CODE).json({
             error: false,
