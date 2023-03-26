@@ -3,8 +3,8 @@
 import bodyParser from 'body-parser';
 import cors from 'cors';
 import ExpressConfigModule from './express.config';
-import JWT from '../utils/jwt';
 import { Application } from 'express';
+import Auth from '../auth/auth';
 
 /**
  * @author Valentin Magde <valentinmagde@gmail.com>
@@ -68,7 +68,7 @@ class AppConfig {
    */
   public loadExpressConfig() {
     new ExpressConfigModule(this.app).setAppEngine();
-    new JWT(this.app).setJWTConfig();
+    new Auth(this.app).setJWTConfig();
   }
 }
 

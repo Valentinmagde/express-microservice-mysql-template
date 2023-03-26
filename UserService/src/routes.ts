@@ -33,6 +33,11 @@ class Routes {
     this.app.post('/login', userController.loginRouteHandler);
     this.app.get('/user/:userId', userController.getUserDetailsHandler);
     this.app.get('*', userController.routeNotFoundHandler);
+    
+    // error handler for not found router
+    this.app.get('*', (req, res, next) => {
+      res.status(404).send('Route not found');
+    });
   }
 
   /**

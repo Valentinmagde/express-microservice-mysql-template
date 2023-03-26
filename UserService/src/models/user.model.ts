@@ -17,6 +17,7 @@ const userSchema = new mongoose.Schema(
       rating: { type: Number, default: 0, required: true },
       numReviews: { type: Number, default: 0, required: true },
     },
+    online: { type: Boolean, default: false, required: false }
   },
   {
     timestamps: true,

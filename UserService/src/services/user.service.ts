@@ -1,26 +1,21 @@
 import User from '../models/user.model';
-import { mongoDB } from '../config/db';
 import passwordHash from '../utils/password.hash';
+import Auth from '../auth/auth';
 
 /**
  * @author Valentin Magde <valentinmagde@gmail.com>
  * @since 2023-22-03
  * 
  * Class UserService
- * 
- * @param mongodb
  */
 class UserService {
-  private mongodb;
   
   /**
    * Create a new UserController instance.
    *
    * @return void
    */
-  constructor() {
-    this.mongodb = mongoDB;
-  }
+  constructor() {}
 
   /**
    * Login
@@ -34,18 +29,24 @@ class UserService {
   public async login(data: any) {
     return new Promise(async (resolve, reject) => {
       try {
-        // const user = await User.findOneAndUpdate(data, { $set: { online: 'Y' } });
         const user = await User.findOne({email: data.email});
         
         if(user && passwordHash.compareHash(data.password, user.password)) {
-          await User.findOneAndUpdate({email: data.email}, { $set: { online: 'Y' } });
-          resolve(user);
+          await User.findOneAndUpdate({email: data.email}, { $set: { online: true } });
+
+          const loginRes = {
+            _id: user._id,
+            name: user.username,
+            email: user.email,
+            isAdmin: user.isAdmin,
+            token: new Auth().generateToken(user)
+          };
+
+          resolve(loginRes);
         }
 
         resolve(user);
-      } catch (error) {
-        reject(error);
-      }
+      } catch (error) { reject(error); }
     });
   }
 
