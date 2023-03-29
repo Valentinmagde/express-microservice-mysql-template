@@ -1,15 +1,12 @@
-import express, { NextFunction, Request, Response, Router } from 'express';
-import fs from 'fs';
-import jwt from 'jsonwebtoken';
-import path from 'path';
+import express, { Router } from 'express';
 
 /**
  * @author Valentin Magde <valentinmagde@gmail.com>
  * @since 2023-26-03
  * 
- * Class Helpers
+ * Class RoutesGrouping
  */
-class Helpers {
+class RoutesGrouping {
 
   /**
    * Grouping routes
@@ -27,5 +24,5 @@ class Helpers {
   });
 }
 
-const helpers = new Helpers();
-export default helpers;
+const routesGrouping = new RoutesGrouping();
+export default routesGrouping;

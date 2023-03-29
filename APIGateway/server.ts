@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import express from 'express';
 import http from 'http';
-import Routes from './routes/routes';
+import Routes from './src/routes/routes';
 
 /**
  * @author Valentin Magde <valentinmagde@gmail.com>

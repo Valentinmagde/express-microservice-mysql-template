@@ -1,5 +1,5 @@
 import dotEnv from 'dotenv';
-import server from './src/server';
+import server from './server';
 
 dotEnv.config();
 server.startTheServer();

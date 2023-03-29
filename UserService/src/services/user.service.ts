@@ -44,8 +44,9 @@ class UserService {
 
           resolve(loginRes);
         }
-
-        resolve(user);
+        else{
+          resolve(null);
+        }
       } catch (error) { reject(error); }
     });
   }

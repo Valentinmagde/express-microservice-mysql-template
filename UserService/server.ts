@@ -1,9 +1,9 @@
 /* eslint-disable no-console */
 import express from 'express';
 import http from 'http';
-import AppConfig from './config/app.config';
-import { mongoDB } from './config/db';
-import Routes from './routes';
+import AppConfig from './src/config/app.config';
+import { mongoDB } from './src/config/db';
+import Routes from './src/routes/routes';
 
 /**
  * @author Valentin Magde <valentinmagde@gmail.com>

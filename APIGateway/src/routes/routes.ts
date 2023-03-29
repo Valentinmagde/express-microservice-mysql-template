@@ -2,7 +2,7 @@ import httpProxy from 'express-http-proxy';
 import bodyParser from 'body-parser';
 import dotenv from "dotenv";
 import { Application, NextFunction, Request, Response } from 'express';
-import userApi from './api/user.api';
+import userRoutes from './v1/user.routes';
 
 dotenv.config();
 
@@ -40,7 +40,7 @@ class Routes {
     this.app.use(bodyParser.urlencoded({ extended: true }));
 
     // Includes user routes
-    this.app.use('/api/v1', userApi.userRoutes());
+    this.app.use('/api/v1', userRoutes.userRoutes());
 
     this.app.get('/product/:productId', (req, res, next) => {
       productServiceProxy(req, res, next);

@@ -2,7 +2,7 @@ import auth from '../../auth/auth';
 import express, { Application, NextFunction, Request, Response, Router } from 'express';
 import httpProxy from 'express-http-proxy';
 import dotenv from "dotenv";
-import helpers from '../../helpers/helpers';
+import routesGrouping from '../../utils/routes.grouping';
 
 dotenv.config();
 
@@ -12,9 +12,9 @@ const userServiceProxy = httpProxy(process.env.USER_SERVICE_URL as string);
  * @author Valentin Magde <valentinmagde@gmail.com>
  * @since 2023-26-03
  * 
- * Class UserApi
+ * Class UserRoutes
  */
-class UserApi {
+class UserRoutes {
     private router: Router;
 
     /**
@@ -35,13 +35,13 @@ class UserApi {
      * @returns Router
      */
     public userRoutes() {
-        return this.router.use(helpers.group((router) => {
-            router.use('/users', helpers.group((router) => {
-                router.post('/', (req, res, next) => {
+        return this.router.use(routesGrouping.group((router) => {
+            router.use('/users', routesGrouping.group((router) => {
+                router.get('/', (req, res, next) => {
                     userServiceProxy(req, res, next);
                 });
 
-                router.post('/register', (req, res, next) => {
+                router.post('/', (req, res, next) => {
                     userServiceProxy(req, res, next);
                 });
 
@@ -53,7 +53,7 @@ class UserApi {
                 });
             }));
 
-            router.use('/user', helpers.group((router) => {
+            router.use('/user', routesGrouping.group((router) => {
                 router.get('/:userId', (req, res, next) => {
                     userServiceProxy(req, res, next);
                 });
@@ -62,5 +62,5 @@ class UserApi {
     }
 }
 
-const userApi = new UserApi();
-export default userApi;
+const userRoutes = new UserRoutes();
+export default userRoutes;

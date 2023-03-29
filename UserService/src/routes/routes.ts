@@ -1,4 +1,4 @@
-import userController from './controllers/v1/user.controller';
+import userController from '../controllers/v1/user.controller';
 import { Application } from 'express';
 
 /**
