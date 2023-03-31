@@ -1,5 +1,8 @@
 import { Request, Response } from "express";
-import CONSTANTS from "../config/constants";
+import i18n from "../i18n";
+import errorNumbers from "../utils/error.numbers";
+import statusCode from "../utils/status.code";
+import customResponse from "../utils/custom.response";
 
 /**
  * @author Valentin Magde <valentinmagde@gmail.com>
@@ -19,9 +22,12 @@ export default class Controller {
    * @returns json
    */
   public routeNotFoundHandler(req: Request, res: Response) {
-    res.status(CONSTANTS.SERVER_NOT_FOUND_HTTP_CODE).json({
-      error: true,
-      message: CONSTANTS.ROUTE_NOT_FOUND,
-    });
+    const response = {
+      status: statusCode.HTTP_NOT_FOUND,
+      errNo: errorNumbers.resource_not_found,
+      errMsg: i18n.en.others.ROUTE_NOT_FOUND,
+    }
+
+    return customResponse.error(response, res);
   }
 }

@@ -62,36 +62,13 @@ class UserService {
    */
   public getUserDetails(userId: string) {
     return new Promise(async (resolve, reject) => {
-      // try {
-      //   const [DB, ObjectID, DBClient] = await this.mongodb.onConnect();
-      //   DB.collection('user').aggregate([
-      //     {
-      //       $match: { _id: ObjectID(userId) },
-      //     },
-      //     {
-      //       $project: {
-      //         name: true,
-      //         email: true,
-      //         lastname: true,
-      //         online: true,
-      //         _id: false,
-      //         id: '$_id',
-      //       },
-      //     },
-      //   ]).toArray((error, result) => {
-      //     DBClient.close();
-      //     if (error) {
-      //       reject(error);
-      //     }
-      //     let userDetails = null;
-      //     if (result.length > 0) {
-      //       userDetails = result[0];
-      //     }
-      //     resolve(userDetails);
-      //   });
-      // } catch (error) {
-      //   reject(error);
-      // }
+      try {
+        const user = await User.findById(userId);
+        
+        resolve(user);
+      } catch (error) {
+        reject(error);
+      }
     });
   }
 

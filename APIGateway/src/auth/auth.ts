@@ -2,6 +2,9 @@ import { NextFunction, Request, Response } from 'express';
 import fs from 'fs';
 import jwt from 'jsonwebtoken';
 import path from 'path';
+import errorNumbers from '../utils/error.numbers';
+import statusCode from '../utils/status.code';
+import customResponse from '../utils/custom.response';
 
 /**
  * @author Valentin Magde <valentinmagde@gmail.com>
@@ -81,7 +84,13 @@ class Auth {
         publicKey,
         (err, decode) => {
           if (err) {
-            res.status(401).send({ message: 'Invalid Token' });
+            const response = {
+              status: statusCode.HTTP_PRECONDITION_FAILED,
+              errNo: errorNumbers.validator,
+              errMsg: 'Invalid Token',
+            }
+      
+            return customResponse.error(response, res);
           } else {
             req.user = decode;
             next();
@@ -89,7 +98,13 @@ class Auth {
         }
       );
     } else {
-      res.status(401).send({ message: 'No Token' });
+      const response = {
+        status: statusCode.HTTP_PRECONDITION_FAILED,
+        errNo: errorNumbers.validator,
+        errMsg: 'No Token',
+      }
+
+      return customResponse.error(response, res);
     }
   };
 

@@ -7,6 +7,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon --files index.ts",
+    "start-dev": "NODE_ENV=development nodemon index.ts",
+    "start-prod": "NODE_ENV=production nodemon index.ts",
     "lint": "eslint"
   },
   "author": "Shashank Tiwari",
@@ -25,7 +27,7 @@
     "eslint-plugin-import": "^2.17.1",
     "fs": "^0.0.1-security",
     "jsonwebtoken": "^9.0.0",
-    "nodemon": "^2.0.21",
+    "nodemon": "^2.0.22",
     "path": "^0.12.7",
     "typescript": "^5.0.2"
   }

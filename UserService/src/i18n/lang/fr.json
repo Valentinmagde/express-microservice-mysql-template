@@ -3,7 +3,6 @@
         "PASSWORD_NOT_FOUND" : "password can't be empty.",
         "USERNAME_NOT_FOUND" : "User name can't be empty",
         "USERLASTNAME_NOT_FOUND" : "User last name can't be empty.",
-        "USERID_NOT_FOUND" : "User Id can't be empty.",
         "EMAIL_NOT_FOUND" : "Email can't be empty.",
         "GENDER_NOT_FOUND" : "Gender can't be empty.",
         "USER_NOT_FOUND" : "User does not exits.",
@@ -14,5 +13,18 @@
         "USER_REGISTRATION_FAILED" : "User registration unsuccessful.",
         "USER_LOGIN_OK" : "User logged in.",
         "USER_LOGIN_FAILED" : "User not found." 
+    },
+    "unauthorize": {
+        "NO_TOKEN" : "No Token",
+        "IVALID_TOKEN" : "Token invalide",
+        "INVALID_ADMIN_TOKEN" : "Invalid Admin Token",
+        "INVALID_SELLER_TOKEN" : "Invalid Seller Token",
+        "INVALID_ADMIN_OR_SELLER" : "Invalid Admin or Seller Token"
+    },
+    "profile": {
+        "USER_NOT_FOUND" : "User does not exits."
+    },
+    "others": {
+        "ROUTE_NOT_FOUND" : "Route not found"
     }
 }

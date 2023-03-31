@@ -37,24 +37,44 @@ class UserRoutes {
     public userRoutes() {
         return this.router.use(routesGrouping.group((router) => {
             router.use('/users', routesGrouping.group((router) => {
-                router.get('/', (req, res, next) => {
+                router.get('/docs', (req, res, next) => {
+                    const bearerToken = auth.generateGatewayToken(req);
+                    
+                    // Set request header authorization with generic gateway
+                    req.headers.authorization = `Bearer ${bearerToken}`;
+                    // Update url with original url which contain all path
+                    req.url = req.originalUrl;
+                    
                     userServiceProxy(req, res, next);
                 });
 
                 router.post('/', (req, res, next) => {
+                    const bearerToken = auth.generateGatewayToken(req);
+                    
+                    // Set request header authorization with generic gateway
+                    req.headers.authorization = `Bearer ${bearerToken}`;
+                    // Update url with original url which contain all path
+                    req.url = req.originalUrl;
+
                     userServiceProxy(req, res, next);
                 });
 
                 router.post('/login', (req: Request, res: Response, next: NextFunction) => {
                     const bearerToken = auth.generateGatewayToken(req);
+
+                    // Set request header authorization with generic gateway
                     req.headers.authorization = `Bearer ${bearerToken}`;
+                    // Update url with original url which contain all path
+                    req.url = req.originalUrl;
         
                     userServiceProxy(req, res, next);
                 });
             }));
 
-            router.use('/user', routesGrouping.group((router) => {
+            router.use('/user', auth.isAuth, routesGrouping.group((router) => {
                 router.get('/:userId', (req, res, next) => {
+                    // Update url with original url which contain all path
+                    req.url = req.originalUrl;
                     userServiceProxy(req, res, next);
                 });
             }));

@@ -2,12 +2,12 @@ import mongoose from 'mongoose';
 
 const userSchema = new mongoose.Schema(
   {
-    firstname: { type: String, required: true },
+    firstname: { type: String, required: false },
     lastname: { type: String, required: true },
     username: { type: String, required: true },
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
-    gender: { type: String, required: true },
+    gender: { type: Number, required: true },
     isAdmin: { type: Boolean, default: false, required: true },
     isSeller: { type: Boolean, default: false, required: true },
     seller: {

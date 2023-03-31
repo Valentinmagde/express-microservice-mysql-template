@@ -1,5 +1,7 @@
 import userController from '../controllers/v1/user.controller';
 import { Application } from 'express';
+import routesGrouping from '../utils/routes.grouping';
+import SwaggerDocs from '../v1/swagger';
 
 /**
  * @author Valentin Magde <valentinmagde@gmail.com>
@@ -28,16 +30,24 @@ class Routes {
    * @returns void
   */
   public appRoutes() {
-    // Users routes
-    this.app.post('/register', userController.registerRouteHandler);
-    this.app.post('/login', userController.loginRouteHandler);
-    this.app.get('/user/:userId', userController.getUserDetailsHandler);
-    this.app.get('*', userController.routeNotFoundHandler);
+    // All users routes
+    this.app.use('/api/v1', routesGrouping.group((router) => {
+      
+      router.use('/users', routesGrouping.group((router) => {
+          router.post('/', userController.registerRouteHandler);
+          router.post('/login', userController.loginRouteHandler);
+      }));
+
+      router.use('/user', routesGrouping.group((router) => {
+          router.get('/:userId', userController.getUserDetailsHandler);
+      }));
+    }));
+    
+    // Route-Handler to visit our docs
+    this.app.use(new SwaggerDocs(this.app, 4000).swaggerDocs);
     
     // error handler for not found router
-    this.app.get('*', (req, res, next) => {
-      res.status(404).send('Route not found');
-    });
+    this.app.get('*', userController.routeNotFoundHandler);
   }
 
   /**

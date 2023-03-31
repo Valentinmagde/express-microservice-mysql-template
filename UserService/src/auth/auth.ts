@@ -2,6 +2,10 @@ import { Application, NextFunction, Request, Response } from 'express';
 import fs from 'fs';
 import jwt from 'jsonwebtoken';
 import path from 'path';
+import i18n from '../i18n';
+import customResponse from '../utils/custom.response';
+import errorNumbers from '../utils/error.numbers';
+import statusCode from '../utils/status.code';
 
 /**
  * @author Valentin Magde <valentinmagde@gmail.com>
@@ -70,7 +74,13 @@ class Auth {
         publicKey,
         (err, decode) => {
           if (err) {
-            res.status(401).send({ message: 'Invalid Token' });
+            const response = {
+              status: statusCode.HTTP_UNAUTHORIZED,
+              errNo: errorNumbers.validator,
+              errMsg: i18n.en.unauthorize.IVALID_TOKEN,
+            }
+      
+            return customResponse.error(response, res);
           } else {
             req.user = decode;
             next();
@@ -78,7 +88,13 @@ class Auth {
         }
       );
     } else {
-      res.status(401).send({ message: 'No Token' });
+      const response = {
+        status: statusCode.HTTP_UNAUTHORIZED,
+        errNo: errorNumbers.validator,
+        errMsg: i18n.en.unauthorize.NO_TOKEN,
+      }
+
+      return customResponse.error(response, res);
     }
   };
 
@@ -104,7 +120,6 @@ class Auth {
           if (err) {
             return null;
           } else {
-            console.log(decode);
             req.user = decode;
           }
         }
@@ -130,7 +145,13 @@ class Auth {
     if (req.user && req.user.isAdmin) {
       next();
     } else {
-      res.status(401).send({ message: 'Invalid Admin Token' });
+      const response = {
+        status: statusCode.HTTP_UNAUTHORIZED,
+        errNo: errorNumbers.validator,
+        errMsg: i18n.en.unauthorize.INVALID_ADMIN_TOKEN,
+      }
+
+      return customResponse.error(response, res);
     }
   };
 
@@ -149,7 +170,13 @@ class Auth {
     if (req.user && req.user.isSeller) {
       next();
     } else {
-      res.status(401).send({ message: 'Invalid Seller Token' });
+      const response = {
+        status: statusCode.HTTP_UNAUTHORIZED,
+        errNo: errorNumbers.validator,
+        errMsg: i18n.en.unauthorize.INVALID_SELLER_TOKEN,
+      }
+
+      return customResponse.error(response, res);
     }
   };
 
@@ -169,6 +196,13 @@ class Auth {
       next();
     } else {
       res.status(401).send({ message: 'Invalid Admin/Seller Token' });
+      const response = {
+        status: statusCode.HTTP_UNAUTHORIZED,
+        errNo: errorNumbers.validator,
+        errMsg: i18n.en.unauthorize.INVALID_ADMIN_OR_SELLER
+      }
+
+      return customResponse.error(response, res);
     }
   }
 
