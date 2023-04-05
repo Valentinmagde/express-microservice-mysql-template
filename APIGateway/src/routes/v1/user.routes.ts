@@ -37,16 +37,16 @@ class UserRoutes {
     public userRoutes() {
         return this.router.use(routesGrouping.group((router) => {
             router.use('/users', routesGrouping.group((router) => {
-                router.get('/docs', (req, res, next) => {
-                    const bearerToken = auth.generateGatewayToken(req);
+                // router.get('/docs', (req, res, next) => {
+                //     const bearerToken = auth.generateGatewayToken(req);
                     
-                    // Set request header authorization with generic gateway
-                    req.headers.authorization = `Bearer ${bearerToken}`;
-                    // Update url with original url which contain all path
-                    req.url = req.originalUrl;
+                //     // Set request header authorization with generic gateway
+                //     req.headers.authorization = `Bearer ${bearerToken}`;
+                //     // Update url with original url which contain all path
+                //     req.url = req.originalUrl;
                     
-                    userServiceProxy(req, res, next);
-                });
+                //     userServiceProxy(req, res, next);
+                // });
 
                 router.post('/', (req, res, next) => {
                     const bearerToken = auth.generateGatewayToken(req);

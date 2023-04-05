@@ -1,7 +1,9 @@
 import userController from '../controllers/v1/user.controller';
 import { Application } from 'express';
 import routesGrouping from '../utils/routes.grouping';
-import SwaggerDocs from '../v1/swagger';
+import swaggerOptions from '../v1/swagger.json';
+import swaggerJSDoc from "swagger-jsdoc";
+import swaggerUi from "swagger-ui-express";
 
 /**
  * @author Valentin Magde <valentinmagde@gmail.com>
@@ -11,6 +13,7 @@ import SwaggerDocs from '../v1/swagger';
  */
 class Routes {
   private app: Application;
+  private specs: any;
 
   /**
    * Create a new Routes instance.
@@ -19,6 +22,7 @@ class Routes {
    */
   constructor(app: Application) {
     this.app = app;
+    this.specs = swaggerJSDoc(swaggerOptions);
   }
 
   /** 
@@ -36,6 +40,17 @@ class Routes {
       router.use('/users', routesGrouping.group((router) => {
           router.post('/', userController.registerRouteHandler);
           router.post('/login', userController.loginRouteHandler);
+          
+          // Swagger documentation
+          router.use(
+            "/docs",
+            swaggerUi.serve,
+            swaggerUi.setup(this.specs)
+          );
+          router.get("/docs", (req, res) => {
+            res.setHeader("Content-Type", "application/json");
+            res.send(this.specs);
+        });
       }));
 
       router.use('/user', routesGrouping.group((router) => {
@@ -44,7 +59,7 @@ class Routes {
     }));
     
     // Route-Handler to visit our docs
-    this.app.use(new SwaggerDocs(this.app, 4000).swaggerDocs);
+    // new SwaggerDocs(this.app, 4000).swaggerDocs();
     
     // error handler for not found router
     this.app.get('*', userController.routeNotFoundHandler);

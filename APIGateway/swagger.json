@@ -1,0 +1,16 @@
+{
+    "explorer": true,
+    "swaggerOptions": {
+      "validatorUrl": null,
+      "urls": [
+        {
+          "url": "http://petstore.swagger.io/v2/swagger.json",
+          "name": "User service"
+        },
+        {
+          "url": "http://petstore.swagger.io/v2/swagger.json",
+          "name": "Product service"
+        }
+      ]
+    }
+}

@@ -212,7 +212,7 @@ class Auth {
    * @returns void
    */
   public setJWTConfig() {
-    this.app?.use(this.isAuth); // General middleware
+    // this.app?.use(this.isAuth); // General middleware
   }
 }
 

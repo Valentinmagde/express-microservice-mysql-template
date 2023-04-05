@@ -3,6 +3,8 @@ import bodyParser from 'body-parser';
 import dotenv from "dotenv";
 import { Application, NextFunction, Request, Response } from 'express';
 import userRoutes from './v1/user.routes';
+import swaggerUi from "swagger-ui-express";
+import swaggerOptions from "../../swagger.json";
 
 dotenv.config();
 
@@ -38,7 +40,8 @@ class Routes {
   public appRoutes() {
     this.app.use(bodyParser.json());
     this.app.use(bodyParser.urlencoded({ extended: true }));
-
+    // Swagger documentation
+    this.app.use('/api/v1/docs', swaggerUi.serve, swaggerUi.setup(undefined, swaggerOptions));
     // Includes user routes
     this.app.use('/api/v1', userRoutes.userRoutes());
 
