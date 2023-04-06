@@ -1,7 +1,7 @@
 import userController from '../controllers/v1/user.controller';
 import { Application } from 'express';
 import routesGrouping from '../utils/routes.grouping';
-import swaggerOptions from '../v1/swagger.json';
+import swaggerOptions from '../../swagger.json';
 import swaggerJSDoc from "swagger-jsdoc";
 import swaggerUi from "swagger-ui-express";
 
@@ -39,6 +39,44 @@ class Routes {
       
       router.use('/users', routesGrouping.group((router) => {
           router.post('/', userController.registerRouteHandler);
+
+          /**
+           * @swagger
+           * /api/v1/users/login:
+           *   post:
+           *     summary: Logs user into the system.
+           *     description: Logs user into the system.
+           *     parameters:
+           *       - name: email
+           *         in: formdata
+           *         required: true
+           *         type: string
+           *       - name: password
+           *         in: formdata
+           *         required: true
+           *         type: string
+           *     responses:
+           *       200:
+           *         description: A list of users.
+           *         content:
+           *           application/json:
+           *             schema:
+           *               type: object
+           *               properties:
+           *                 data:
+           *                   type: array
+           *                   items:
+           *                     type: object
+           *                     properties:
+           *                       id:
+           *                         type: integer
+           *                         description: The user ID.
+           *                         example: 0
+           *                       name:
+           *                         type: string
+           *                         description: The user's name.
+           *                         example: Leanne Graham
+           */
           router.post('/login', userController.loginRouteHandler);
           
           // Swagger documentation
