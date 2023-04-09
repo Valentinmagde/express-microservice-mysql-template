@@ -5,6 +5,10 @@ import { Application, NextFunction, Request, Response } from 'express';
 import userRoutes from './v1/user.routes';
 import swaggerUi from "swagger-ui-express";
 import swaggerOptions from "../../swagger.json";
+import statusCode from '../utils/status.code';
+import errorNumbers from '../utils/error.numbers';
+import i18n from '../i18n';
+import customResponse from '../utils/custom.response';
 
 dotenv.config();
 
@@ -41,9 +45,9 @@ class Routes {
     this.app.use(bodyParser.json());
     this.app.use(bodyParser.urlencoded({ extended: true }));
     // Swagger documentation
-    this.app.use('/api/v1/docs', swaggerUi.serve, swaggerUi.setup(undefined, swaggerOptions));
+    this.app.use('/v1/docs', swaggerUi.serve, swaggerUi.setup(undefined, swaggerOptions));
     // Includes user routes
-    this.app.use('/api/v1', userRoutes.userRoutes());
+    this.app.use('/v1', userRoutes.userRoutes());
 
     this.app.get('/product/:productId', (req, res, next) => {
       productServiceProxy(req, res, next);
@@ -64,7 +68,13 @@ class Routes {
 
     // error handler for not found router
     this.app.get('*', (req, res, next) => {
-      res.status(404).send('Route not found');
+      const response = {
+        status: statusCode.HTTP_NOT_FOUND,
+        errNo: errorNumbers.resource_not_found,
+        errMsg: i18n.en.others.ROUTE_NOT_FOUND,
+      }
+  
+      return customResponse.error(response, res);
     });
   }
 

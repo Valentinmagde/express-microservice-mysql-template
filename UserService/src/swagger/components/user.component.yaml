@@ -1,0 +1,44 @@
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        _id:
+          type: string
+        firstname:
+          type: string
+        lastname: 
+          type: string
+        username:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+        gender:
+          type: integer
+        isAdmin:
+          type: boolean
+        isSeller:
+          type: boolean
+        seller: 
+          type: object
+          properties:
+            name:
+              type: string
+            logo:
+              type: string
+            description:
+              type: string
+            rating:
+              type: integer
+            numReviews:
+              type: integer
+        online:
+          type: boolean
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time

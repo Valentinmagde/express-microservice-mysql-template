@@ -85,8 +85,8 @@ class Auth {
         (err, decode) => {
           if (err) {
             const response = {
-              status: statusCode.HTTP_PRECONDITION_FAILED,
-              errNo: errorNumbers.validator,
+              status: statusCode.HTTP_UNAUTHORIZED,
+              errNo: errorNumbers.invalid_token,
               errMsg: 'Invalid Token',
             }
       
@@ -99,8 +99,8 @@ class Auth {
       );
     } else {
       const response = {
-        status: statusCode.HTTP_PRECONDITION_FAILED,
-        errNo: errorNumbers.validator,
+        status: statusCode.HTTP_UNAUTHORIZED,
+        errNo: errorNumbers.token_not_found,
         errMsg: 'No Token',
       }
 

@@ -63,38 +63,42 @@ class Auth {
    * @returns any of next function or unauthorize message
    */
   public isAuth = (req: Request, res: Response, next: NextFunction) => {
-    const publicKey = fs.readFileSync(path.join(__dirname,'public.key'));
-    const authorization = req.headers.authorization;
+    // Except documentation route for authentication
+    if (req.path.indexOf('/v1/users/docs') > -1) return next();
+    else{
+      const publicKey = fs.readFileSync(path.join(__dirname,'public.key'));
+      const authorization = req.headers.authorization;
 
-    if (authorization) {
-      const token = authorization.slice(7, authorization.length); // Bearer XXXXXX
+      if (authorization) {
+        const token = authorization.slice(7, authorization.length); // Bearer XXXXXX
 
-      jwt.verify(
-        token,
-        publicKey,
-        (err, decode) => {
-          if (err) {
-            const response = {
-              status: statusCode.HTTP_UNAUTHORIZED,
-              errNo: errorNumbers.validator,
-              errMsg: i18n.en.unauthorize.IVALID_TOKEN,
+        jwt.verify(
+          token,
+          publicKey,
+          (err, decode) => {
+            if (err) {
+              const response = {
+                status: statusCode.HTTP_UNAUTHORIZED,
+                errNo: errorNumbers.invalid_token,
+                errMsg: i18n.en.unauthorize.IVALID_TOKEN,
+              }
+        
+              return customResponse.error(response, res);
+            } else {
+              req.user = decode;
+              next();
             }
-      
-            return customResponse.error(response, res);
-          } else {
-            req.user = decode;
-            next();
           }
+        );
+      } else {
+        const response = {
+          status: statusCode.HTTP_UNAUTHORIZED,
+          errNo: errorNumbers.token_not_found,
+          errMsg: i18n.en.unauthorize.NO_TOKEN,
         }
-      );
-    } else {
-      const response = {
-        status: statusCode.HTTP_UNAUTHORIZED,
-        errNo: errorNumbers.validator,
-        errMsg: i18n.en.unauthorize.NO_TOKEN,
-      }
 
-      return customResponse.error(response, res);
+        return customResponse.error(response, res);
+      }
     }
   };
 
@@ -212,7 +216,7 @@ class Auth {
    * @returns void
    */
   public setJWTConfig() {
-    // this.app?.use(this.isAuth); // General middleware
+    this.app?.use(this.isAuth); // General middleware
   }
 }
 

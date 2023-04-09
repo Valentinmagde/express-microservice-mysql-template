@@ -37,37 +37,37 @@ class UserController extends Controller {
    */
   public async getUserDetailsHandler(req: Request, res: Response) 
   {
-      const userid = req.params.userId;
-      
-      userService.getUserDetails(userid)
-      .then(result => {
-        if (result === null || result === undefined) {
-          const response = {
-            status: statusCode.HTTP_BAD_REQUEST,
-            errNo: errorNumbers.bad_login_credentials,
-            errMsg: i18n.en.profile.USER_NOT_FOUND,
-          }
-  
-          return customResponse.error(response, res);
-        } 
-        else {
-            const response = {
-              status: statusCode.HTTP_OK,
-              data: result,
-            }
+    const userid = req.params.userId;
     
-            return customResponse.success(response, res);
-        }
-      })
-      .catch(error => {
+    userService.getUserDetails(userid)
+    .then(result => {
+      if (result === null || result === undefined) {
         const response = {
-          status: error?.status || statusCode.HTTP_INTERNAL_SERVER_ERROR,
-          errNo: errorNumbers.generic_error,
-          errMsg: error?.message || error,
+          status: statusCode.HTTP_BAD_REQUEST,
+          errNo: errorNumbers.bad_login_credentials,
+          errMsg: i18n.en.profile.USER_NOT_FOUND,
         }
 
         return customResponse.error(response, res);
-      })
+      } 
+      else {
+          const response = {
+            status: statusCode.HTTP_OK,
+            data: result,
+          }
+  
+          return customResponse.success(response, res);
+      }
+    })
+    .catch(error => {
+      const response = {
+        status: error?.status || statusCode.HTTP_INTERNAL_SERVER_ERROR,
+        errNo: errorNumbers.generic_error,
+        errMsg: error?.message || error,
+      }
+
+      return customResponse.error(response, res);
+    })
   }
     
   /**

@@ -4,7 +4,7 @@
       "validatorUrl": null,
       "urls": [
         {
-          "url": "http://petstore.swagger.io/v2/swagger.json",
+          "url": "http://localhost:4000/v1/users/docs.json",
           "name": "User service"
         },
         {

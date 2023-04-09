@@ -5,6 +5,7 @@ import cors from 'cors';
 import ExpressConfigModule from './express.config';
 import { Application } from 'express';
 import Auth from '../auth/auth';
+import DBManager from './db';
 
 /**
  * @author Valentin Magde <valentinmagde@gmail.com>
@@ -69,6 +70,7 @@ class AppConfig {
   public loadExpressConfig() {
     new ExpressConfigModule(this.app).setAppEngine();
     new Auth(this.app).setJWTConfig();
+    new DBManager(this.app).setDBConnection();
   }
 }
 
