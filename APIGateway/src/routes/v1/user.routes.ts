@@ -77,6 +77,18 @@ class UserRoutes {
                     req.url = req.originalUrl;
                     userServiceProxy(req, res, next);
                 });
+
+                router.put('/:userId', (req, res, next) => {
+                    // Update url with original url which contain all path
+                    req.url = req.originalUrl;
+                    userServiceProxy(req, res, next);
+                });
+
+                router.delete('/:userId', (req, res, next) => {
+                    // Update url with original url which contain all path
+                    req.url = req.originalUrl;
+                    userServiceProxy(req, res, next);
+                });
             }));
         }));
     }

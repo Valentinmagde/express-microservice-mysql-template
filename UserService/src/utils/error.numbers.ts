@@ -11,6 +11,8 @@
  * @para number _blacklisted_token
  * @para number _token_not_found
  * @para number _resource_not_found
+ * @para number _invalid_resource
+ * @para number _required_permission
  * @para number _not_allowed_method
  * @para number _cr_unknown_error
  * @para number _cr_connection_error
@@ -29,7 +31,9 @@ class ErrorNumbers {
     private _expired_token : number;
     private _blacklisted_token : number;
     private _token_not_found : number;
+    private _required_permission: number;
     private _resource_not_found : number;
+    private _invalid_resource: number;
     private _not_allowed_method : number;
     private _cr_unknown_error : number;
     private _cr_connection_error : number;
@@ -56,7 +60,9 @@ class ErrorNumbers {
         this._expired_token = 12;
         this._blacklisted_token = 13;
         this._token_not_found = 14;
+        this._required_permission = 15;
         this._resource_not_found = 26;
+        this._invalid_resource = 27;
         this._not_allowed_method = 31;
         this._cr_unknown_error = 251;
         this._cr_connection_error = 252;
@@ -142,6 +148,18 @@ class ErrorNumbers {
     }
 
     /**
+     * Get required permission error number.
+     *
+     * @author Valentin Magde <valentinmagde@gmail.com>
+     * @since 2023-04-10
+     * 
+     * @return number required permission
+     */
+    public get required_permission() {
+        return this._required_permission;
+    }
+
+    /**
      * Get resource not found error number.
      *
      * @author Valentin Magde <valentinmagde@gmail.com>
@@ -151,6 +169,18 @@ class ErrorNumbers {
      */
     public get resource_not_found() {
         return this._resource_not_found;
+    }
+
+    /**
+     * Get invalid resource error number.
+     *
+     * @author Valentin Magde <valentinmagde@gmail.com>
+     * @since 2023-04-10
+     * 
+     * @return number _ivalid_resource
+     */
+    public get ivalid_resource() {
+        return this._invalid_resource;
     }
 
     /**

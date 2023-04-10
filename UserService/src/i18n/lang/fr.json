@@ -22,7 +22,15 @@
         "INVALID_ADMIN_OR_SELLER" : "Invalid Admin or Seller Token"
     },
     "profile": {
-        "USER_NOT_FOUND" : "User does not exits."
+        "USER_NOT_FOUND" : "User does not exits.",
+        "INVALID_USER_ID" : "Invalid user id."
+    },
+    "update": {
+        "USER_NOT_FOUND" : "User does not exits.",
+        "INVALID_USER_ID" : "Invalid user id."
+    },
+    "delete": {
+        "CANNOT_DELETE_ADMIN": "Can Not Delete Admin User"
     },
     "others": {
         "ROUTE_NOT_FOUND" : "Route not found"

@@ -60,7 +60,7 @@ class UserService {
    * @param userId 
    * @returns user
    */
-  public getUserDetails(userId: string) {
+  public profile(userId: string) {
     return new Promise(async (resolve, reject) => {
       try {
         const user = await User.findById(userId);
@@ -81,7 +81,7 @@ class UserService {
    * @param any data 
    * @returns any user
    */
-  public async registerUser(data: any) {
+  public async register(data: any) {
     return new Promise(async (resolve, reject) => {
       try {
         const user = new User({
@@ -99,6 +99,66 @@ class UserService {
         reject(error)
       }
     })
+  }
+
+  /**
+   * Update a user
+   * 
+   * @author Valentin Magde <valentinmagde@gmail.com>
+   * @since 2023-04-10
+   * 
+   * @param string userId
+   * @param any data 
+   * @returns any user
+   */
+  public async update(userId: string, data: any) {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const user = await User.findById(userId);
+        if (user) {
+          user.firstname = data.firstname || user.firstname;
+          user.lastname = data.lastname;
+          user.gender = data.gender;
+          
+          const updatedUser = await user.save();
+
+          resolve(updatedUser);
+        } else {
+          resolve(user);
+        }
+      } catch (error) {
+        reject(error)
+      }
+    })
+  }
+
+  /**
+   * Delete a user by id
+   * 
+   * @author Valentin Magde <valentinmagde@gmail.com>
+   * @since 2023-04-10
+   * 
+   * @param string userId 
+   * @returns User user
+   */
+  public delete(userId: string) {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const user = await User.findById(userId);
+
+        if(user) {
+          if(user.isAdmin) resolve('isAdmin');
+
+          const deleteUser = await user.deleteOne();
+          
+          resolve(deleteUser);
+        } else {
+          resolve(user);
+        }
+      } catch (error) {
+        reject(error);
+      }
+    });
   }
 }
 
