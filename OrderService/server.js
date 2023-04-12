@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
-const express = require('express');
-const http = require('http');
+import express from 'express';
+import http from 'http';
 
 const AppConfig = require('./config/app-config');
 const Routes = require('./routes');

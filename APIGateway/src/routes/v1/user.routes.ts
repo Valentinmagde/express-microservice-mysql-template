@@ -69,6 +69,12 @@ class UserRoutes {
         
                     userServiceProxy(req, res, next);
                 });
+
+                router.get('/logout', (req, res, next) => {
+                    // Update url with original url which contain all path
+                    req.url = req.originalUrl;
+                    userServiceProxy(req, res, next);
+                });
             }));
 
             router.use('/user', auth.isAuth, routesGrouping.group((router) => {

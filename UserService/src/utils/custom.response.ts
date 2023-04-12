@@ -36,16 +36,6 @@ class CustomResponse {
      * @param Response res
      * 
      * @return Response of customize response
-     * 
-     * components:
-     *  schemas:
-     *   User:
-     *    type: object
-     *    properties:
-     *     id:
-     *      type: integer
-     *     name:
-     *      type: string
      */
     public error(data: any, res: Response) {
         res

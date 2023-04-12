@@ -18,4 +18,5 @@ class Routes {
     this.appRoutes();
   }
 }
-module.exports = Routes;
+
+export default Routes;

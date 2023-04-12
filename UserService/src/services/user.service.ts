@@ -1,6 +1,10 @@
 import User from '../models/user.model';
 import passwordHash from '../utils/password.hash';
 import Auth from '../auth/auth';
+import { Request } from 'express';
+import jwt from 'jsonwebtoken';
+import fs from 'fs';
+import path from 'path';
 
 /**
  * @author Valentin Magde <valentinmagde@gmail.com>
@@ -46,6 +50,49 @@ class UserService {
         }
         else{
           resolve(null);
+        }
+      } catch (error) { reject(error); }
+    });
+  }
+
+  /**
+   * Logout
+   * 
+   * @author Valentin Magde <valentinmagde@gmail.com>
+   * @since 2023-04-11
+   * 
+   * @param any data 
+   * @returns any user
+   */
+  public async logout(req: Request) {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const authorization = req.headers.authorization;
+        
+        if(authorization) {
+          const token = authorization.slice(7, authorization.length); // Bearer XXXXXX
+          
+          // jwt.sign(authorization, "", { expiresIn: 1 } , (logout, err) => {
+          //   if (logout) resolve(logout);
+          //   else reject(err);
+          // });
+          const privateKey = fs.readFileSync(path.join(__dirname,'../auth/private.key'));
+
+          jwt.sign(
+            {
+              exp: 0, // Zero minute
+              iat: 0
+            },
+            privateKey,
+            {algorithm: 'RS256'},
+            (err, token) => {
+              if(token) resolve(token);
+              else reject(err);
+            }
+          );
+        }
+        else{
+          resolve(authorization);
         }
       } catch (error) { reject(error); }
     });

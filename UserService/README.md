@@ -1,7 +1,7 @@
 # User Service Testing Git Merge
 As the title suggests, This service will demonstrate the user related APIs.
 
-## Install Redis on Windows
+## Install Redis on Windows 
 1. Install WSL command by runing `wsl --install`
 2. Restart your computer to set up your Linux user info `usename` and `password`
 3. Install Redis by following these steps:
