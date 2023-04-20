@@ -9,15 +9,15 @@ import statusCode from '../utils/status.code';
 
 /**
  * @author Valentin Magde <valentinmagde@gmail.com>
- * @since 2023-26-03
+ * @since 2023-03-26
  * 
- * Class Auth
+ * Class Authorization
  */
-class Auth {
+class Authorization {
   private app?: Application;
 
   /**
-   * Create a new Auth instance.
+   * Create a new Authorization instance.
    *
    * @return void
    */
@@ -80,7 +80,7 @@ class Auth {
               const response = {
                 status: statusCode.HTTP_UNAUTHORIZED,
                 errNo: errorNumbers.invalid_token,
-                errMsg: i18n.en.unauthorize.IVALID_TOKEN,
+                errMsg: i18n.en.user.unauthorize.IVALID_TOKEN,
               }
         
               return customResponse.error(response, res);
@@ -94,7 +94,7 @@ class Auth {
         const response = {
           status: statusCode.HTTP_UNAUTHORIZED,
           errNo: errorNumbers.token_not_found,
-          errMsg: i18n.en.unauthorize.NO_TOKEN,
+          errMsg: i18n.en.user.unauthorize.NO_TOKEN,
         }
 
         return customResponse.error(response, res);
@@ -152,7 +152,7 @@ class Auth {
       const response = {
         status: statusCode.HTTP_UNAUTHORIZED,
         errNo: errorNumbers.validator,
-        errMsg: i18n.en.unauthorize.INVALID_ADMIN_TOKEN,
+        errMsg: i18n.en.user.unauthorize.INVALID_ADMIN_TOKEN,
       }
 
       return customResponse.error(response, res);
@@ -177,7 +177,7 @@ class Auth {
       const response = {
         status: statusCode.HTTP_UNAUTHORIZED,
         errNo: errorNumbers.validator,
-        errMsg: i18n.en.unauthorize.INVALID_SELLER_TOKEN,
+        errMsg: i18n.en.user.unauthorize.INVALID_SELLER_TOKEN,
       }
 
       return customResponse.error(response, res);
@@ -203,7 +203,7 @@ class Auth {
       const response = {
         status: statusCode.HTTP_UNAUTHORIZED,
         errNo: errorNumbers.validator,
-        errMsg: i18n.en.unauthorize.INVALID_ADMIN_OR_SELLER
+        errMsg: i18n.en.user.unauthorize.INVALID_ADMIN_OR_SELLER
       }
 
       return customResponse.error(response, res);
@@ -220,4 +220,4 @@ class Auth {
   }
 }
 
-export default Auth;
+export default Authorization;

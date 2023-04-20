@@ -8,16 +8,17 @@ import errorNumbers from '../../utils/error.numbers';
 import validator from '../../utils/validator';
 import { Errors } from 'validatorjs';
 import helpers from '../../utils/helpers';
+import roleService from '../../services/role.service';
 /**
  * @author Valentin Magde <valentinmagde@gmail.com>
- * @since 2023-22-03
+ * @since 2023-04-20
  * 
- * Class UserController
+ * Class RoleController
  */
-class UserController extends Controller {
+class RoleController extends Controller {
   
   /**
-   * Create a new UserController instance.
+   * Create a new RoleController instance.
    *
    * @return void
    */
@@ -26,27 +27,28 @@ class UserController extends Controller {
   }
 
   /**
-   * Get user details handler
+   * Get role details handler
    * 
    * @author Valentin Magde <valentinmagde@gmail.com>
-   * @since 2023-22-03
+   * @since 2023-04-20
    * 
    * @param Request req 
    * @param Response res
    * 
    * @return json of user detail 
    */
-  public async profile(req: Request, res: Response) 
+  public async show(req: Request, res: Response) 
   {
-    const userid = req.params.userId;
-    if (helpers.checkObjectId(userid)) {
-      userService.profile(userid)
+    const roleid = req.params.roleId;
+    
+    if (helpers.checkObjectId(roleid)) {
+      roleService.getById(roleid)
       .then(result => {
         if (result === null || result === undefined) {
           const response = {
             status: statusCode.HTTP_NOT_FOUND,
             errNo: errorNumbers.resource_not_found,
-            errMsg: i18n.en.user.profile.USER_NOT_FOUND,
+            errMsg: i18n.en.role.show.ROLE_NOT_FOUND
           }
 
           return customResponse.error(response, res);
@@ -74,104 +76,33 @@ class UserController extends Controller {
       const response = {
         status: statusCode.HTTP_BAD_REQUEST,
         errNo: errorNumbers.ivalid_resource,
-        errMsg: i18n.en.user.others.INVALID_USER_ID,
+        errMsg: i18n.en.role.others.INVALID_ROLE_ID,
       }
 
       return customResponse.error(response, res);
     }
   }
-    
-  /**
-   * Login route handler
-   * 
-   * @author Valentin Magde <valentinmagde@gmail.com>
-   * @since 2023-22-03
-   * 
-   * @param Request req 
-   * @param Response res 
-   * 
-   * @return json of Response
-   */
-  public async login(req: Request, res: Response) {
-    
-    const validationRule = {
-      "email": "required|string|email",
-      "password": "required|string|min:6"
-    };
-
-    await validator
-    .validator(req.body, validationRule,{}, (err: Errors, status: Boolean) => {
-      if (!status) {
-        const response = {
-          status: statusCode.HTTP_PRECONDITION_FAILED,
-          errNo: errorNumbers.validator,
-          errMsg: err.errors,
-        }
-
-        return customResponse.error(response, res);
-      }
-      else {
-        userService.login(req.body)
-        .then(result => {
-          if (result === null || result === undefined) {
-            const response = {
-              status: statusCode.HTTP_BAD_REQUEST,
-              errNo: errorNumbers.bad_login_credentials,
-              errMsg: i18n.en.user.login.USER_LOGIN_FAILED,
-            }
-    
-            return customResponse.error(response, res);
-          } 
-          else {
-              const response = {
-                status: statusCode.HTTP_OK,
-                data: result,
-              }
-      
-              return customResponse.success(response, res);
-          }
-        })
-        .catch(error => {
-          const response = {
-            status: error?.status || statusCode.HTTP_INTERNAL_SERVER_ERROR,
-            errNo: errorNumbers.generic_error,
-            errMsg: error?.message || error,
-          }
-
-          return customResponse.error(response, res);
-        })
-      }
-    })
-    .catch( error => {
-      const response = {
-        status: error?.status || statusCode.HTTP_INTERNAL_SERVER_ERROR,
-        errNo: errorNumbers.generic_error,
-        errMsg: error?.message || error,
-      }
-
-      return customResponse.error(response, res);
-    })
-  }
 
   /**
-   * Logs out current logged in user session
+   * Get all roles details handler
    * 
    * @author Valentin Magde <valentinmagde@gmail.com>
-   * @since 2023-04-11
+   * @since 2023-04-21
    * 
    * @param Request req 
-   * @param Response res 
+   * @param Response res
    * 
-   * @return json of Response
+   * @return json of user detail 
    */
-  public async logout(req: Request, res: Response) {
-    userService.logout(req)
+  public async showAll(req: Request, res: Response) 
+  {
+    roleService.getAll()
     .then(result => {
       if (result === null || result === undefined) {
         const response = {
-          status: statusCode.HTTP_UNAUTHORIZED,
-          errNo: errorNumbers.token_not_found,
-          errMsg: i18n.en.user.unauthorize.NO_TOKEN,
+          status: statusCode.HTTP_NOT_FOUND,
+          errNo: errorNumbers.resource_not_found,
+          errMsg: i18n.en.role.show.ROLE_NOT_FOUND
         }
 
         return customResponse.error(response, res);
@@ -197,25 +128,19 @@ class UserController extends Controller {
   }
     
   /**
-   * Register route handler
+   * Add role route handler
    * 
    * @author Valentin Magde <valentinmagde@gmail.com>
-   * @since 2023-22-03
+   * @since 2023-04-20
    * 
    * @param Request req 
    * @param Response res 
    * 
    * @return json of Response
    */
-  public async register(req: Request, res: Response) {
+  public async store(req: Request, res: Response) {
     
-    const validationRule = {
-      "username": "required|string",
-      "lastname": "required|string",
-      "email": "required|string|email",
-      "gender": "required|integer",
-      "password": "required|string|min:6"
-    };
+    const validationRule = { "name": "required|string" };
 
     await validator
     .validator(req.body, validationRule,{}, (err: Errors, status: Boolean) => {
@@ -229,7 +154,7 @@ class UserController extends Controller {
         return customResponse.error(response, res);
       }
       else {
-        userService.register(req.body)
+        roleService.store(req.body)
         .then(result => {
           const response = {
             status: statusCode.HTTP_CREATED,
@@ -261,10 +186,10 @@ class UserController extends Controller {
   }
   
   /**
-   * Update a user
+   * Update a role
    * 
    * @author Valentin Magde <valentinmagde@gmail.com>
-   * @since 2023-04-10
+   * @since 2023-04-20
    * 
    * @param Request req 
    * @param Response res 
@@ -273,10 +198,7 @@ class UserController extends Controller {
    */
   public async update(req: Request, res: Response) {
     
-    const validationRule = {
-      "lastname": "required|string",
-      "gender": "required|integer",
-    };
+    const validationRule = { "name": "required|string" };
 
     await validator
     .validator(req.body, validationRule,{}, (err: Errors, status: Boolean) => {
@@ -290,16 +212,16 @@ class UserController extends Controller {
         return customResponse.error(response, res);
       }
       else {
-        const userid = req.params.userId;
-        // check if user id is valid
-        if (helpers.checkObjectId(userid)) {
-          userService.update(userid, req.body)
+        const roleid = req.params.roleId;
+        // check if role id is valid
+        if (helpers.checkObjectId(roleid)) {
+          roleService.update(roleid, req.body)
           .then(result => {
             if (result === null || result === undefined) {
               const response = {
                 status: statusCode.HTTP_NOT_FOUND,
                 errNo: errorNumbers.resource_not_found,
-                errMsg: i18n.en.user.update.USER_NOT_FOUND,
+                errMsg: i18n.en.role.show.ROLE_NOT_FOUND,
               }
       
               return customResponse.error(response, res);
@@ -327,7 +249,7 @@ class UserController extends Controller {
           const response = {
             status: statusCode.HTTP_BAD_REQUEST,
             errNo: errorNumbers.ivalid_resource,
-            errMsg: i18n.en.user.others.INVALID_USER_ID,
+            errMsg: i18n.en.role.others.INVALID_ROLE_ID,
           }
   
           return customResponse.error(response, res);
@@ -346,10 +268,10 @@ class UserController extends Controller {
   }
 
   /**
-   * Delete a user by id
+   * Delete a role by id
    * 
    * @author Valentin Magde <valentinmagde@gmail.com>
-   * @since 2023-04-10
+   * @since 2023-04-20
    * 
    * @param Request req 
    * @param Response res
@@ -358,25 +280,16 @@ class UserController extends Controller {
    */
   public async delete(req: Request, res: Response) 
   {
-    const userid = req.params.userId;
+    const roleid = req.params.roleId;
 
-    if (helpers.checkObjectId(userid)) {
-      userService.delete(userid)
+    if (helpers.checkObjectId(roleid)) {
+      roleService.delete(roleid)
       .then(result => {
         if (result === null || result === undefined) {
           const response = {
             status: statusCode.HTTP_NOT_FOUND,
             errNo: errorNumbers.resource_not_found,
-            errMsg: i18n.en.user.profile.USER_NOT_FOUND,
-          }
-
-          return customResponse.error(response, res);
-        }
-        else if(result == 'isAdmin'){
-          const response = {
-            status: statusCode.HTTP_BAD_REQUEST,
-            errNo: errorNumbers.required_permission,
-            errMsg: i18n.en.user.delete.CANNOT_DELETE_ADMIN,
+            errMsg: i18n.en.role.show.ROLE_NOT_FOUND,
           }
 
           return customResponse.error(response, res);
@@ -387,7 +300,7 @@ class UserController extends Controller {
               data: result,
             }
     
-            return customResponse.success(response, res);
+          return customResponse.success(response, res);
         }
       })
       .catch(error => {
@@ -404,7 +317,7 @@ class UserController extends Controller {
       const response = {
         status: statusCode.HTTP_BAD_REQUEST,
         errNo: errorNumbers.ivalid_resource,
-        errMsg: i18n.en.user.others.INVALID_USER_ID,
+        errMsg: i18n.en.role.others.INVALID_ROLE_ID,
       }
 
       return customResponse.error(response, res);
@@ -412,5 +325,5 @@ class UserController extends Controller {
   }
 }
 
-const userController = new UserController();
-export default userController;
+const roleController = new RoleController();
+export default roleController;

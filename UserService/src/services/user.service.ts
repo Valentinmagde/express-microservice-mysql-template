@@ -1,6 +1,6 @@
 import User from '../models/user.model';
 import passwordHash from '../utils/password.hash';
-import Auth from '../auth/auth';
+import Authorization from '../authorization/authorization';
 import { Request } from 'express';
 import jwt from 'jsonwebtoken';
 import fs from 'fs';
@@ -8,14 +8,14 @@ import path from 'path';
 
 /**
  * @author Valentin Magde <valentinmagde@gmail.com>
- * @since 2023-22-03
+ * @since 2023-03-22
  * 
  * Class UserService
  */
 class UserService {
   
   /**
-   * Create a new UserController instance.
+   * Create a new UserService instance.
    *
    * @return void
    */
@@ -43,7 +43,7 @@ class UserService {
             name: user.username,
             email: user.email,
             isAdmin: user.isAdmin,
-            token: new Auth().generateToken(user)
+            token: new Authorization().generateToken(user)
           };
 
           resolve(loginRes);

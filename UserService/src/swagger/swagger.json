@@ -3,6 +3,7 @@
     "openapi": "3.0.0",
     "info": {
       "title": "User service documentation",
+      "summary": "User service documentation",
       "baseUrl": "/v1/users",
       "version": "1.0.0",
       "description":
@@ -25,7 +26,7 @@
     },
     "servers": [
       {
-        "url": "http://localhost:8000",
+        "url": "http://localhost:1000",
         "description": "Development server",
         "//variables": {
           "username": {
@@ -56,7 +57,7 @@
     }
   },
   "apis": [
-    "./src/routes/*.ts",
+    "./src/routes/*/*.ts",
     "./src/models/*.ts",
     "./src/swagger/components/*.yaml",
     "./src/swagger/responses/*.yaml"

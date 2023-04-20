@@ -4,7 +4,7 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 import ExpressConfigModule from './express.config';
 import { Application } from 'express';
-import Auth from '../auth/auth';
+import Authorization from '../authorization/authorization';
 import DBManager from './db';
 
 /**
@@ -69,7 +69,7 @@ class AppConfig {
    */
   public loadExpressConfig() {
     new ExpressConfigModule(this.app).setAppEngine();
-    new Auth(this.app).setJWTConfig();
+    new Authorization(this.app).setJWTConfig();
     new DBManager(this.app).setDBConnection();
   }
 }
