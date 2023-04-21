@@ -335,249 +335,389 @@ class UserRoutes {
             }));
     
             router.use('/user', routesGrouping.group((router) => {
-            /**
-             * @swagger
-             * /v1/user/{userId}:
-             *   get:
-             *     security:
-             *      - bearerAuth: []
-             *     tags:
-             *     - User
-             *     operationId: profile
-             *     summary: Get a user by ID.
-             *     description: Get a user by id from the system.
-             *     parameters:
-             *      - in: path
-             *        name: userId
-             *        schema:
-             *          type: string
-             *        required: true
-             *        description: String ID of the user to get
-             * 
-             *     responses:
-             *       200:
-             *         description: The user has successfully logged in.
-             *         content:
-             *           application/json:
-             *             schema:
-             *                type: object
-             *                properties:
-             *                  status:
-             *                    type: string
-             *                    example: Ok
-             *                  data:
-             *                    $ref: '#/components/schemas/User'
-             * 
-             *       '400':
-             *         description: Bad Request.
-             *         content:
-             *          application/json:
-             *             schema:
-             *              $ref: '#/responses/schemas/400'
-             * 
-             *       '401':
-             *         description: Unauthorized.
-             *         content:
-             *          application/json:
-             *             schema:
-             *              $ref: '#/responses/schemas/401'
-             *       
-             *       '404':
-             *         description: Not Found.
-             *         content:
-             *          application/json:
-             *             schema:
-             *              $ref: '#/responses/schemas/404'
-             * 
-             *       '500':
-             *         description: Internal Server Error.
-             *         content:
-             *          application/json:
-             *             schema:
-             *              $ref: '#/responses/schemas/500'
-             * 
-             */
-            router.get('/:userId', userController.profile);
-            
-            /**
-             * @swagger
-             * /v1/user/{userId}:
-             *   put:
-             *     security:
-             *      - bearerAuth: []
-             *     tags:
-             *     - User
-             *     operationId: update
-             *     summary: Update a user by ID.
-             *     description: Update a user by ID.
-             *     parameters:
-             *      - in: path
-             *        name: userId
-             *        schema:
-             *          type: string
-             *        required: true
-             *        description: String ID of the user to get
-             *     requestBody:
-             *       required: true
-             *       content:
-             *         application/json:
-             *           schema:
-             *             type: object
-             *             properties:
-             *               lastname:
-             *                 type: string
-             *                 description: The user's name.
-             *                 example: John
-             *               firstname:
-             *                 type: string
-             *                 description: The user's last name.
-             *                 example: Doe
-             *               gender:
-             *                 in: query
-             *                 default: 1
-             *                 enum:
-             *                 - 1
-             *                 - 2
-             *                 - 3
-             *                 description: Gender values that need to be considered for filter
-             *                 required: true
-             *                 type: string
-             *             required:
-             *               - lastname
-             *               - gender
-             *         application/x-www-form-urlencoded:
-             *           schema:
-             *             type: object
-             *             properties:
-             *               lastname:
-             *                 type: string
-             *                 description: The user's name.
-             *                 example: John
-             *               firstname:
-             *                 type: string
-             *                 description: The user's last name.
-             *                 example: Doe
-             *               gender:
-             *                 in: query
-             *                 default: 1
-             *                 enum:
-             *                 - 1
-             *                 - 2
-             *                 - 3
-             *                 description: Gender values that need to be considered for filter
-             *                 required: true
-             *                 type: string
-             *             required:
-             *               - lastname
-             *               - gender
-             *     responses:
-             *       200:
-             *         description: The user has successfully logged in.
-             *         content:
-             *           application/json:
-             *             schema:
-             *                type: object
-             *                properties:
-             *                  status:
-             *                    type: string
-             *                    example: Ok
-             *                  data:
-             *                    $ref: '#/components/schemas/User'
-             * 
-             *       '400':
-             *         description: Bad Request.
-             *         content:
-             *          application/json:
-             *             schema:
-             *              $ref: '#/responses/schemas/400'
-             *       
-             *       '401':
-             *         description: Unauthorized.
-             *         content:
-             *          application/json:
-             *             schema:
-             *              $ref: '#/responses/schemas/401'
-             *       
-             *       '404':
-             *         description: Not Found.
-             *         content:
-             *          application/json:
-             *             schema:
-             *              $ref: '#/responses/schemas/404'
-             * 
-             *       '500':
-             *         description: Internal Server Error.
-             *         content:
-             *          application/json:
-             *             schema:
-             *              $ref: '#/responses/schemas/500'
-             * 
-             */
-            router.put('/:userId', userController.update);
-            
-            /**
-             * @swagger
-             * /v1/user/{userId}:
-             *   delete:
-             *     security:
-             *      - bearerAuth: []
-             *     tags:
-             *     - User
-             *     operationId: delete
-             *     summary: Delete a user by ID.
-             *     description: Delete a user by ID.
-             *     parameters:
-             *      - in: path
-             *        name: userId
-             *        schema:
-             *          type: string
-             *        required: true
-             *        description: String ID of the user to delete
-             *     
-             *     responses:
-             *       200:
-             *         description: The user has successfully logged in.
-             *         content:
-             *           application/json:
-             *             schema:
-             *                type: object
-             *                properties:
-             *                  status:
-             *                    type: string
-             *                    example: Ok
-             *                  data:
-             *                    $ref: '#/components/schemas/User'
-             * 
-             *       '400':
-             *         description: Bad Request.
-             *         content:
-             *          application/json:
-             *             schema:
-             *              $ref: '#/responses/schemas/400'
-             *       
-             *       '401':
-             *         description: Unauthorized.
-             *         content:
-             *          application/json:
-             *             schema:
-             *              $ref: '#/responses/schemas/401'
-             *       
-             *       '404':
-             *         description: Not Found.
-             *         content:
-             *          application/json:
-             *             schema:
-             *              $ref: '#/responses/schemas/404'
-             * 
-             *       '500':
-             *         description: Internal Server Error.
-             *         content:
-             *          application/json:
-             *             schema:
-             *              $ref: '#/responses/schemas/500'
-             * 
-             */
-            router.delete('/:userId', userController.delete);
+                /**
+                 * @swagger
+                 * /v1/user/{userId}:
+                 *   get:
+                 *     security:
+                 *      - bearerAuth: []
+                 *     tags:
+                 *     - User
+                 *     operationId: profile
+                 *     summary: Get a user by ID.
+                 *     description: Get a user by id from the system.
+                 *     parameters:
+                 *      - in: path
+                 *        name: userId
+                 *        schema:
+                 *          type: string
+                 *        required: true
+                 *        description: String ID of the user to get
+                 * 
+                 *     responses:
+                 *       200:
+                 *         description: The user has successfully logged in.
+                 *         content:
+                 *           application/json:
+                 *             schema:
+                 *                type: object
+                 *                properties:
+                 *                  status:
+                 *                    type: string
+                 *                    example: Ok
+                 *                  data:
+                 *                    $ref: '#/components/schemas/User'
+                 * 
+                 *       '400':
+                 *         description: Bad Request.
+                 *         content:
+                 *          application/json:
+                 *             schema:
+                 *              $ref: '#/responses/schemas/400'
+                 * 
+                 *       '401':
+                 *         description: Unauthorized.
+                 *         content:
+                 *          application/json:
+                 *             schema:
+                 *              $ref: '#/responses/schemas/401'
+                 *       
+                 *       '404':
+                 *         description: Not Found.
+                 *         content:
+                 *          application/json:
+                 *             schema:
+                 *              $ref: '#/responses/schemas/404'
+                 * 
+                 *       '500':
+                 *         description: Internal Server Error.
+                 *         content:
+                 *          application/json:
+                 *             schema:
+                 *              $ref: '#/responses/schemas/500'
+                 * 
+                 */
+                router.get('/:userId', userController.profile);
+
+                /**
+                 * @swagger
+                 * /v1/user/{userId}/role/{roleId}/assign:
+                 *   get:
+                 *     security:
+                 *      - bearerAuth: []
+                 *     tags:
+                 *     - User
+                 *     operationId: assignrole
+                 *     summary: Assign a role to a user.
+                 *     description: Assign a role to a user.
+                 *     parameters:
+                 *      - in: path
+                 *        name: userId
+                 *        schema:
+                 *          type: string
+                 *        required: true
+                 *        description: String ID of the user to get
+                 *      - in: path
+                 *        name: roleId
+                 *        schema:
+                 *          type: string
+                 *        required: true
+                 *        description: String ID of the role to get
+                 * 
+                 *     responses:
+                 *       200:
+                 *         description: The role successfully assigned to a user.
+                 *         content:
+                 *           application/json:
+                 *             schema:
+                 *                type: object
+                 *                properties:
+                 *                  status:
+                 *                    type: string
+                 *                    example: Ok
+                 *                  data:
+                 *                    $ref: '#/components/schemas/User'
+                 * 
+                 *       '400':
+                 *         description: Bad Request.
+                 *         content:
+                 *          application/json:
+                 *             schema:
+                 *              $ref: '#/responses/schemas/400'
+                 * 
+                 *       '401':
+                 *         description: Unauthorized.
+                 *         content:
+                 *          application/json:
+                 *             schema:
+                 *              $ref: '#/responses/schemas/401'
+                 *       
+                 *       '404':
+                 *         description: Not Found.
+                 *         content:
+                 *          application/json:
+                 *             schema:
+                 *              $ref: '#/responses/schemas/404'
+                 * 
+                 *       '500':
+                 *         description: Internal Server Error.
+                 *         content:
+                 *          application/json:
+                 *             schema:
+                 *              $ref: '#/responses/schemas/500'
+                 * 
+                 */
+                router.get('/:userId/role/:roleId/assign', userController.assign);
+
+                /**
+                 * @swagger
+                 * /v1/user/{userId}/role/{roleId}/unassign:
+                 *   get:
+                 *     security:
+                 *      - bearerAuth: []
+                 *     tags:
+                 *     - User
+                 *     operationId: unassignrole
+                 *     summary: Unassign a role to a user.
+                 *     description: Unassign a role to a user.
+                 *     parameters:
+                 *      - in: path
+                 *        name: userId
+                 *        schema:
+                 *          type: string
+                 *        required: true
+                 *        description: String ID of the user to get
+                 *      - in: path
+                 *        name: roleId
+                 *        schema:
+                 *          type: string
+                 *        required: true
+                 *        description: String ID of the role to get
+                 * 
+                 *     responses:
+                 *       200:
+                 *         description: The role successfully unassigned to a user.
+                 *         content:
+                 *           application/json:
+                 *             schema:
+                 *                type: object
+                 *                properties:
+                 *                  status:
+                 *                    type: string
+                 *                    example: Ok
+                 *                  data:
+                 *                    $ref: '#/components/schemas/User'
+                 * 
+                 *       '400':
+                 *         description: Bad Request.
+                 *         content:
+                 *          application/json:
+                 *             schema:
+                 *              $ref: '#/responses/schemas/400'
+                 * 
+                 *       '401':
+                 *         description: Unauthorized.
+                 *         content:
+                 *          application/json:
+                 *             schema:
+                 *              $ref: '#/responses/schemas/401'
+                 *       
+                 *       '404':
+                 *         description: Not Found.
+                 *         content:
+                 *          application/json:
+                 *             schema:
+                 *              $ref: '#/responses/schemas/404'
+                 * 
+                 *       '500':
+                 *         description: Internal Server Error.
+                 *         content:
+                 *          application/json:
+                 *             schema:
+                 *              $ref: '#/responses/schemas/500'
+                 * 
+                 */
+                router.get('/:userId/role/:roleId/unassign', userController.profile);
+                
+                /**
+                 * @swagger
+                 * /v1/user/{userId}:
+                 *   put:
+                 *     security:
+                 *      - bearerAuth: []
+                 *     tags:
+                 *     - User
+                 *     operationId: update
+                 *     summary: Update a user by ID.
+                 *     description: Update a user by ID.
+                 *     parameters:
+                 *      - in: path
+                 *        name: userId
+                 *        schema:
+                 *          type: string
+                 *        required: true
+                 *        description: String ID of the user to get
+                 *     requestBody:
+                 *       required: true
+                 *       content:
+                 *         application/json:
+                 *           schema:
+                 *             type: object
+                 *             properties:
+                 *               lastname:
+                 *                 type: string
+                 *                 description: The user's name.
+                 *                 example: John
+                 *               firstname:
+                 *                 type: string
+                 *                 description: The user's last name.
+                 *                 example: Doe
+                 *               gender:
+                 *                 in: query
+                 *                 default: 1
+                 *                 enum:
+                 *                 - 1
+                 *                 - 2
+                 *                 - 3
+                 *                 description: Gender values that need to be considered for filter
+                 *                 required: true
+                 *                 type: string
+                 *             required:
+                 *               - lastname
+                 *               - gender
+                 *         application/x-www-form-urlencoded:
+                 *           schema:
+                 *             type: object
+                 *             properties:
+                 *               lastname:
+                 *                 type: string
+                 *                 description: The user's name.
+                 *                 example: John
+                 *               firstname:
+                 *                 type: string
+                 *                 description: The user's last name.
+                 *                 example: Doe
+                 *               gender:
+                 *                 in: query
+                 *                 default: 1
+                 *                 enum:
+                 *                 - 1
+                 *                 - 2
+                 *                 - 3
+                 *                 description: Gender values that need to be considered for filter
+                 *                 required: true
+                 *                 type: string
+                 *             required:
+                 *               - lastname
+                 *               - gender
+                 *     responses:
+                 *       200:
+                 *         description: The user has successfully logged in.
+                 *         content:
+                 *           application/json:
+                 *             schema:
+                 *                type: object
+                 *                properties:
+                 *                  status:
+                 *                    type: string
+                 *                    example: Ok
+                 *                  data:
+                 *                    $ref: '#/components/schemas/User'
+                 * 
+                 *       '400':
+                 *         description: Bad Request.
+                 *         content:
+                 *          application/json:
+                 *             schema:
+                 *              $ref: '#/responses/schemas/400'
+                 *       
+                 *       '401':
+                 *         description: Unauthorized.
+                 *         content:
+                 *          application/json:
+                 *             schema:
+                 *              $ref: '#/responses/schemas/401'
+                 *       
+                 *       '404':
+                 *         description: Not Found.
+                 *         content:
+                 *          application/json:
+                 *             schema:
+                 *              $ref: '#/responses/schemas/404'
+                 * 
+                 *       '500':
+                 *         description: Internal Server Error.
+                 *         content:
+                 *          application/json:
+                 *             schema:
+                 *              $ref: '#/responses/schemas/500'
+                 * 
+                 */
+                router.put('/:userId', userController.update);
+                
+                /**
+                 * @swagger
+                 * /v1/user/{userId}:
+                 *   delete:
+                 *     security:
+                 *      - bearerAuth: []
+                 *     tags:
+                 *     - User
+                 *     operationId: delete
+                 *     summary: Delete a user by ID.
+                 *     description: Delete a user by ID.
+                 *     parameters:
+                 *      - in: path
+                 *        name: userId
+                 *        schema:
+                 *          type: string
+                 *        required: true
+                 *        description: String ID of the user to delete
+                 *     
+                 *     responses:
+                 *       200:
+                 *         description: The user has successfully logged in.
+                 *         content:
+                 *           application/json:
+                 *             schema:
+                 *                type: object
+                 *                properties:
+                 *                  status:
+                 *                    type: string
+                 *                    example: Ok
+                 *                  data:
+                 *                    $ref: '#/components/schemas/User'
+                 * 
+                 *       '400':
+                 *         description: Bad Request.
+                 *         content:
+                 *          application/json:
+                 *             schema:
+                 *              $ref: '#/responses/schemas/400'
+                 *       
+                 *       '401':
+                 *         description: Unauthorized.
+                 *         content:
+                 *          application/json:
+                 *             schema:
+                 *              $ref: '#/responses/schemas/401'
+                 *       
+                 *       '404':
+                 *         description: Not Found.
+                 *         content:
+                 *          application/json:
+                 *             schema:
+                 *              $ref: '#/responses/schemas/404'
+                 * 
+                 *       '500':
+                 *         description: Internal Server Error.
+                 *         content:
+                 *          application/json:
+                 *             schema:
+                 *              $ref: '#/responses/schemas/500'
+                 * 
+                 */
+                router.delete('/:userId', userController.delete);
             }));
         }));
     }

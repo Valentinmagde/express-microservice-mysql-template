@@ -1,7 +1,7 @@
-import express, { Application, NextFunction, Request, Response, Router } from 'express';
+import express, { Router } from 'express';
 import dotenv from "dotenv";
 import routesGrouping from '../../utils/routes.grouping';
-import roleController from '../../controllers/v1/role.controller';
+import genderController from '../../controllers/v1/gender.controller';
 
 dotenv.config();
 
@@ -9,9 +9,9 @@ dotenv.config();
  * @author Valentin Magde <valentinmagde@gmail.com>
  * @since 2023-04-21
  * 
- * Class RoleRoutes
+ * Class GenderRoutes
  */
-class RoleRoutes {
+class GenderRoutes {
     private router: Router;
 
     /**
@@ -24,27 +24,27 @@ class RoleRoutes {
     }
 
     /** 
-     * Creating all roles routes 
+     * Creating all gender routes 
      * 
      * @author Valentin Magde <valentinmagde@gmail.com>
      * @since 2023-04-21
      * 
      * @returns Router
      */
-    public roleRoutes() {
+    public genderRoutes() {
         return this.router.use(routesGrouping.group((router) => {
-            router.use('/roles', routesGrouping.group((router) => {
+            router.use('/genders', routesGrouping.group((router) => {
                 /**
                  * @swagger
-                 * /v1/roles:
+                 * /v1/genders:
                  *   post:
                  *     security:
                  *      - bearerAuth: []
                  *     tags:
-                 *     - Role
-                 *     operationId: store
-                 *     summary: Create a new role.
-                 *     description: Add role into the system.
+                 *     - Gender
+                 *     operationId: genderstore
+                 *     summary: Create a new gender.
+                 *     description: Add gender into the system.
                  *     requestBody:
                  *       required: true
                  *       content:
@@ -54,8 +54,8 @@ class RoleRoutes {
                  *             properties:
                  *               name:
                  *                 type: string
-                 *                 description: The role's name.
-                 *                 example: Admin
+                 *                 description: The gender's name.
+                 *                 example: Male
                  *             required:
                  *               - name
                  * 
@@ -65,14 +65,14 @@ class RoleRoutes {
                  *             properties:
                  *               name:
                  *                 type: string
-                 *                 description: The role's name.
-                 *                 example: Admin
+                 *                 description: The gender's name.
+                 *                 example: Male
                  *             required:
                  *               - name
                  * 
                  *     responses:
                  *       201:
-                 *         description: Role successfully created.
+                 *         description: Gender successfully created.
                  *         content:
                  *           application/json:
                  *             schema:
@@ -82,7 +82,7 @@ class RoleRoutes {
                  *                    type: string
                  *                    example: Ok
                  *                  data:
-                 *                    $ref: '#/components/schemas/Role'
+                 *                    $ref: '#/components/schemas/Gender'
                  *               
                  *       400:
                  *         description: Bad Request.
@@ -112,23 +112,23 @@ class RoleRoutes {
                  *              $ref: '#/responses/schemas/500'
                  * 
                  */
-                router.post('/', roleController.store);
+                router.post('/', genderController.store);
 
                 /**
                  * @swagger
-                 * /v1/roles:
+                 * /v1/genders:
                  *   get:
                  *     security:
                  *      - bearerAuth: []
                  *     tags:
-                 *     - Role
-                 *     operationId: showAllRoles
-                 *     summary: Get all roles.
-                 *     description: Get all roles from the system.
+                 *     - Gender
+                 *     operationId: showAllGenders
+                 *     summary: Get all genders.
+                 *     description: Get all genders from the system.
                  * 
                  *     responses:
                  *       200:
-                 *         description: The roles have been successfully recovered.
+                 *         description: The gender have been successfully recovered.
                  *         content:
                  *           application/json:
                  *             schema:
@@ -140,7 +140,7 @@ class RoleRoutes {
                  *                  data:
                  *                    type: array
                  *                    items:
-                 *                      $ref: '#/components/schemas/Role'
+                 *                      $ref: '#/components/schemas/Gender'
                  *               
                  *       400:
                  *         description: Bad Request.
@@ -170,32 +170,32 @@ class RoleRoutes {
                  *              $ref: '#/responses/schemas/500'
                  * 
                  */
-                router.get('/', roleController.showAll);
+                router.get('/', genderController.showAll);
             }));
 
-            router.use('/role', routesGrouping.group((router) => {
+            router.use('/gender', routesGrouping.group((router) => {
                 /**
                  * @swagger
-                 * /v1/role/{roleId}:
+                 * /v1/gender/{genderId}:
                  *   get:
                  *     security:
                  *      - bearerAuth: []
                  *     tags:
-                 *     - Role
-                 *     operationId: show
-                 *     summary: Get a role by ID.
-                 *     description: Get a role by id from the system.
+                 *     - Gender
+                 *     operationId: showGender
+                 *     summary: Get a gender by ID.
+                 *     description: Get a gender by id from the system.
                  *     parameters:
                  *      - in: path
-                 *        name: roleId
+                 *        name: genderId
                  *        schema:
                  *          type: string
                  *        required: true
-                 *        description: String ID of the role to get
+                 *        description: String ID of the gender to get
                  * 
                  *     responses:
                  *       200:
-                 *         description: The role has successfully retrieve.
+                 *         description: The gender has successfully retrieve.
                  *         content:
                  *           application/json:
                  *             schema:
@@ -205,7 +205,7 @@ class RoleRoutes {
                  *                    type: string
                  *                    example: Ok
                  *                  data:
-                 *                    $ref: '#/components/schemas/Role'
+                 *                    $ref: '#/components/schemas/Gender'
                  * 
                  *       '400':
                  *         description: Bad Request.
@@ -236,26 +236,26 @@ class RoleRoutes {
                  *              $ref: '#/responses/schemas/500'
                  * 
                  */
-                router.get('/:roleId', roleController.show);
+                router.get('/:genderId', genderController.show);
                 
                 /**
                  * @swagger
-                 * /v1/role/{roleId}:
+                 * /v1/gender/{genderId}:
                  *   put:
                  *     security:
                  *      - bearerAuth: []
                  *     tags:
-                 *     - Role
-                 *     operationId: roleupdate
-                 *     summary: Update a role by ID.
-                 *     description: Update a role by ID.
+                 *     - Gender
+                 *     operationId: genderupdate
+                 *     summary: Update a gender by ID.
+                 *     description: Update a gender by ID.
                  *     parameters:
                  *      - in: path
-                 *        name: roleId
+                 *        name: genderId
                  *        schema:
                  *          type: string
                  *        required: true
-                 *        description: String ID of the role to get
+                 *        description: String ID of the gender to get
                  *     requestBody:
                  *       required: true
                  *       content:
@@ -265,8 +265,8 @@ class RoleRoutes {
                  *             properties:
                  *               name:
                  *                 type: string
-                 *                 description: The role's name.
-                 *                 example: Admin
+                 *                 description: The gender's name.
+                 *                 example: Male
                  *             required:
                  *               - name
                  *         application/x-www-form-urlencoded:
@@ -275,13 +275,13 @@ class RoleRoutes {
                  *             properties:
                  *               name:
                  *                 type: string
-                 *                 description: The role's name.
-                 *                 example: Admin
+                 *                 description: The gender's name.
+                 *                 example: Male
                  *             required:
                  *               - name
                  *     responses:
                  *       200:
-                 *         description: The role has successfully update.
+                 *         description: The gender has successfully update.
                  *         content:
                  *           application/json:
                  *             schema:
@@ -291,7 +291,7 @@ class RoleRoutes {
                  *                    type: string
                  *                    example: Ok
                  *                  data:
-                 *                    $ref: '#/components/schemas/Role'
+                 *                    $ref: '#/components/schemas/Gender'
                  * 
                  *       '400':
                  *         description: Bad Request.
@@ -322,30 +322,30 @@ class RoleRoutes {
                  *              $ref: '#/responses/schemas/500'
                  * 
                  */
-                router.put('/:roleId', roleController.update);
+                router.put('/:genderId', genderController.update);
                 
                 /**
                  * @swagger
-                 * /v1/role/{roleId}:
+                 * /v1/gender/{genderId}:
                  *   delete:
                  *     security:
                  *      - bearerAuth: []
                  *     tags:
-                 *     - Role
-                 *     operationId: roledelete
-                 *     summary: Delete a role by ID.
-                 *     description: Delete a role by ID.
+                 *     - Gender
+                 *     operationId: genderdelete
+                 *     summary: Delete a gender by ID.
+                 *     description: Delete a gender by ID.
                  *     parameters:
                  *      - in: path
-                 *        name: roleId
+                 *        name: genderId
                  *        schema:
                  *          type: string
                  *        required: true
-                 *        description: String ID of the role to delete
+                 *        description: String ID of the gender to delete
                  *     
                  *     responses:
                  *       200:
-                 *         description: The role delete successfully.
+                 *         description: The gender delete successfully.
                  *         content:
                  *           application/json:
                  *             schema:
@@ -355,7 +355,7 @@ class RoleRoutes {
                  *                    type: string
                  *                    example: Ok
                  *                  data:
-                 *                    $ref: '#/components/schemas/Role'
+                 *                    $ref: '#/components/schemas/Gender'
                  * 
                  *       '400':
                  *         description: Bad Request.
@@ -386,11 +386,11 @@ class RoleRoutes {
                  *              $ref: '#/responses/schemas/500'
                  * 
                  */
-                router.delete('/:roleId', roleController.delete);
+                router.delete('/:genderId', genderController.delete);
             }));
         }));
     }
 }
 
-const roleRoutes = new RoleRoutes();
-export default roleRoutes;
+const genderRoutes = new GenderRoutes();
+export default genderRoutes;

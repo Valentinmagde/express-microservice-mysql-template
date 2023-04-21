@@ -2,7 +2,7 @@ import httpProxy from 'express-http-proxy';
 import bodyParser from 'body-parser';
 import dotenv from "dotenv";
 import { Application, NextFunction, Request, Response } from 'express';
-import userRoutes from './v1/user.routes';
+import userServiceRoutes from './v1/user.service.routes';
 import swaggerUi from "swagger-ui-express";
 import swaggerOptions from "../../swagger.json";
 import statusCode from '../utils/status.code';
@@ -44,10 +44,12 @@ class Routes {
   public appRoutes() {
     this.app.use(bodyParser.json());
     this.app.use(bodyParser.urlencoded({ extended: true }));
-    // Swagger documentation
+    
+    // Swagger documentation route
     this.app.use('/v1/docs', swaggerUi.serve, swaggerUi.setup(undefined, swaggerOptions));
+    
     // Includes user routes
-    this.app.use('/v1', userRoutes.userRoutes());
+    this.app.use('/v1', userServiceRoutes.userServiceRoutes());
 
     this.app.get('/product/:productId', (req, res, next) => {
       productServiceProxy(req, res, next);

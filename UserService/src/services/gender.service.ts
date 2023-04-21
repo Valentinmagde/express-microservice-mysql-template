@@ -1,35 +1,35 @@
-import Role from '../models/role.model';
+import Gender from '../models/gender.model';
 
 /**
  * @author Valentin Magde <valentinmagde@gmail.com>
- * @since 2023-04-20
+ * @since 2023-04-21
  * 
- * Class RoleService
+ * Class GenderService
  */
-class RoleService {
+class GenderService {
   
   /**
-   * Create a new RoleService instance.
+   * Create a new GenderService instance.
    *
    * @return void
    */
   constructor() {}
 
   /**
-   * Get role details
+   * Get gender details
    * 
    * @author Valentin Magde <valentinmagde@gmail.com>
    * @since 2023-04-21
    * 
-   * @param string roleId 
-   * @returns any role
+   * @param string genderId 
+   * @returns any gender
    */
-  public getById(roleId: string) {
+  public getById(genderId: string) {
     return new Promise(async (resolve, reject) => {
       try {
-        const role = await Role.findById(roleId);
+        const gender = await Gender.findById(genderId);
         
-        resolve(role);
+        resolve(gender);
       } catch (error) {
         reject(error);
       }
@@ -37,19 +37,19 @@ class RoleService {
   }
 
   /**
-   * Get all roles details
+   * Get all genders details
    * 
    * @author Valentin Magde <valentinmagde@gmail.com>
    * @since 2023-04-21
    * 
-   * @returns any roles
+   * @returns any gender
    */
   public getAll() {
     return new Promise(async (resolve, reject) => {
       try {
-        const roles = await Role.find();
+        const genders = await Gender.find();
         
-        resolve(roles);
+        resolve(genders);
       } catch (error) {
         reject(error);
       }
@@ -57,22 +57,22 @@ class RoleService {
   }
 
   /**
-   * Create a new role
+   * Create a new gender
    * 
    * @author Valentin Magde <valentinmagde@gmail.com>
-   * @since 2023-04-20
+   * @since 2023-04-21
    * 
    * @param any data 
-   * @returns any role
+   * @returns any gender
    */
   public async store(data: any) {
     return new Promise(async (resolve, reject) => {
       try {
-        const role = new Role({ name: data.name });
+        const gender = new Gender({ name: data.name });
     
-        const createdRole = await role.save();
+        const createdGender = await gender.save();
 
-        resolve(createdRole);
+        resolve(createdGender);
       } catch (error) {
         reject(error)
       }
@@ -80,28 +80,28 @@ class RoleService {
   }
 
   /**
-   * Update a role
+   * Update a gender
    * 
    * @author Valentin Magde <valentinmagde@gmail.com>
    * @since 2023-04-21
    * 
-   * @param string roleId
+   * @param string genderId
    * @param any data 
-   * @returns any role
+   * @returns any gender
    */
-  public async update(roleId: string, data: any) {
+  public async update(genderId: string, data: any) {
     return new Promise(async (resolve, reject) => {
       try {
-        const role = await Role.findById(roleId);
+        const gender = await Gender.findById(genderId);
 
-        if(role) {
-          role.name = data.name || role.name;
+        if(gender) {
+          gender.name = data.name || gender.name;
           
-          const updatedRole = await role.save();
+          const updatedGender = await gender.save();
 
-          resolve(updatedRole);
+          resolve(updatedGender);
         } else {
-          resolve(role);
+          resolve(gender);
         }
       } catch (error) {
         reject(error)
@@ -110,25 +110,25 @@ class RoleService {
   }
 
   /**
-   * Delete a role by id
+   * Delete a gender by id
    * 
    * @author Valentin Magde <valentinmagde@gmail.com>
    * @since 2023-04-21
    * 
-   * @param string roleId 
-   * @returns any role
+   * @param string genderId 
+   * @returns any gender
    */
-  public delete(roleId: string) {
+  public delete(genderId: string) {
     return new Promise(async (resolve, reject) => {
       try {
-        const role = await Role.findById(roleId);
+        const gender = await Gender.findById(genderId);
 
-        if(role) {
-          const deleteRole = await role.deleteOne();
+        if(gender) {
+          const deleteGender = await gender.deleteOne();
           
-          resolve(deleteRole);
+          resolve(deleteGender);
         } else {
-          resolve(role);
+          resolve(gender);
         }
       } catch (error) {
         reject(error);
@@ -137,5 +137,5 @@ class RoleService {
   }
 }
 
-const roleService = new RoleService()
-export default roleService;
+const genderService = new GenderService()
+export default genderService;

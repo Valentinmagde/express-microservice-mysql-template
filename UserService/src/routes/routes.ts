@@ -5,6 +5,8 @@ import swaggerOptions from '../swagger/swagger.json';
 import swaggerJSDoc from "swagger-jsdoc";
 import swaggerUi from "swagger-ui-express";
 import roleRoutes from './v1/role.routes';
+import routesGrouping from '../utils/routes.grouping';
+import genderRoutes from './v1/gender.routes';
 
 /**
  * @author Valentin Magde <valentinmagde@gmail.com>
@@ -35,22 +37,27 @@ class Routes {
    * @returns void
   */
   public appRoutes() {
-    // Includes user routes
-    this.app.use('/v1', userRoutes.userRoutes());
-    
-    // Includes role routes
-    this.app.use('/v1', roleRoutes.roleRoutes());
-    
-    // Swagger documentation
-    this.app.use(
-      "/v1/users/docs",
-      swaggerUi.serve,
-      swaggerUi.setup(this.specs)
-    );
-    this.app.get("/v1/users/docs.json", (req, res) => {
-        res.setHeader("Content-Type", "application/json");
-        res.send(this.specs);
-    });
+    this.app.use('/v1', routesGrouping.group((router) => {
+      // Includes user routes
+      router.use(userRoutes.userRoutes());
+      
+      // Includes role routes
+      router.use(roleRoutes.roleRoutes());
+
+      // Includes gender routes
+      router.use(genderRoutes.genderRoutes());
+      
+      // Swagger documentation
+      router.use(
+        "/users/docs",
+        swaggerUi.serve,
+        swaggerUi.setup(this.specs)
+      );
+      router.get("/users/docs.json", (req, res) => {
+          res.setHeader("Content-Type", "application/json");
+          res.send(this.specs);
+      });
+    }));
 
     // error handler for not found router
     this.app.get('*', userController.routeNotFoundHandler);

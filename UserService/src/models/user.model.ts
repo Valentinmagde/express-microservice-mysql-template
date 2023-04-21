@@ -7,8 +7,7 @@ const userSchema = new mongoose.Schema(
     username: { type: String, required: true, unique: true },
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
-    gender: { type: Number, required: true },
-    isAdmin: { type: Boolean, default: false, required: true },
+    gender: { type: mongoose.Schema.Types.ObjectId, ref: 'Gender'},
     isSeller: { type: Boolean, default: false, required: true },
     seller: {
       name: String,
@@ -17,6 +16,7 @@ const userSchema = new mongoose.Schema(
       rating: { type: Number, default: 0, required: true },
       numReviews: { type: Number, default: 0, required: true },
     },
+    roles: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Role' }],
     isDeleted: { type: Boolean, default: false, required: false },
     online: { type: Boolean, default: false, required: false }
   },

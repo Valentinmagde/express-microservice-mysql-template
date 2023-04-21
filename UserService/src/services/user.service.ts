@@ -5,6 +5,8 @@ import { Request } from 'express';
 import jwt from 'jsonwebtoken';
 import fs from 'fs';
 import path from 'path';
+import Role from '../models/role.model';
+import { ObjectId } from 'mongoose';
 
 /**
  * @author Valentin Magde <valentinmagde@gmail.com>
@@ -42,7 +44,7 @@ class UserService {
             _id: user._id,
             name: user.username,
             email: user.email,
-            isAdmin: user.isAdmin,
+            // isAdmin: user.isAdmin,
             token: new Authorization().generateToken(user)
           };
 
@@ -113,6 +115,43 @@ class UserService {
         const user = await User.findById(userId);
         
         resolve(user);
+      } catch (error) {
+        reject(error);
+      }
+    });
+  }
+
+  /**
+   * Assign a role to a user
+   * 
+   * @author Valentin Magde <valentinmagde@gmail.com>
+   * @since 2023-04-21
+   * 
+   * @param string userId 
+   * @param string roleId 
+   * @returns user
+   */
+   public assign(userId: string, roleId: string) {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const user = await User.findById(userId);
+
+        if(user) {
+          const role = await Role.findById(roleId);
+          
+          if(role){
+            user.roles = [...user.roles, role._id];
+            await user.save();
+            
+            resolve(user);
+          }
+          else{
+            resolve('ROLE_NOT_FOUND');
+          }
+        }
+        else{
+          resolve('USER_NOT_FOUND');
+        }        
       } catch (error) {
         reject(error);
       }
@@ -191,17 +230,20 @@ class UserService {
   public delete(userId: string) {
     return new Promise(async (resolve, reject) => {
       try {
-        const user = await User.findById(userId);
+        const user = await User.findById(userId)
+                               .populate('roles');
 
-        if(user) {
-          if(user.isAdmin) resolve('isAdmin');
-
-          const deleteUser = await user.deleteOne();
+        // if(user) {
+        //   const roles = user.roles.filter(role => role.name == 'Admin');
           
-          resolve(deleteUser);
-        } else {
-          resolve(user);
-        }
+        //   if(roles.length) resolve('isAdmin');
+
+        //   const deleteUser = await user.deleteOne();
+          
+        //   resolve(deleteUser);
+        // } else {
+        //   resolve(user);
+        // }
       } catch (error) {
         reject(error);
       }

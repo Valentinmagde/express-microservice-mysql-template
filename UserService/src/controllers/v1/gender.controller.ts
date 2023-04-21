@@ -7,17 +7,17 @@ import errorNumbers from '../../utils/error.numbers';
 import validator from '../../utils/validator';
 import { Errors } from 'validatorjs';
 import helpers from '../../utils/helpers';
-import roleService from '../../services/role.service';
+import genderService from '../../services/gender.service';
 /**
  * @author Valentin Magde <valentinmagde@gmail.com>
- * @since 2023-04-20
+ * @since 2023-04-21
  * 
- * Class RoleController
+ * Class GenderController
  */
-class RoleController extends Controller {
+class GenderController extends Controller {
   
   /**
-   * Create a new RoleController instance.
+   * Create a new GenderController instance.
    *
    * @return void
    */
@@ -26,28 +26,28 @@ class RoleController extends Controller {
   }
 
   /**
-   * Get role details handler
+   * Get gender details handler
    * 
    * @author Valentin Magde <valentinmagde@gmail.com>
-   * @since 2023-04-20
+   * @since 2023-04-21
    * 
    * @param Request req 
    * @param Response res
    * 
-   * @return json of role detail 
+   * @return json of gender detail 
    */
   public async show(req: Request, res: Response) 
   {
-    const roleid = req.params.roleId;
+    const genderid = req.params.genderId;
     
-    if (helpers.checkObjectId(roleid)) {
-      roleService.getById(roleid)
+    if (helpers.checkObjectId(genderid)) {
+      genderService.getById(genderid)
       .then(result => {
         if (result === null || result === undefined) {
           const response = {
             status: statusCode.HTTP_NOT_FOUND,
             errNo: errorNumbers.resource_not_found,
-            errMsg: i18n.en.role.show.ROLE_NOT_FOUND
+            errMsg: i18n.en.gender.show.GENDER_NOT_FOUND
           }
 
           return customResponse.error(response, res);
@@ -75,7 +75,7 @@ class RoleController extends Controller {
       const response = {
         status: statusCode.HTTP_BAD_REQUEST,
         errNo: errorNumbers.ivalid_resource,
-        errMsg: i18n.en.role.others.INVALID_ROLE_ID,
+        errMsg: i18n.en.gender.others.INVALID_GENDER_ID,
       }
 
       return customResponse.error(response, res);
@@ -83,7 +83,7 @@ class RoleController extends Controller {
   }
 
   /**
-   * Get all roles details handler
+   * Get all gender details handler
    * 
    * @author Valentin Magde <valentinmagde@gmail.com>
    * @since 2023-04-21
@@ -91,17 +91,17 @@ class RoleController extends Controller {
    * @param Request req 
    * @param Response res
    * 
-   * @return json of role detail 
+   * @return json of gender detail 
    */
   public async showAll(req: Request, res: Response) 
   {
-    roleService.getAll()
+    genderService.getAll()
     .then(result => {
       if (result === null || result === undefined) {
         const response = {
           status: statusCode.HTTP_NOT_FOUND,
           errNo: errorNumbers.resource_not_found,
-          errMsg: i18n.en.role.show.ROLE_NOT_FOUND
+          errMsg: i18n.en.gender.show.GENDER_NOT_FOUND
         }
 
         return customResponse.error(response, res);
@@ -127,10 +127,10 @@ class RoleController extends Controller {
   }
     
   /**
-   * Add role route handler
+   * Add gender route handler
    * 
    * @author Valentin Magde <valentinmagde@gmail.com>
-   * @since 2023-04-20
+   * @since 2023-04-21
    * 
    * @param Request req 
    * @param Response res 
@@ -138,6 +138,7 @@ class RoleController extends Controller {
    * @return json of Response
    */
   public async store(req: Request, res: Response) {
+    console.log(req);
     const validationRule = { "name": "required|string" };
 
     await validator
@@ -152,7 +153,7 @@ class RoleController extends Controller {
         return customResponse.error(response, res);
       }
       else {
-        roleService.store(req.body)
+        genderService.store(req.body)
         .then(result => {
           const response = {
             status: statusCode.HTTP_CREATED,
@@ -184,10 +185,10 @@ class RoleController extends Controller {
   }
   
   /**
-   * Update a role
+   * Update a gender
    * 
    * @author Valentin Magde <valentinmagde@gmail.com>
-   * @since 2023-04-20
+   * @since 2023-04-21
    * 
    * @param Request req 
    * @param Response res 
@@ -210,16 +211,16 @@ class RoleController extends Controller {
         return customResponse.error(response, res);
       }
       else {
-        const roleid = req.params.roleId;
-        // check if role id is valid
-        if (helpers.checkObjectId(roleid)) {
-          roleService.update(roleid, req.body)
+        const genderid = req.params.genderId;
+        // check if gender id is valid
+        if (helpers.checkObjectId(genderid)) {
+          genderService.update(genderid, req.body)
           .then(result => {
             if (result === null || result === undefined) {
               const response = {
                 status: statusCode.HTTP_NOT_FOUND,
                 errNo: errorNumbers.resource_not_found,
-                errMsg: i18n.en.role.show.ROLE_NOT_FOUND,
+                errMsg: i18n.en.gender.show.GENDER_NOT_FOUND,
               }
       
               return customResponse.error(response, res);
@@ -247,7 +248,7 @@ class RoleController extends Controller {
           const response = {
             status: statusCode.HTTP_BAD_REQUEST,
             errNo: errorNumbers.ivalid_resource,
-            errMsg: i18n.en.role.others.INVALID_ROLE_ID,
+            errMsg: i18n.en.gender.others.INVALID_GENDER_ID,
           }
   
           return customResponse.error(response, res);
@@ -266,28 +267,28 @@ class RoleController extends Controller {
   }
 
   /**
-   * Delete a role by id
+   * Delete a gender by id
    * 
    * @author Valentin Magde <valentinmagde@gmail.com>
-   * @since 2023-04-20
+   * @since 2023-04-21
    * 
    * @param Request req 
    * @param Response res
    * 
-   * @return json of role detail 
+   * @return json of gender detail 
    */
   public async delete(req: Request, res: Response) 
   {
-    const roleid = req.params.roleId;
+    const genderid = req.params.genderId;
 
-    if (helpers.checkObjectId(roleid)) {
-      roleService.delete(roleid)
+    if (helpers.checkObjectId(genderid)) {
+      genderService.delete(genderid)
       .then(result => {
         if (result === null || result === undefined) {
           const response = {
             status: statusCode.HTTP_NOT_FOUND,
             errNo: errorNumbers.resource_not_found,
-            errMsg: i18n.en.role.show.ROLE_NOT_FOUND,
+            errMsg: i18n.en.gender.show.GENDER_NOT_FOUND,
           }
 
           return customResponse.error(response, res);
@@ -315,7 +316,7 @@ class RoleController extends Controller {
       const response = {
         status: statusCode.HTTP_BAD_REQUEST,
         errNo: errorNumbers.ivalid_resource,
-        errMsg: i18n.en.role.others.INVALID_ROLE_ID,
+        errMsg: i18n.en.gender.others.INVALID_GENDER_ID,
       }
 
       return customResponse.error(response, res);
@@ -323,5 +324,5 @@ class RoleController extends Controller {
   }
 }
 
-const roleController = new RoleController();
-export default roleController;
+const genderController = new GenderController();
+export default genderController;

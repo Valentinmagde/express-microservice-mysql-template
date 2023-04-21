@@ -80,6 +80,82 @@ class UserController extends Controller {
       return customResponse.error(response, res);
     }
   }
+
+  /**
+   * Assign a role to a user
+   * 
+   * @author Valentin Magde <valentinmagde@gmail.com>
+   * @since 2023-04-21
+   * 
+   * @param Request req 
+   * @param Response res
+   * 
+   * @return json of user detail 
+   */
+  public async assign(req: Request, res: Response) 
+  {
+    const userid = req.params.userId;
+    const roleid = req.params.roleId;
+
+    if(!helpers.checkObjectId(userid)) {
+      const response = {
+        status: statusCode.HTTP_BAD_REQUEST,
+        errNo: errorNumbers.ivalid_resource,
+        errMsg: i18n.en.user.others.INVALID_USER_ID,
+      }
+
+      return customResponse.error(response, res);
+    }
+    else if(!helpers.checkObjectId(roleid)) {
+      const response = {
+        status: statusCode.HTTP_BAD_REQUEST,
+        errNo: errorNumbers.ivalid_resource,
+        errMsg: i18n.en.role.others.INVALID_ROLE_ID,
+      }
+
+      return customResponse.error(response, res);
+    }
+    else{
+      userService.assign(userid, roleid)
+      .then(result => {
+        if (result === 'ROLE_NOT_FOUND') {
+          const response = {
+            status: statusCode.HTTP_NOT_FOUND,
+            errNo: errorNumbers.resource_not_found,
+            errMsg: i18n.en.role.show.ROLE_NOT_FOUND,
+          }
+
+          return customResponse.error(response, res);
+        }
+        else if (result === 'USER_NOT_FOUND') {
+          const response = {
+            status: statusCode.HTTP_NOT_FOUND,
+            errNo: errorNumbers.resource_not_found,
+            errMsg: i18n.en.user.profile.USER_NOT_FOUND,
+          }
+
+          return customResponse.error(response, res);
+        } 
+        else {
+            const response = {
+              status: statusCode.HTTP_OK,
+              data: result,
+            }
+    
+            return customResponse.success(response, res);
+        }
+      })
+      .catch(error => {
+        const response = {
+          status: error?.status || statusCode.HTTP_INTERNAL_SERVER_ERROR,
+          errNo: errorNumbers.generic_error,
+          errMsg: error?.message || error,
+        }
+
+        return customResponse.error(response, res);
+      })
+    }
+  }
     
   /**
    * Login route handler
