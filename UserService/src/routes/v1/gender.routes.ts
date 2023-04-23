@@ -344,18 +344,8 @@ class GenderRoutes {
                  *        description: String ID of the gender to delete
                  *     
                  *     responses:
-                 *       200:
+                 *       204:
                  *         description: The gender delete successfully.
-                 *         content:
-                 *           application/json:
-                 *             schema:
-                 *                type: object
-                 *                properties:
-                 *                  status:
-                 *                    type: string
-                 *                    example: Ok
-                 *                  data:
-                 *                    $ref: '#/components/schemas/Gender'
                  * 
                  *       '400':
                  *         description: Bad Request.

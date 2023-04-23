@@ -64,15 +64,10 @@ class UserRoutes {
                  *                 example: admin@example.com
                  *                 format: email
                  *               gender:
-                 *                 in: query
-                 *                 default: 1
-                 *                 enum:
-                 *                 - 1
-                 *                 - 2
-                 *                 - 3
-                 *                 description: Gender values that need to be considered for filter
+                 *                 description: Gender ID
                  *                 required: true
                  *                 type: string
+                 *                 example: 6442aa155564a41669de60cb
                  *               password:
                  *                 type: string
                  *                 format: password
@@ -537,7 +532,7 @@ class UserRoutes {
                  *              $ref: '#/responses/schemas/500'
                  * 
                  */
-                router.get('/:userId/role/:roleId/unassign', userController.profile);
+                router.get('/:userId/role/:roleId/unassign', userController.unassign);
                 
                 /**
                  * @swagger
@@ -675,18 +670,8 @@ class UserRoutes {
                  *        description: String ID of the user to delete
                  *     
                  *     responses:
-                 *       200:
-                 *         description: The user has successfully logged in.
-                 *         content:
-                 *           application/json:
-                 *             schema:
-                 *                type: object
-                 *                properties:
-                 *                  status:
-                 *                    type: string
-                 *                    example: Ok
-                 *                  data:
-                 *                    $ref: '#/components/schemas/User'
+                 *       204:
+                 *         description: The user deleted successfully.
                  * 
                  *       '400':
                  *         description: Bad Request.

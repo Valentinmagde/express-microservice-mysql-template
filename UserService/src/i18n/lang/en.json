@@ -33,6 +33,9 @@
         },
         "others": {
             "INVALID_USER_ID" : "Invalid user id."
+        },
+        "assign": {
+            "ROLE_ALREADY_ASSIGNED" : "This role is already assigned to this user."
         }
     },
     "others": {

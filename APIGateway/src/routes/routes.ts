@@ -9,11 +9,16 @@ import statusCode from '../utils/status.code';
 import errorNumbers from '../utils/error.numbers';
 import i18n from '../i18n';
 import customResponse from '../utils/custom.response';
+import routesGrouping from '../utils/routes.grouping';
+import authenticationRoutes from './v1/authentication.routes';
+import authSwaggerOptions from '../authentication.modules/swagger/swagger.json';
+import swaggerJSDoc from "swagger-jsdoc";
 
 dotenv.config();
 
 const productServiceProxy = httpProxy(process.env.PRODUCT_SERVICE_URL as string);
 const orderServiceProxy = httpProxy(process.env.ORDER_SERVICE_URL as string);
+const specs = swaggerJSDoc(authSwaggerOptions);
 
 /**
  * @author Valentin Magde <valentinmagde@gmail.com>
@@ -44,12 +49,33 @@ class Routes {
   public appRoutes() {
     this.app.use(bodyParser.json());
     this.app.use(bodyParser.urlencoded({ extended: true }));
-    
-    // Swagger documentation route
-    this.app.use('/v1/docs', swaggerUi.serve, swaggerUi.setup(undefined, swaggerOptions));
-    
-    // Includes user routes
-    this.app.use('/v1', userServiceRoutes.userServiceRoutes());
+
+    this.app.use('/v1', routesGrouping.group((router) => {
+      // Swagger documentation route
+      router.use(
+        '/docs', 
+        swaggerUi.serveFiles(undefined, swaggerOptions), 
+        swaggerUi.setup(undefined, swaggerOptions)
+      );
+      
+      // Includes user routes
+      router.use(userServiceRoutes.userServiceRoutes());
+      
+      // Includes authentication routes
+      router.use(authenticationRoutes.authenticationRoutes());
+
+      // Swagger documentation
+      router.use(
+        "/auth/docs", 
+        swaggerUi.serveFiles(undefined, specs), 
+        swaggerUi.setup(undefined, specs)
+      );
+      
+      router.get("/auth/docs.json", (req, res) => {
+          res.setHeader("Content-Type", "application/json");
+          res.send(specs);
+      });
+    }));
 
     this.app.get('/product/:productId', (req, res, next) => {
       productServiceProxy(req, res, next);

@@ -1,12 +1,10 @@
 import User from '../models/user.model';
 import passwordHash from '../utils/password.hash';
-import Authorization from '../authorization/authorization';
 import { Request } from 'express';
 import jwt from 'jsonwebtoken';
 import fs from 'fs';
 import path from 'path';
 import Role from '../models/role.model';
-import { ObjectId } from 'mongoose';
 
 /**
  * @author Valentin Magde <valentinmagde@gmail.com>
@@ -35,17 +33,22 @@ class UserService {
   public async login(data: any) {
     return new Promise(async (resolve, reject) => {
       try {
-        const user = await User.findOne({email: data.email});
+        const user = await User
+        .findOne({email: data.email})
+        .populate('gender')
+        .populate('roles');
         
         if(user && passwordHash.compareHash(data.password, user.password)) {
           await User.findOneAndUpdate({email: data.email}, { $set: { online: true } });
 
           const loginRes = {
             _id: user._id,
-            name: user.username,
+            username: user.username,
+            lastname: user.lastname,
+            firstname: user.firstname,
             email: user.email,
-            // isAdmin: user.isAdmin,
-            token: new Authorization().generateToken(user)
+            gender: user.gender,
+            roles: user.roles
           };
 
           resolve(loginRes);
@@ -131,7 +134,7 @@ class UserService {
    * @param string roleId 
    * @returns user
    */
-   public assign(userId: string, roleId: string) {
+  public assign(userId: string, roleId: string) {
     return new Promise(async (resolve, reject) => {
       try {
         const user = await User.findById(userId);
@@ -140,8 +143,55 @@ class UserService {
           const role = await Role.findById(roleId);
           
           if(role){
-            user.roles = [...user.roles, role._id];
-            await user.save();
+            // Check if the user doesn't already have this role
+            const existRole = user.roles.filter(x => x._id.toString() == role._id.toString());
+            
+            if(existRole.length > 0) resolve('ALREADY_ASSIGNED');
+            else{
+              user.roles = [...user.roles, role._id];
+
+              await user.save();
+            }
+            
+            resolve(user);
+          }
+          else{
+            resolve('ROLE_NOT_FOUND');
+          }
+        }
+        else{
+          resolve('USER_NOT_FOUND');
+        }        
+      } catch (error) {
+        reject(error);
+      }
+    });
+  }
+
+  /**
+   * Unassign a role to a user
+   * 
+   * @author Valentin Magde <valentinmagde@gmail.com>
+   * @since 2023-04-21
+   * 
+   * @param string userId 
+   * @param string roleId 
+   * @returns user
+   */
+  public unassign(userId: string, roleId: string) {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const user = await User.findById(userId);
+
+        if(user) {
+          const role = await Role.findById(roleId);
+          
+          if(role){
+            if(user.roles.length > 0){
+              user.roles = user.roles.filter(x => x._id.toString() != role._id.toString());
+
+              await user.save();
+            }
             
             resolve(user);
           }
@@ -230,20 +280,21 @@ class UserService {
   public delete(userId: string) {
     return new Promise(async (resolve, reject) => {
       try {
-        const user = await User.findById(userId)
-                               .populate('roles');
+        const user = await User.findById(userId).populate('roles');
 
-        // if(user) {
-        //   const roles = user.roles.filter(role => role.name == 'Admin');
+        if(user) {
+          let roles: Array<any> = user?.roles as any
+          roles = roles.filter(role => role.name == 'Admin');
           
-        //   if(roles.length) resolve('isAdmin');
+          if(roles.length) resolve('isAdmin');
+          else{
+            const deleteUser = await user.deleteOne();
 
-        //   const deleteUser = await user.deleteOne();
-          
-        //   resolve(deleteUser);
-        // } else {
-        //   resolve(user);
-        // }
+            resolve(deleteUser);
+          }
+        } else {
+          resolve(user);
+        }
       } catch (error) {
         reject(error);
       }

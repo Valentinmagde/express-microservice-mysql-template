@@ -1,4 +1,4 @@
-import { Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import userService from "../../services/user.service";
 import Controller from "../controller";
 import i18n from '../../i18n';
@@ -36,7 +36,7 @@ class UserController extends Controller {
    * 
    * @return json of user detail 
    */
-  public async profile(req: Request, res: Response) 
+  public async profile(req: Request, res: Response, next: NextFunction) 
   {
     const userid = req.params.userId;
     if (helpers.checkObjectId(userid)) {
@@ -117,6 +117,91 @@ class UserController extends Controller {
     }
     else{
       userService.assign(userid, roleid)
+      .then(result => {
+        if (result === 'ROLE_NOT_FOUND') {
+          const response = {
+            status: statusCode.HTTP_NOT_FOUND,
+            errNo: errorNumbers.resource_not_found,
+            errMsg: i18n.en.role.show.ROLE_NOT_FOUND,
+          }
+
+          return customResponse.error(response, res);
+        }
+        else if (result === 'USER_NOT_FOUND') {
+          const response = {
+            status: statusCode.HTTP_NOT_FOUND,
+            errNo: errorNumbers.resource_not_found,
+            errMsg: i18n.en.user.profile.USER_NOT_FOUND,
+          }
+
+          return customResponse.error(response, res);
+        }
+        else if (result === 'ALREADY_ASSIGNED') {
+          const response = {
+            status: statusCode.HTTP_BAD_REQUEST,
+            errNo: errorNumbers.resource_exist,
+            errMsg: i18n.en.user.assign.ROLE_ALREADY_ASSIGNED,
+          }
+
+          return customResponse.error(response, res);
+        } 
+        else {
+            const response = {
+              status: statusCode.HTTP_OK,
+              data: result,
+            }
+    
+            return customResponse.success(response, res);
+        }
+      })
+      .catch(error => {
+        const response = {
+          status: error?.status || statusCode.HTTP_INTERNAL_SERVER_ERROR,
+          errNo: errorNumbers.generic_error,
+          errMsg: error?.message || error,
+        }
+
+        return customResponse.error(response, res);
+      })
+    }
+  }
+
+  /**
+   * Unassign a role to a user
+   * 
+   * @author Valentin Magde <valentinmagde@gmail.com>
+   * @since 2023-04-21
+   * 
+   * @param Request req 
+   * @param Response res
+   * 
+   * @return json of user detail 
+   */
+  public async unassign(req: Request, res: Response)
+  {
+    const userid = req.params.userId;
+    const roleid = req.params.roleId;
+
+    if(!helpers.checkObjectId(userid)) {
+      const response = {
+        status: statusCode.HTTP_BAD_REQUEST,
+        errNo: errorNumbers.ivalid_resource,
+        errMsg: i18n.en.user.others.INVALID_USER_ID,
+      }
+
+      return customResponse.error(response, res);
+    }
+    else if(!helpers.checkObjectId(roleid)) {
+      const response = {
+        status: statusCode.HTTP_BAD_REQUEST,
+        errNo: errorNumbers.ivalid_resource,
+        errMsg: i18n.en.role.others.INVALID_ROLE_ID,
+      }
+
+      return customResponse.error(response, res);
+    }
+    else{
+      userService.unassign(userid, roleid)
       .then(result => {
         if (result === 'ROLE_NOT_FOUND') {
           const response = {
@@ -289,7 +374,7 @@ class UserController extends Controller {
       "username": "required|string",
       "lastname": "required|string",
       "email": "required|string|email",
-      "gender": "required|integer",
+      "gender": "required|string",
       "password": "required|string|min:6"
     };
 
@@ -459,7 +544,7 @@ class UserController extends Controller {
         }
         else {
             const response = {
-              status: statusCode.HTTP_OK,
+              status: statusCode.HTTP_NO_CONTENT,
               data: result,
             }
     

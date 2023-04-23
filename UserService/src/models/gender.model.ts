@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 
 const genderSchema = new mongoose.Schema(
   {
-    name: { type: String, required: false }
+    name: { type: String, required: false, unique: true }
   },
   {
     timestamps: true,

@@ -4,6 +4,10 @@
       "validatorUrl": null,
       "urls": [
         {
+          "url": "http://localhost:1000/v1/auth/docs.json",
+          "name": "Authentication service"
+        },
+        {
           "url": "http://localhost:1100/v1/users/docs.json",
           "name": "User service"
         },

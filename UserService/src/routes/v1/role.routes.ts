@@ -344,18 +344,8 @@ class RoleRoutes {
                  *        description: String ID of the role to delete
                  *     
                  *     responses:
-                 *       200:
+                 *       204:
                  *         description: The role delete successfully.
-                 *         content:
-                 *           application/json:
-                 *             schema:
-                 *                type: object
-                 *                properties:
-                 *                  status:
-                 *                    type: string
-                 *                    example: Ok
-                 *                  data:
-                 *                    $ref: '#/components/schemas/Role'
                  * 
                  *       '400':
                  *         description: Bad Request.

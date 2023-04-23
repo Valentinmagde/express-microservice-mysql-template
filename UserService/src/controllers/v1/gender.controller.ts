@@ -295,7 +295,7 @@ class GenderController extends Controller {
         }
         else {
             const response = {
-              status: statusCode.HTTP_OK,
+              status: statusCode.HTTP_NO_CONTENT,
               data: result,
             }
     

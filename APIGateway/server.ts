@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
 import express from 'express';
 import http from 'http';
+import * as redis from 'redis';
 import Routes from './src/routes/routes';
 
 /**

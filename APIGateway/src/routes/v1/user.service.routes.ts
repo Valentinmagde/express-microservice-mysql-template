@@ -1,4 +1,4 @@
-import auth from '../../auth/auth';
+import authentication from '../../authentication.modules/authentication';
 import express, { Application, NextFunction, Request, Response, Router } from 'express';
 import httpProxy from 'express-http-proxy';
 import dotenv from "dotenv";
@@ -54,7 +54,7 @@ class UserServiceRoutes {
                     });
                 }));
 
-                router.use('/gender', auth.isAuth, routesGrouping.group((router) => {
+                router.use('/gender', routesGrouping.group((router) => {
                     router.get('/:genderId', (req, res, next) => {
                         // Update url with original url which contain all path
                         req.url = req.originalUrl;
@@ -93,7 +93,7 @@ class UserServiceRoutes {
                     });
                 }));
 
-                router.use('/role', auth.isAuth, routesGrouping.group((router) => {
+                router.use('/role', routesGrouping.group((router) => {
                     router.get('/:roleId', (req, res, next) => {
                         // Update url with original url which contain all path
                         req.url = req.originalUrl;
@@ -118,7 +118,7 @@ class UserServiceRoutes {
             router.use(routesGrouping.group((router) => {
                 router.use('/users', routesGrouping.group((router) => {
                     router.post('/', (req, res, next) => {
-                        const bearerToken = auth.generateGatewayToken(req);
+                        const bearerToken = authentication.generateGatewayToken(req);
                         
                         // Set request header authorization with generic gateway
                         req.headers.authorization = `Bearer ${bearerToken}`;
@@ -129,7 +129,7 @@ class UserServiceRoutes {
                     });
 
                     router.post('/login', (req: Request, res: Response, next: NextFunction) => {
-                        const bearerToken = auth.generateGatewayToken(req);
+                        const bearerToken = authentication.generateGatewayToken(req);
 
                         // Set request header authorization with generic gateway
                         req.headers.authorization = `Bearer ${bearerToken}`;
@@ -146,7 +146,7 @@ class UserServiceRoutes {
                     });
                 }));
 
-                router.use('/user', auth.isAuth, routesGrouping.group((router) => {
+                router.use('/user', routesGrouping.group((router) => {
                     router.get('/:userId', (req, res, next) => {
                         // Update url with original url which contain all path
                         req.url = req.originalUrl;

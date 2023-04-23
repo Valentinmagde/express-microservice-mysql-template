@@ -10,6 +10,7 @@
  * @para number _expired_token
  * @para number _blacklisted_token
  * @para number _token_not_found
+ * @para number _resource_exist
  * @para number _resource_not_found
  * @para number _invalid_resource
  * @para number _required_permission
@@ -32,6 +33,7 @@ class ErrorNumbers {
     private _blacklisted_token : number;
     private _token_not_found : number;
     private _required_permission: number;
+    private _resource_exist : number;
     private _resource_not_found : number;
     private _invalid_resource: number;
     private _not_allowed_method : number;
@@ -61,6 +63,7 @@ class ErrorNumbers {
         this._blacklisted_token = 13;
         this._token_not_found = 14;
         this._required_permission = 15;
+        this._resource_exist = 25;
         this._resource_not_found = 26;
         this._invalid_resource = 27;
         this._not_allowed_method = 31;
@@ -157,6 +160,18 @@ class ErrorNumbers {
      */
     public get required_permission() {
         return this._required_permission;
+    }
+
+    /**
+     * Get resource exist error number.
+     *
+     * @author Valentin Magde <valentinmagde@gmail.com>
+     * @since 2023-04-21
+     * 
+     * @return number _resource_exist
+     */
+    public get resource_exist() {
+        return this._resource_exist;
     }
 
     /**

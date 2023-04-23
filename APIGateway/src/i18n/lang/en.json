@@ -15,7 +15,7 @@
     },
     "unauthorize": {
         "NO_TOKEN" : "No Token",
-        "IVALID_TOKEN" : "Invalid Token",
+        "INVALID_TOKEN" : "Invalid Token",
         "INVALID_ADMIN_TOKEN" : "Invalid Admin Token",
         "INVALID_SELLER_TOKEN" : "Invalid Seller Token",
         "INVALID_ADMIN_OR_SELLER" : "Invalid Admin or Seller Token"

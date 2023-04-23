@@ -6,6 +6,10 @@ import i18n from '../i18n';
 import customResponse from '../utils/custom.response';
 import errorNumbers from '../utils/error.numbers';
 import statusCode from '../utils/status.code';
+import redisDB from '../config/redis.db';
+import dotenv from "dotenv";
+
+dotenv.config();
 
 /**
  * @author Valentin Magde <valentinmagde@gmail.com>
@@ -26,32 +30,6 @@ class Authorization {
   }
 
   /**
-   * Generate token
-   * 
-   * @author Valentin Magde <valentinmagde@gmail.com>
-   * @since 2023-03-26
-   * 
-   * @param any user 
-   * @returns string jwt
-   */
-  public generateToken = (user: any) => {
-    const privateKey = fs.readFileSync(path.join(__dirname,'private.key'));
-
-    return jwt.sign(
-      {
-        _id: user._id,
-        username: user.username,
-        email: user.email,
-        isAdmin: user.isAdmin,
-        isSeller: user.isSeller,
-        exp: Math.floor(Date.now() / 1000) + (60 * 60), // One hour for expiration time
-      },
-      privateKey,
-      {algorithm: 'RS256'}
-    );
-  };
-
-  /**
    * Check if user is authenticated
    * 
    * @author Valentin Magde <valentinmagde@gmail.com>
@@ -63,34 +41,61 @@ class Authorization {
    * @returns any of next function or unauthorize message
    */
   public isAuth = (req: Request, res: Response, next: NextFunction) => {
-    // Except documentation route for authentication
-    if (req.path.indexOf('/v1/users/docs') > -1) return next();
-    else{
+    if (req.path.indexOf(process.env.SWAGGER_BASE_URL as string) > -1) return next();
+    else {
       const publicKey = fs.readFileSync(path.join(__dirname,'public.key'));
       const authorization = req.headers.authorization;
+      const token = authorization && authorization.slice(7, authorization.length); // Bearer XXXXXX
 
-      if (authorization) {
-        const token = authorization.slice(7, authorization.length); // Bearer XXXXXX
+      // token provided?
+      if(token) {
+        redisDB.onConnect()
+        .then(async(redisClient) => {
+          const inDenyList = await redisClient.get(`bl_${token}`);
 
-        jwt.verify(
-          token,
-          publicKey,
-          (err, decode) => {
-            if (err) {
-              const response = {
-                status: statusCode.HTTP_UNAUTHORIZED,
-                errNo: errorNumbers.invalid_token,
-                errMsg: i18n.en.user.unauthorize.IVALID_TOKEN,
-              }
-        
-              return customResponse.error(response, res);
-            } else {
-              req.user = decode;
-              next();
+          // token in deny list?
+          if (inDenyList) {
+            const response = {
+              status: statusCode.HTTP_UNAUTHORIZED,
+              errNo: errorNumbers.invalid_token,
+              errMsg: i18n.en.user.unauthorize.IVALID_TOKEN,
             }
+      
+            return customResponse.error(response, res);
           }
-        );
-      } else {
+          else{
+            // token valid?
+            jwt.verify(
+              token,
+              publicKey,
+              (err, decode) => {
+                if (err) {
+                  const response = {
+                    status: statusCode.HTTP_UNAUTHORIZED,
+                    errNo: errorNumbers.invalid_token,
+                    errMsg: i18n.en.user.unauthorize.IVALID_TOKEN,
+                  }
+
+                  return customResponse.error(response, res);
+                } else {
+                  req.user = decode;
+                  next();
+                }
+              }
+            );
+          }
+        })
+        .catch(error => {
+            const response = {
+                status: error?.status || statusCode.HTTP_INTERNAL_SERVER_ERROR,
+                errNo: errorNumbers.generic_error,
+                errMsg: error?.message || error,
+            }
+
+            return customResponse.error(response, res);
+        });
+      }
+      else {
         const response = {
           status: statusCode.HTTP_UNAUTHORIZED,
           errNo: errorNumbers.token_not_found,
