@@ -1,5 +1,5 @@
 import User from '../models/user.model';
-import passwordHash from '../utils/password.hash';
+import passwordHash from '../utils/password.hash.utils';
 import { Request } from 'express';
 import jwt from 'jsonwebtoken';
 import fs from 'fs';

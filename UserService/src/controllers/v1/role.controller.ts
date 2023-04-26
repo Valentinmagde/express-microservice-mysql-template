@@ -1,12 +1,12 @@
 import { Request, Response } from 'express';
 import Controller from "../controller";
-import i18n from '../../i18n';
-import customResponse from '../../utils/custom.response';
-import statusCode from '../../utils/status.code';
-import errorNumbers from '../../utils/error.numbers';
-import validator from '../../utils/validator';
+import i18n from '../../translations';
+import customResponse from '../../utils/custom.response.utils';
+import statusCode from '../../utils/status.code.utils';
+import errorNumbers from '../../utils/error.numbers.utils';
+import validator from '../../utils/validator.utils';
 import { Errors } from 'validatorjs';
-import helpers from '../../utils/helpers';
+import helpers from '../../utils/helpers.utils';
 import roleService from '../../services/role.service';
 /**
  * @author Valentin Magde <valentinmagde@gmail.com>

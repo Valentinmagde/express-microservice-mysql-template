@@ -1,6 +1,6 @@
 import express, { Router } from 'express';
 import dotenv from "dotenv";
-import routesGrouping from '../../utils/routes.grouping';
+import routesGrouping from '../../utils/routes.grouping.utils';
 import genderController from '../../controllers/v1/gender.controller';
 
 dotenv.config();

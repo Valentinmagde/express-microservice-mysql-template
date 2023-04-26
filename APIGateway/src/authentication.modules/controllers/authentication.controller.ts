@@ -1,10 +1,10 @@
 import { NextFunction, Request, Response } from 'express';
 import authenticationService from "../services/authentication.service";
-import i18n from '../../i18n';
-import customResponse from '../../utils/custom.response';
-import statusCode from '../../utils/status.code';
-import errorNumbers from '../../utils/error.numbers';
-import validator from '../../utils/validator';
+import i18n from '../../translations';
+import customResponse from '../../utils/custom.response.utils';
+import statusCode from '../../utils/status.code.utils';
+import errorNumbers from '../../utils/error.numbers.utils';
+import validator from '../../utils/validator.utils';
 import { Errors } from 'validatorjs';
 /**
  * @author Valentin Magde <valentinmagde@gmail.com>

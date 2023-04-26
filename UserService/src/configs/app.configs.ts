@@ -4,8 +4,8 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 import ExpressConfigModule from './express.config';
 import { Application } from 'express';
-import Authorization from '../authorization/authorization';
-import DBManager from './db';
+import Authorization from '../middlewares/authorization.middlewares';
+import DBManager from './db.configs';
 
 /**
  * @author Valentin Magde <valentinmagde@gmail.com>

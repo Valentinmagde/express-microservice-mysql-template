@@ -1,11 +1,11 @@
 import userController from '../controllers/v1/user.controller';
 import { Application } from 'express';
 import userRoutes from './v1/user.routes';
-import swaggerOptions from '../swagger/swagger.json';
+import swaggerOptions from '../storage/user-docs/user-docs.json';
 import swaggerJSDoc from "swagger-jsdoc";
 import swaggerUi from "swagger-ui-express";
 import roleRoutes from './v1/role.routes';
-import routesGrouping from '../utils/routes.grouping';
+import routesGrouping from '../utils/routes.grouping.utils';
 import genderRoutes from './v1/gender.routes';
 
 /**

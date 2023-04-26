@@ -1,8 +1,8 @@
-import authentication from '../../authentication.modules/authentication';
+import authentication from '../../authentication.modules/middlewares/authentication.middlewares';
 import express, { Application, NextFunction, Request, Response, Router } from 'express';
 import httpProxy from 'express-http-proxy';
 import dotenv from "dotenv";
-import routesGrouping from '../../utils/routes.grouping';
+import routesGrouping from '../../utils/routes.grouping.utils';
 
 dotenv.config();
 

@@ -2,13 +2,13 @@
   "name": "userservice",
   "version": "1.0.0",
   "description": "This is a service to manage Users API",
-  "main": "app.ts",
+  "main": "index.ts",
   "//type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon --files app.ts",
-    "start-dev": "NODE_ENV=development nodemon --files app.ts",
-    "start-prod": "NODE_ENV=production nodemon --files app.ts",
+    "start": "nodemon --files index.ts",
+    "start-dev": "NODE_ENV=development nodemon --files index.ts",
+    "start-prod": "NODE_ENV=production nodemon --files index.ts",
     "lint": "eslint"
   },
   "author": "Iosys Pvt Ltd",

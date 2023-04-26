@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
-import i18n from "../i18n";
-import errorNumbers from "../utils/error.numbers";
-import statusCode from "../utils/status.code";
-import customResponse from "../utils/custom.response";
+import i18n from "../translations";
+import errorNumbers from "../utils/error.numbers.utils";
+import statusCode from "../utils/status.code.utils";
+import customResponse from "../utils/custom.response.utils";
 
 /**
  * @author Valentin Magde <valentinmagde@gmail.com>

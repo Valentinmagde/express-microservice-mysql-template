@@ -1,9 +1,6 @@
 import { Request } from 'express';
-import jwt from 'jsonwebtoken';
-import fs from 'fs';
-import path from 'path';
-import redisDB from '../../utils/redis.db';
-import authentication from '../authentication';
+import redisDB from '../configs/redis.db';
+import authentication from '../middlewares/authentication.middlewares';
 
 /**
  * @author Valentin Magde <valentinmagde@gmail.com>

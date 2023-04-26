@@ -2,12 +2,12 @@ import { NextFunction, Request, Response } from 'express';
 import fs from 'fs';
 import jwt from 'jsonwebtoken';
 import path from 'path';
-import errorNumbers from '../utils/error.numbers';
-import statusCode from '../utils/status.code';
-import customResponse from '../utils/custom.response';
+import errorNumbers from '../../utils/error.numbers.utils';
+import statusCode from '../../utils/status.code.utils';
+import customResponse from '../../utils/custom.response.utils';
 import dotenv from "dotenv";
-import redisDB from '../utils/redis.db';
-import i18n from '../i18n';
+import redisDB from '../configs/redis.db';
+import i18n from '../../translations';
 
 dotenv.config();
 
@@ -29,7 +29,8 @@ class Authentication {
    * @returns string jwt
    */
   public generateToken = (user: any) => {
-    const privateKey = fs.readFileSync(path.join(__dirname,'private.key'));
+    const privateKeyPath = require.resolve("../storage/key-files/private.key");
+    const privateKey = fs.readFileSync(privateKeyPath, { encoding: "utf8", flag: "r" });
 
     //creating a access token
     const accessToken =  jwt.sign(
@@ -72,7 +73,8 @@ class Authentication {
    * @returns string jwt
    */
   public generateGatewayToken = (req: Request) => {
-    const privateKey = fs.readFileSync(path.join(__dirname,'private.key'));
+    const privateKeyPath = require.resolve("../storage/key-files/private.key");
+    const privateKey = fs.readFileSync(privateKeyPath, { encoding: "utf8", flag: "r" });
 
     return jwt.sign(
       {
@@ -96,7 +98,8 @@ class Authentication {
    * @returns any of next function or unauthorize message
    */
   public isAuth = (req: Request, res: Response, next: NextFunction) => {
-    const publicKey = fs.readFileSync(path.join(__dirname,'public.key'));
+    const publicKeyPath = require.resolve("../storage/key-files/public.key");
+    const publicKey = fs.readFileSync(publicKeyPath, { encoding: "utf8", flag: "r" });
     const authorization = req.headers.authorization;
     const token = authorization && authorization.slice(7, authorization.length); // Bearer XXXXXX
 
@@ -173,7 +176,8 @@ class Authentication {
   public verifyRefreshToken = (refreshToken: string) => {
     return new Promise(async (resolve, reject) => {
       try {
-        const publicKey = fs.readFileSync(path.join(__dirname,'public.key'));
+        const publicKeyPath = require.resolve("../storage/key-files/public.key");
+        const publicKey = fs.readFileSync(publicKeyPath, { encoding: "utf8", flag: "r" });
 
         // token provided?
         if(refreshToken){
@@ -226,7 +230,8 @@ class Authentication {
    * @returns any of next function or unauthorize message
    */
   public auth = (req: Request, res: Response, next: NextFunction) => {
-    const publicKey = fs.readFileSync(path.join(__dirname,'public.key'));
+    const publicKeyPath = require.resolve("../storage/key-files/public.key");
+    const publicKey = fs.readFileSync(publicKeyPath, { encoding: "utf8", flag: "r" });
     const authorization = req.headers.authorization;
 
     if (authorization) {

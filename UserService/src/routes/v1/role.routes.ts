@@ -1,6 +1,6 @@
 import express, { Application, NextFunction, Request, Response, Router } from 'express';
 import dotenv from "dotenv";
-import routesGrouping from '../../utils/routes.grouping';
+import routesGrouping from '../../utils/routes.grouping.utils';
 import roleController from '../../controllers/v1/role.controller';
 
 dotenv.config();

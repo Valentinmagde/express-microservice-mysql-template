@@ -2,11 +2,11 @@ import { Application, NextFunction, Request, Response } from 'express';
 import fs from 'fs';
 import jwt from 'jsonwebtoken';
 import path from 'path';
-import i18n from '../i18n';
-import customResponse from '../utils/custom.response';
-import errorNumbers from '../utils/error.numbers';
-import statusCode from '../utils/status.code';
-import redisDB from '../config/redis.db';
+import i18n from '../translations';
+import customResponse from '../utils/custom.response.utils';
+import errorNumbers from '../utils/error.numbers.utils';
+import statusCode from '../utils/status.code.utils';
+import redisDB from '../configs/redis.configs';
 import dotenv from "dotenv";
 
 dotenv.config();
@@ -43,7 +43,8 @@ class Authorization {
   public isAuth = (req: Request, res: Response, next: NextFunction) => {
     if (req.path.indexOf(process.env.SWAGGER_BASE_URL as string) > -1) return next();
     else {
-      const publicKey = fs.readFileSync(path.join(__dirname,'public.key'));
+      const publicKeyPath = require.resolve("../storage/key-files/public.key");
+      const publicKey = fs.readFileSync(publicKeyPath, { encoding: "utf8", flag: "r" });
       const authorization = req.headers.authorization;
       const token = authorization && authorization.slice(7, authorization.length); // Bearer XXXXXX
 

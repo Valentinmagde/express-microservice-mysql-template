@@ -1,13 +1,9 @@
-import authentication from '../../authentication.modules/authentication';
-import express, { Application, NextFunction, Request, Response, Router } from 'express';
+import authentication from '../../authentication.modules/middlewares/authentication.middlewares';
+import express, { Router } from 'express';
 import httpProxy from 'express-http-proxy';
 import dotenv from "dotenv";
-import routesGrouping from '../../utils/routes.grouping';
-import statusCode from '../../utils/status.code';
-import customResponse from '../../utils/custom.response';
-import errorNumbers from '../../utils/error.numbers';
-import i18n from '../../i18n';
-import redisDB from '../../utils/redis.db';
+import routesGrouping from '../../utils/routes.grouping.utils';
+import statusCode from '../../utils/status.code.utils';
 import authenticationController from '../../authentication.modules/controllers/authentication.controller';
 
 dotenv.config();
@@ -70,8 +66,8 @@ class AuthenticationRoutes {
              *     tags:
              *     - Authentication
              *     operationId: login
-             *     summary: Logs user into the system.
-             *     description: Logs user into the system.
+             *     summary: Logs user into the system (Get token).
+             *     description: Logs user into the system (Get token).
              *     requestBody:
              *       required: true
              *       content:
@@ -169,8 +165,8 @@ class AuthenticationRoutes {
              *     tags:
              *     - Authentication
              *     operationId: logout
-             *     summary: Logs out current logged in user session.
-             *     description: Logs out current logged in user session.
+             *     summary: Logs out current logged in user (Destroy token).
+             *     description: Logs out current logged in user (Destroy token).
              *     
              *     responses:
              *       200:
@@ -243,7 +239,7 @@ class AuthenticationRoutes {
              *              $ref: '#/responses/schemas/500'
              * 
              */
-            router.post('/logout', authentication.isAuth, authenticationController.logout);
+            router.get('/logout', authentication.isAuth, authenticationController.logout);
 
             /**
              * @swagger

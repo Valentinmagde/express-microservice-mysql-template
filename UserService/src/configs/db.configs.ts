@@ -1,9 +1,9 @@
 import { Application, NextFunction, Request, Response } from 'express';
 import mongoose, { Connection } from 'mongoose';
 import * as redis from 'redis';
-import customResponse from '../utils/custom.response';
-import errorNumbers from '../utils/error.numbers';
-import statusCode from '../utils/status.code';
+import customResponse from '../utils/custom.response.utils';
+import errorNumbers from '../utils/error.numbers.utils';
+import statusCode from '../utils/status.code.utils';
 
 /**
  * @author Valentin Magde <valentinmagde@gmail.com>

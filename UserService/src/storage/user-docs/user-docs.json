@@ -2,12 +2,12 @@
   "definition": {
     "openapi": "3.0.0",
     "info": {
-      "title": "Authentication service documentation",
-      "summary": "Authentication service documentation",
-      "baseUrl": "/v1/auth",
+      "title": "User service documentation",
+      "summary": "User service documentation",
+      "baseUrl": "/v1/users",
       "version": "1.0.0",
       "description":
-        "This is the documentation of the authentification microservice that gathers all the authentication-specific functionalities realized with Express and documented with Swagger.",
+        "This is the documentation of the user microservice that gathers all the user-specific functionalities realized with Express and documented with Swagger.",
       "termsOfService": "#",
       "license": {
         "name": "Apache 2.0",
@@ -19,14 +19,14 @@
         "email": "valentinmagde@gmail.com"
       }
     },
-    "basePath": "/v1/auth/docs",
+    "basePath": "/v1/docs",
     "externalDocs": {
       "description": "Find more info here",
       "url": "#"
     },
     "servers": [
       {
-        "url": "http://localhost:1000/",
+        "url": "http://localhost:1000",
         "description": "Development server",
         "//variables": {
           "username": {
@@ -57,7 +57,9 @@
     }
   },
   "apis": [
-    "./src/routes/v1/authentication.routes.ts",
-    "./src/authentication.modules/swagger/responses/*.yaml"
+    "./src/routes/*/*.ts",
+    "./src/models/*.ts",
+    "./src/storage/user-docs/components/*.yaml",
+    "./src/storage/user-docs/responses/*.yaml"
   ]
 }

@@ -1,6 +1,6 @@
 import express, { Router } from 'express';
 import dotenv from "dotenv";
-import routesGrouping from '../../utils/routes.grouping';
+import routesGrouping from '../../utils/routes.grouping.utils';
 import userController from '../../controllers/v1/user.controller';
 
 dotenv.config();
@@ -157,7 +157,7 @@ class UserRoutes {
                 router.post('/', userController.register);
         
                 /**
-                 * @swagger
+                 * // @swagger
                  * /v1/users/login:
                  *   post:
                  *     tags:
@@ -244,7 +244,7 @@ class UserRoutes {
                 router.post('/login', userController.login);
         
                 /**
-                 * @swagger
+                 * // @swagger
                  * /v1/users/logout:
                  *   get:
                  *     security:

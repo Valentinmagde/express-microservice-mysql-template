@@ -1,11 +1,11 @@
 /* eslint-disable no-console */
 import express, { NextFunction, Request, Response } from 'express';
 import http from 'http';
-import customResponse from './src/utils/custom.response';
-import AppConfig from './src/config/app.config';
+import customResponse from './src/utils/custom.response.utils';
+import AppConfig from './src/configs/app.configs';
 import Routes from './src/routes/routes';
-import statusCode from './src/utils/status.code';
-import errorNumbers from './src/utils/error.numbers';
+import statusCode from './src/utils/status.code.utils';
+import errorNumbers from './src/utils/error.numbers.utils';
 
 /**
  * @author Valentin Magde <valentinmagde@gmail.com>
@@ -53,28 +53,6 @@ class Server {
   public includeRoutes() {
     new Routes(this.app).routesConfig();
   }
-
-  /** 
-   * Connect to database
-   * 
-   * @author Valentin Magde <valentinmagde@gmail.com>
-   * @since 2023-23-03
-   * 
-   * @returns void
-   */
-  // public connectToDB() {
-  //   mongoDB.onConnect(req, res, next)
-  //   .then(() => console.log('Successfully connect to the database'))
-  //   .catch((error) => {
-  //     const response = {
-  //       status: error?.status || statusCode.HTTP_INTERNAL_SERVER_ERROR,
-  //       errNo: errorNumbers.generic_error,
-  //       errMsg: error?.message || error,
-  //     }
-      
-  //     return customResponse.error(response, res);
-  //   });
-  // }
 
   /** 
    * Start the server
