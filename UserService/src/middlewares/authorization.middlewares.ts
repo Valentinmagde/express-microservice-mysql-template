@@ -1,12 +1,11 @@
 import { Application, NextFunction, Request, Response } from 'express';
 import fs from 'fs';
 import jwt from 'jsonwebtoken';
-import path from 'path';
-import i18n from '../translations';
+import i18n from '../configs/translations';
 import customResponse from '../utils/custom.response.utils';
 import errorNumbers from '../utils/error.numbers.utils';
 import statusCode from '../utils/status.code.utils';
-import redisDB from '../configs/redis.configs';
+import cacheConfig from '../configs/cache.config';
 import dotenv from "dotenv";
 
 dotenv.config();
@@ -43,14 +42,14 @@ class Authorization {
   public isAuth = (req: Request, res: Response, next: NextFunction) => {
     if (req.path.indexOf(process.env.SWAGGER_BASE_URL as string) > -1) return next();
     else {
-      const publicKeyPath = require.resolve("../storage/key-files/public.key");
+      const publicKeyPath = require.resolve("../configs/keys/public.key");
       const publicKey = fs.readFileSync(publicKeyPath, { encoding: "utf8", flag: "r" });
       const authorization = req.headers.authorization;
       const token = authorization && authorization.slice(7, authorization.length); // Bearer XXXXXX
 
       // token provided?
       if(token) {
-        redisDB.onConnect()
+        cacheConfig.connectToRedis()
         .then(async(redisClient) => {
           const inDenyList = await redisClient.get(`bl_${token}`);
 

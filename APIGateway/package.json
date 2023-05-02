@@ -2,13 +2,13 @@
   "name": "apigateway",
   "version": "1.0.0",
   "description": "Demo of API Gate for Micro Services",
-  "main": "index.ts",
+  "main": "./scr/app.ts",
   "//type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon --files index.ts",
-    "start-dev": "NODE_ENV=development nodemon index.ts",
-    "start-prod": "NODE_ENV=production nodemon index.ts",
+    "start": "nodemon --watch src/** --ext ts,json --ignore src/**/*.spec.ts --exec ts-node --files src/app.ts",
+    "start-dev": "NODE_ENV=development nodemon ./scr/app.ts",
+    "start-prod": "NODE_ENV=production nodemon ./scr/app.ts",
     "lint": "eslint"
   },
   "author": "Shashank Tiwari",

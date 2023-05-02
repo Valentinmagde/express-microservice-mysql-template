@@ -1,12 +1,15 @@
-import userController from '../controllers/v1/user.controller';
-import { Application } from 'express';
-import userRoutes from './v1/user.routes';
-import swaggerOptions from '../storage/user-docs/user-docs.json';
+import { Application, Request, Response } from 'express';
+import userRoutes from '../modules/user/user.routes';
+import swaggerOptions from '../configs/swagger/user-docs/user-docs.json';
 import swaggerJSDoc from "swagger-jsdoc";
 import swaggerUi from "swagger-ui-express";
-import roleRoutes from './v1/role.routes';
+import roleRoutes from '../modules/role/role.routes';
 import routesGrouping from '../utils/routes.grouping.utils';
-import genderRoutes from './v1/gender.routes';
+import genderRoutes from '../modules/gender/gender.routes';
+import statusCode from '../utils/status.code.utils';
+import errorNumbers from '../utils/error.numbers.utils';
+import customResponse from '../utils/custom.response.utils';
+import i18n from '../configs/translations';
 
 /**
  * @author Valentin Magde <valentinmagde@gmail.com>
@@ -60,7 +63,15 @@ class Routes {
     }));
 
     // error handler for not found router
-    this.app.get('*', userController.routeNotFoundHandler);
+    this.app.get('*', (req: Request, res: Response) => {
+      const response = {
+        status: statusCode.HTTP_NOT_FOUND,
+        errNo: errorNumbers.resource_not_found,
+        errMsg: i18n.en.others.ROUTE_NOT_FOUND,
+      }
+  
+      return customResponse.error(response, res);
+    });
   }
 
   /**
