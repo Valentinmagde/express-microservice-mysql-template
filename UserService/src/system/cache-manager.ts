@@ -1,15 +1,15 @@
 import { RedisClientType, createClient } from 'redis';
-import i18n from '../../assets/translations';
-import config from '../../configs/index.config';
+import i18n from '../assets/translations';
+import config from '../config/index.config';
 
 /**
  * @author Valentin Magde <valentinmagde@gmail.com>
  * @since 2023-04-23
  * 
- * Class CacheConfig
+ * Class CacheManager
  * 
  */
-class CacheConfig {
+class CacheManager {
     
     /**
      * Connect to redis storage
@@ -39,5 +39,5 @@ class CacheConfig {
     }
 }
 
-const cacheConfig = new CacheConfig();
-export default cacheConfig;
+const cacheManager = new CacheManager();
+export default cacheManager;

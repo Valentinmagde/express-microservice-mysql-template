@@ -22,9 +22,24 @@ const dev = {
 
     // Redis db
     redis_db_port: process.env.REDIS_DB_PORT || 6379,
-    redis_db_host: process.env.REDIS_DB_URL || '127.0.0.1',
+    redis_db_host: process.env.REDIS_DB_HOST || '127.0.0.1',
     redis_db_user: process.env.REDIS_DB_USER || 'valentin',
-    redis_db_password: process.env.REDIS_DB_PASSWORD || 'phpuser',
+    redis_db_password: process.env.REDIS_DB_PASSWORD || 'password',
+    redis_db_name: process.env.REDIS_DB_NAME || 'redis',
+
+    // Mongo db
+    mongo_db_host: process.env.MONGODB_DB_HOST || '127.0.0.1',
+    mongo_db_port: process.env.MONGODB_DB_PORT || '27017',
+    mongo_db_user: process.env.MONGODB_DB_USER || 'valentin',
+    mongo_db_password: process.env.MONGODB_DB_PASSWORD || 'password',
+    mongo_db_name: process.env.MONGODB_DB_NAME || 'authentication',
+
+    // Swagger documentation
+    swagger_base_url: process.env.SWAGGER_BASE_URL || '/v1/docs',
+    swagger_auth_base_url: process.env.SWAGGER_AUTH_BASE_URL || '/v1/auth/docs',
+
+    // i18n
+    i18n_locale: 'en',
 };
 
 export default dev;

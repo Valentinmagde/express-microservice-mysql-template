@@ -1,6 +1,6 @@
 import { Request } from 'express';
 import jwt from 'jsonwebtoken';
-import config from '../../configs/index.config';
+import config from '../../config/index.config';
 
 /**
  * @author Valentin Magde <valentinmagde@gmail.com>

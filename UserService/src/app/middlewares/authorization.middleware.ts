@@ -4,8 +4,8 @@ import i18n from '../../assets/translations';
 import customResponse from '../utils/custom-response.util';
 import errorNumbers from '../utils/error-numbers.util';
 import statusCode from '../utils/status-code.util';
-import cacheConfig from '../utils/cache-config.util';
-import config from '../../configs/index.config';
+import cacheManager from '../../system/cache-manager';
+import config from '../../config/index.config';
 
 /**
  * @author Valentin Magde <valentinmagde@gmail.com>
@@ -45,9 +45,9 @@ class Authorization {
 
       // token provided?
       if(token) {
-        cacheConfig.connectToRedis()
+        cacheManager.connectToRedis()
         .then(async(redisClient) => {
-          const inDenyList = await redisClient.get(`bl_${token}`);
+          const inDenyList: any = await redisClient.get(`bl_${token}`);
 
           // token in deny list?
           if (inDenyList) {

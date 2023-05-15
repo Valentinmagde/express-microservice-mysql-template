@@ -1,7 +1,7 @@
 import { Request } from 'express';
 import authentication from '../../middlewares/authentication.middleware';
 import authorization from '../../middlewares/authorization.middleware';
-import cacheConfig from '../../utils/cache-config.util';
+import cacheManager from '../../../system/cache-manager';
 
 /**
  * @author Valentin Magde <valentinmagde@gmail.com>
@@ -112,7 +112,7 @@ class AuthenticationService {
     return new Promise(async (resolve, reject) => {
       if(token) {
         // Connect to redis database
-        cacheConfig.connectToRedis()
+        cacheManager.connectToRedis()
         .then(async(redisClient) => {
             // JWT payload
             const jwtPayload = this.parseJwt(token);

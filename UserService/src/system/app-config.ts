@@ -2,10 +2,10 @@
 /* eslint-disable no-console */
 import bodyParser from 'body-parser';
 import cors from 'cors';
-import ExpressConfigModule from './express-config.util';
+import ExpressConfigModule from './express-config';
 import { Application } from 'express';
-import Authorization from '../middlewares/authorization.middleware';
-import DBManager from './db-config.util';
+import Authorization from '../app/middlewares/authorization.middleware';
+import DBManager from './db-manager';
 
 /**
  * @author Valentin Magde <valentinmagde@gmail.com>

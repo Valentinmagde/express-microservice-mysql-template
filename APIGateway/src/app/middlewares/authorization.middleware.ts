@@ -4,8 +4,8 @@ import errorNumbers from '../utils/error-numbers.util';
 import statusCode from '../utils/status-code.util';
 import customResponse from '../utils/custom-response.util';
 import i18n from '../../assets/translations';
-import cacheConfig from '../utils/cache-config.util';
-import config from '../../configs/index.config';
+import cacheConfig from '../../system/cache-manager';
+import config from '../../config/index.config';
 
 /**
  * @author Valentin Magde <valentinmagde@gmail.com>

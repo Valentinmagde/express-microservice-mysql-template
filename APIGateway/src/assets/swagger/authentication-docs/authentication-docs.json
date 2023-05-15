@@ -57,7 +57,7 @@
     }
   },
   "apis": [
-    "./src/app/routes/authentication.route.ts",
+    "./src/app/modules/authentication/authentication.route.ts",
     "./src/assets/swagger/authentication-docs/responses/*.yaml"
   ]
 }
