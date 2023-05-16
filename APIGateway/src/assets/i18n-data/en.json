@@ -1,0 +1,38 @@
+{
+	"login": {
+		"PASSWORD_NOT_FOUND": "Password can't be empty.",
+		"USERNAME_NOT_FOUND": "User name can't be empty",
+		"USERLASTNAME_NOT_FOUND": "User last name can't be empty.",
+		"USERID_NOT_FOUND": "User Id can't be empty.",
+		"EMAIL_NOT_FOUND": "Email can't be empty.",
+		"GENDER_NOT_FOUND": "Gender can't be empty.",
+		"USERNAME_DETAIL_FAILED": "User details failed",
+		"SERVER_ERROR_MESSAGE": "Something bad happend. It's not you, it's me.",
+		"USER_REGISTRATION_OK": "User registration successful.",
+		"USER_REGISTRATION_FAILED": "User registration unsuccessful.",
+		"USER_LOGIN_OK": "User logged in.",
+		"USER_LOGIN_FAILED": "Incorrect username or password."
+	},
+	"unauthorize": {
+		"NO_TOKEN": "No Token",
+		"INVALID_TOKEN": "Invalid Token",
+		"INVALID_ADMIN_TOKEN": "Invalid Admin Token",
+		"INVALID_SELLER_TOKEN": "Invalid Seller Token",
+		"INVALID_ADMIN_OR_SELLER": "Invalid Admin or Seller Token",
+		"INVALID_REFRESH_TOKEN": "Invalid refresh token",
+		"NO_REFRESH_TOKEN": "No refresh token"
+	},
+	"profile": {
+		"USER_NOT_FOUND": "User does not exits."
+	},
+	"others": {
+		"ROUTE_NOT_FOUND": "Route not found"
+	},
+	"cache": {
+		"redis": {
+			"REDIS_CONNECTION_TO": "Redis connection to",
+			"FAILD": "failed"
+		}
+	},
+	"login.PASSWORD_NOT_FOUND": "login.PASSWORD_NOT_FOUND"
+}

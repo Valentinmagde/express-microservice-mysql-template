@@ -1,6 +1,6 @@
-import { NextFunction, Request, Response } from 'express';
+import { Request, Response } from 'express';
 import userService from "./user.service";
-import i18n from '../../../assets/translations';
+import i18n from '../../../system/i18n-config';
 import customResponse from '../../utils/custom-response.util';
 import statusCode from '../../utils/status-code.util';
 import errorNumbers from '../../utils/error-numbers.util';
@@ -14,13 +14,6 @@ import helpers from '../../utils/helpers.util';
  * Class UserController
  */
 class UserController {
-  
-  /**
-   * Create a new UserController instance.
-   *
-   * @return void
-   */
-  public constructor() {}
 
   /**
    * Get user details handler
@@ -33,7 +26,7 @@ class UserController {
    * 
    * @return json of user detail 
    */
-  public async profile(req: Request, res: Response, next: NextFunction) 
+  public async profile(req: Request, res: Response) 
   {
     const userid = req.params.userId;
     if (helpers.checkObjectId(userid)) {
@@ -43,7 +36,7 @@ class UserController {
           const response = {
             status: statusCode.HTTP_NOT_FOUND,
             errNo: errorNumbers.resource_not_found,
-            errMsg: i18n.en.user.profile.USER_NOT_FOUND,
+            errMsg: i18n.__("user.profile.USER_NOT_FOUND"),
           }
 
           return customResponse.error(response, res);
@@ -71,7 +64,7 @@ class UserController {
       const response = {
         status: statusCode.HTTP_BAD_REQUEST,
         errNo: errorNumbers.ivalid_resource,
-        errMsg: i18n.en.user.others.INVALID_USER_ID,
+        errMsg: i18n.__("user.others.INVALID_USER_ID"),
       }
 
       return customResponse.error(response, res);
@@ -98,7 +91,7 @@ class UserController {
       const response = {
         status: statusCode.HTTP_BAD_REQUEST,
         errNo: errorNumbers.ivalid_resource,
-        errMsg: i18n.en.user.others.INVALID_USER_ID,
+        errMsg: i18n.__("user.others.INVALID_USER_ID"),
       }
 
       return customResponse.error(response, res);
@@ -107,7 +100,7 @@ class UserController {
       const response = {
         status: statusCode.HTTP_BAD_REQUEST,
         errNo: errorNumbers.ivalid_resource,
-        errMsg: i18n.en.role.others.INVALID_ROLE_ID,
+        errMsg: i18n.__("role.others.INVALID_ROLE_ID"),
       }
 
       return customResponse.error(response, res);
@@ -119,7 +112,7 @@ class UserController {
           const response = {
             status: statusCode.HTTP_NOT_FOUND,
             errNo: errorNumbers.resource_not_found,
-            errMsg: i18n.en.role.show.ROLE_NOT_FOUND,
+            errMsg: i18n.__("role.show.ROLE_NOT_FOUND"),
           }
 
           return customResponse.error(response, res);
@@ -128,7 +121,7 @@ class UserController {
           const response = {
             status: statusCode.HTTP_NOT_FOUND,
             errNo: errorNumbers.resource_not_found,
-            errMsg: i18n.en.user.profile.USER_NOT_FOUND,
+            errMsg: i18n.__("user.profile.USER_NOT_FOUND"),
           }
 
           return customResponse.error(response, res);
@@ -137,7 +130,7 @@ class UserController {
           const response = {
             status: statusCode.HTTP_BAD_REQUEST,
             errNo: errorNumbers.resource_exist,
-            errMsg: i18n.en.user.assign.ROLE_ALREADY_ASSIGNED,
+            errMsg: i18n.__("user.assign.ROLE_ALREADY_ASSIGNED"),
           }
 
           return customResponse.error(response, res);
@@ -183,7 +176,7 @@ class UserController {
       const response = {
         status: statusCode.HTTP_BAD_REQUEST,
         errNo: errorNumbers.ivalid_resource,
-        errMsg: i18n.en.user.others.INVALID_USER_ID,
+        errMsg: i18n.__("user.others.INVALID_USER_ID"),
       }
 
       return customResponse.error(response, res);
@@ -192,7 +185,7 @@ class UserController {
       const response = {
         status: statusCode.HTTP_BAD_REQUEST,
         errNo: errorNumbers.ivalid_resource,
-        errMsg: i18n.en.role.others.INVALID_ROLE_ID,
+        errMsg: i18n.__("role.others.INVALID_ROLE_ID"),
       }
 
       return customResponse.error(response, res);
@@ -204,7 +197,7 @@ class UserController {
           const response = {
             status: statusCode.HTTP_NOT_FOUND,
             errNo: errorNumbers.resource_not_found,
-            errMsg: i18n.en.role.show.ROLE_NOT_FOUND,
+            errMsg: i18n.__("role.show.ROLE_NOT_FOUND"),
           }
 
           return customResponse.error(response, res);
@@ -213,7 +206,7 @@ class UserController {
           const response = {
             status: statusCode.HTTP_NOT_FOUND,
             errNo: errorNumbers.resource_not_found,
-            errMsg: i18n.en.user.profile.USER_NOT_FOUND,
+            errMsg: i18n.__("user.profile.USER_NOT_FOUND"),
           }
 
           return customResponse.error(response, res);
@@ -251,14 +244,13 @@ class UserController {
    * @return json of Response
    */
   public async login(req: Request, res: Response) {
-    
     const validationRule = {
       "email": "required|string|email",
       "password": "required|string|min:6"
     };
 
     await validator
-    .validator(req.body, validationRule,{}, (err: Errors, status: Boolean) => {
+    .validator(req.body, validationRule,{}, (err: Errors, status: boolean) => {
       if (!status) {
         const response = {
           status: statusCode.HTTP_PRECONDITION_FAILED,
@@ -275,7 +267,7 @@ class UserController {
             const response = {
               status: statusCode.HTTP_BAD_REQUEST,
               errNo: errorNumbers.bad_login_credentials,
-              errMsg: i18n.en.user.login.USER_LOGIN_FAILED,
+              errMsg: i18n.__("user.login.USER_LOGIN_FAILED"),
             }
     
             return customResponse.error(response, res);
@@ -329,7 +321,7 @@ class UserController {
         const response = {
           status: statusCode.HTTP_UNAUTHORIZED,
           errNo: errorNumbers.token_not_found,
-          errMsg: i18n.en.user.unauthorize.NO_TOKEN,
+          errMsg: i18n.__("user.unauthorize.NO_TOKEN"),
         }
 
         return customResponse.error(response, res);
@@ -376,7 +368,7 @@ class UserController {
     };
 
     await validator
-    .validator(req.body, validationRule,{}, (err: Errors, status: Boolean) => {
+    .validator(req.body, validationRule,{}, (err: Errors, status: boolean) => {
       if (!status) {
         const response = {
           status: statusCode.HTTP_PRECONDITION_FAILED,
@@ -437,7 +429,7 @@ class UserController {
     };
 
     await validator
-    .validator(req.body, validationRule,{}, (err: Errors, status: Boolean) => {
+    .validator(req.body, validationRule,{}, (err: Errors, status: boolean) => {
       if (!status) {
         const response = {
           status: statusCode.HTTP_PRECONDITION_FAILED,
@@ -457,7 +449,7 @@ class UserController {
               const response = {
                 status: statusCode.HTTP_NOT_FOUND,
                 errNo: errorNumbers.resource_not_found,
-                errMsg: i18n.en.user.update.USER_NOT_FOUND,
+                errMsg: i18n.__("user.update.USER_NOT_FOUND"),
               }
       
               return customResponse.error(response, res);
@@ -485,7 +477,7 @@ class UserController {
           const response = {
             status: statusCode.HTTP_BAD_REQUEST,
             errNo: errorNumbers.ivalid_resource,
-            errMsg: i18n.en.user.others.INVALID_USER_ID,
+            errMsg: i18n.__("user.others.INVALID_USER_ID"),
           }
   
           return customResponse.error(response, res);
@@ -525,7 +517,7 @@ class UserController {
           const response = {
             status: statusCode.HTTP_NOT_FOUND,
             errNo: errorNumbers.resource_not_found,
-            errMsg: i18n.en.user.profile.USER_NOT_FOUND,
+            errMsg: i18n.__("user.profile.USER_NOT_FOUND"),
           }
 
           return customResponse.error(response, res);
@@ -534,7 +526,7 @@ class UserController {
           const response = {
             status: statusCode.HTTP_BAD_REQUEST,
             errNo: errorNumbers.required_permission,
-            errMsg: i18n.en.user.delete.CANNOT_DELETE_ADMIN,
+            errMsg: i18n.__("user.delete.CANNOT_DELETE_ADMIN"),
           }
 
           return customResponse.error(response, res);
@@ -562,7 +554,7 @@ class UserController {
       const response = {
         status: statusCode.HTTP_BAD_REQUEST,
         errNo: errorNumbers.ivalid_resource,
-        errMsg: i18n.en.user.others.INVALID_USER_ID,
+        errMsg: i18n.__("user.others.INVALID_USER_ID"),
       }
 
       return customResponse.error(response, res);

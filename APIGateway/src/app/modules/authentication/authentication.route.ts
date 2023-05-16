@@ -9,15 +9,14 @@ import authorization from "../../middlewares/authorization.middleware";
 
 dotenv.config();
 
-const loginUrl = "/v1/users/login";
-
 const userServiceProxy = httpProxy(process.env.USER_SERVICE_URL as string, {
   userResDecorator: function (proxyRes, proxyResData, userReq, userRes) {
+    console.log(userReq);
     const data = JSON.parse(proxyResData.toString("utf8"));
 
     // Add the access token and refresh token information
     // in the response when it is the login
-    if (userReq.url == loginUrl && userRes.statusCode == statusCode.HTTP_OK) {
+    if (userReq.url.indexOf('/login') > -1 && userRes.statusCode == statusCode.HTTP_OK) {
       data.data = authentication.generateToken(data.data);
     }
 
@@ -40,7 +39,7 @@ class AuthenticationRoutes {
    * @return void
    */
   constructor() {
-    this.router = express.Router();
+    this.router = express.Router({mergeParams: true});
   }
 
   // ---------------------------------------------------------------------------------------
@@ -145,7 +144,9 @@ class AuthenticationRoutes {
           req.headers.authorization = `Bearer ${bearerToken}`;
 
           // Update url with original url which contain all path
-          req.url = loginUrl;
+          const param : any = req.params;
+          const url = `/v1/${param.lang}/users/login`;
+          req.url = url;
 
           userServiceProxy(req, res, next);
         });

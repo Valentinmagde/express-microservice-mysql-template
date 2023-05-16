@@ -5,6 +5,7 @@ import jwt from 'jsonwebtoken';
 import fs from 'fs';
 import path from 'path';
 import Role from '../role/role.model';
+import UserType from './user.type';
 
 /**
  * @author Valentin Magde <valentinmagde@gmail.com>
@@ -13,13 +14,6 @@ import Role from '../role/role.model';
  * Class UserService
  */
 class UserService {
-  
-  /**
-   * Create a new UserService instance.
-   *
-   * @return void
-   */
-  constructor() {}
 
   /**
    * Login
@@ -31,9 +25,9 @@ class UserService {
    * @returns any user
    */
   public async login(data: any) {
-    return new Promise(async (resolve, reject) => {
+    return new Promise(async(resolve, reject) => {
       try {
-        const user = await User
+        const user: any = await User
         .findOne({email: data.email})
         .populate('gender')
         .populate('roles');
@@ -70,7 +64,7 @@ class UserService {
    * @returns any user
    */
   public async logout(req: Request) {
-    return new Promise(async (resolve, reject) => {
+    return new Promise(async(resolve, reject) => {
       try {
         const authorization = req.headers.authorization;
         
@@ -113,7 +107,7 @@ class UserService {
    * @returns user
    */
   public profile(userId: string) {
-    return new Promise(async (resolve, reject) => {
+    return new Promise(async(resolve, reject) => {
       try {
         const user = await User.findById(userId);
         
@@ -135,22 +129,22 @@ class UserService {
    * @returns user
    */
   public assign(userId: string, roleId: string) {
-    return new Promise(async (resolve, reject) => {
+    return new Promise((resolve, reject) => {
       try {
-        const user = await User.findById(userId);
+        const user: any = User.findById(userId);
 
         if(user) {
-          const role = await Role.findById(roleId);
+          const role: any = Role.findById(roleId);
           
           if(role){
             // Check if the user doesn't already have this role
-            const existRole = user.roles.filter(x => x._id.toString() == role._id.toString());
+            const existRole: any = user.roles.filter((x: any) => x._id.toString() == role._id.toString());
             
             if(existRole.length > 0) resolve('ALREADY_ASSIGNED');
             else{
               user.roles = [...user.roles, role._id];
 
-              await user.save();
+              user.save();
             }
             
             resolve(user);
@@ -179,18 +173,18 @@ class UserService {
    * @returns user
    */
   public unassign(userId: string, roleId: string) {
-    return new Promise(async (resolve, reject) => {
+    return new Promise((resolve, reject) => {
       try {
-        const user = await User.findById(userId);
+        const user: any = User.findById(userId);
 
         if(user) {
-          const role = await Role.findById(roleId);
+          const role: any = Role.findById(roleId);
           
           if(role){
             if(user.roles.length > 0){
-              user.roles = user.roles.filter(x => x._id.toString() != role._id.toString());
+              user.roles = user.roles.filter((x: any) => x._id.toString() != role._id.toString());
 
-              await user.save();
+              user.save();
             }
             
             resolve(user);
@@ -218,9 +212,9 @@ class UserService {
    * @returns any user
    */
   public async register(data: any) {
-    return new Promise(async (resolve, reject) => {
+    return new Promise((resolve, reject) => {
       try {
-        const user = new User({
+        const user: any = new User({
           username: data.username,
           email: data.email,
           lastname: data.lastname,
@@ -228,7 +222,7 @@ class UserService {
           password: passwordHash.createHash(data.password),
         });
     
-        const createdUser = await user.save();
+        const createdUser = user.save();
 
         resolve(createdUser);
       } catch (error) {
@@ -248,15 +242,15 @@ class UserService {
    * @returns any user
    */
   public async update(userId: string, data: any) {
-    return new Promise(async (resolve, reject) => {
+    return new Promise((resolve, reject) => {
       try {
-        const user = await User.findById(userId);
+        const user: any = User.findById(userId);
         if (user) {
           user.firstname = data.firstname || user.firstname;
           user.lastname = data.lastname;
           user.gender = data.gender;
           
-          const updatedUser = await user.save();
+          const updatedUser = user.save();
 
           resolve(updatedUser);
         } else {
@@ -278,9 +272,9 @@ class UserService {
    * @returns User user
    */
   public delete(userId: string) {
-    return new Promise(async (resolve, reject) => {
+    return new Promise((resolve, reject) => {
       try {
-        const user = await User.findById(userId).populate('roles');
+        const user: any = User.findById(userId).populate('roles');
 
         if(user) {
           let roles: Array<any> = user?.roles as any
@@ -288,7 +282,7 @@ class UserService {
           
           if(roles.length) resolve('isAdmin');
           else{
-            const deleteUser = await user.deleteOne();
+            const deleteUser = user.deleteOne();
 
             resolve(deleteUser);
           }

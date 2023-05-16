@@ -1,6 +1,6 @@
 import { Application, NextFunction, Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
-import i18n from '../../assets/translations';
+import i18n from '../../system/i18n-config';
 import customResponse from '../utils/custom-response.util';
 import errorNumbers from '../utils/error-numbers.util';
 import statusCode from '../utils/status-code.util';
@@ -54,7 +54,7 @@ class Authorization {
             const response = {
               status: statusCode.HTTP_UNAUTHORIZED,
               errNo: errorNumbers.invalid_token,
-              errMsg: i18n.en.user.unauthorize.IVALID_TOKEN,
+              errMsg: i18n.__("user.unauthorize.IVALID_TOKEN"),
             }
       
             return customResponse.error(response, res);
@@ -69,7 +69,7 @@ class Authorization {
                   const response = {
                     status: statusCode.HTTP_UNAUTHORIZED,
                     errNo: errorNumbers.invalid_token,
-                    errMsg: i18n.en.user.unauthorize.IVALID_TOKEN,
+                    errMsg: i18n.__("user.unauthorize.IVALID_TOKEN"),
                   }
 
                   return customResponse.error(response, res);
@@ -95,7 +95,7 @@ class Authorization {
         const response = {
           status: statusCode.HTTP_UNAUTHORIZED,
           errNo: errorNumbers.token_not_found,
-          errMsg: i18n.en.user.unauthorize.NO_TOKEN,
+          errMsg: i18n.__("user.unauthorize.NO_TOKEN"),
         }
 
         return customResponse.error(response, res);
@@ -153,7 +153,7 @@ class Authorization {
       const response = {
         status: statusCode.HTTP_UNAUTHORIZED,
         errNo: errorNumbers.validator,
-        errMsg: i18n.en.user.unauthorize.INVALID_ADMIN_TOKEN,
+        errMsg: i18n.__("user.unauthorize.INVALID_ADMIN_TOKEN"),
       }
 
       return customResponse.error(response, res);
@@ -178,7 +178,7 @@ class Authorization {
       const response = {
         status: statusCode.HTTP_UNAUTHORIZED,
         errNo: errorNumbers.validator,
-        errMsg: i18n.en.user.unauthorize.INVALID_SELLER_TOKEN,
+        errMsg: i18n.__("user.unauthorize.INVALID_SELLER_TOKEN"),
       }
 
       return customResponse.error(response, res);
@@ -204,7 +204,7 @@ class Authorization {
       const response = {
         status: statusCode.HTTP_UNAUTHORIZED,
         errNo: errorNumbers.validator,
-        errMsg: i18n.en.user.unauthorize.INVALID_ADMIN_OR_SELLER
+        errMsg: i18n.__("user.unauthorize.INVALID_ADMIN_OR_SELLER")
       }
 
       return customResponse.error(response, res);
@@ -216,9 +216,10 @@ class Authorization {
    * 
    * @returns void
    */
-  public setJWTConfig() {
-    this.app?.use(this.isAuth); // General middleware
-  }
+  // public setJWTConfig() {
+  //   this.app?.use(this.isAuth); // General middleware
+  // }
 }
 
-export default Authorization;
+const authorization = new Authorization();
+export default authorization;

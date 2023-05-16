@@ -23,7 +23,6 @@ class SetLocale {
   public setLocale(req: Request, res: Response, next: NextFunction): void {
     const swagger_base_url: string = config.swagger_base_url;
     const swagger_auth_base_url: string = config.swagger_auth_base_url;
-
     // Except documentation route for localization
     if (
       req.originalUrl.indexOf(swagger_base_url) > -1 ||

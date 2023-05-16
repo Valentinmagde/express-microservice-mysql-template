@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import i18n from '../../../assets/translations';
+import i18n from '../../../system/i18n-config';
 import customResponse from '../../utils/custom-response.util';
 import statusCode from '../../utils/status-code.util';
 import errorNumbers from '../../utils/error-numbers.util';
@@ -14,13 +14,6 @@ import roleService from './role.service';
  * Class RoleController
  */
 class RoleController {
-  
-  /**
-   * Create a new RoleController instance.
-   *
-   * @return void
-   */
-  public constructor() {}
 
   /**
    * Get role details handler
@@ -44,7 +37,7 @@ class RoleController {
           const response = {
             status: statusCode.HTTP_NOT_FOUND,
             errNo: errorNumbers.resource_not_found,
-            errMsg: i18n.en.role.show.ROLE_NOT_FOUND
+            errMsg: i18n.__("role.show.ROLE_NOT_FOUND")
           }
 
           return customResponse.error(response, res);
@@ -72,7 +65,7 @@ class RoleController {
       const response = {
         status: statusCode.HTTP_BAD_REQUEST,
         errNo: errorNumbers.ivalid_resource,
-        errMsg: i18n.en.role.others.INVALID_ROLE_ID,
+        errMsg: i18n.__("role.others.INVALID_ROLE_ID"),
       }
 
       return customResponse.error(response, res);
@@ -98,7 +91,7 @@ class RoleController {
         const response = {
           status: statusCode.HTTP_NOT_FOUND,
           errNo: errorNumbers.resource_not_found,
-          errMsg: i18n.en.role.show.ROLE_NOT_FOUND
+          errMsg: i18n.__("role.show.ROLE_NOT_FOUND")
         }
 
         return customResponse.error(response, res);
@@ -138,7 +131,7 @@ class RoleController {
     const validationRule = { "name": "required|string" };
 
     await validator
-    .validator(req.body, validationRule,{}, (err: Errors, status: Boolean) => {
+    .validator(req.body, validationRule,{}, (err: Errors, status: boolean) => {
       if (!status) {
         const response = {
           status: statusCode.HTTP_PRECONDITION_FAILED,
@@ -196,7 +189,7 @@ class RoleController {
     const validationRule = { "name": "required|string" };
 
     await validator
-    .validator(req.body, validationRule,{}, (err: Errors, status: Boolean) => {
+    .validator(req.body, validationRule,{}, (err: Errors, status: boolean) => {
       if (!status) {
         const response = {
           status: statusCode.HTTP_PRECONDITION_FAILED,
@@ -216,7 +209,7 @@ class RoleController {
               const response = {
                 status: statusCode.HTTP_NOT_FOUND,
                 errNo: errorNumbers.resource_not_found,
-                errMsg: i18n.en.role.show.ROLE_NOT_FOUND,
+                errMsg: i18n.__("role.show.ROLE_NOT_FOUND"),
               }
       
               return customResponse.error(response, res);
@@ -244,7 +237,7 @@ class RoleController {
           const response = {
             status: statusCode.HTTP_BAD_REQUEST,
             errNo: errorNumbers.ivalid_resource,
-            errMsg: i18n.en.role.others.INVALID_ROLE_ID,
+            errMsg: i18n.__("role.others.INVALID_ROLE_ID"),
           }
   
           return customResponse.error(response, res);
@@ -284,7 +277,7 @@ class RoleController {
           const response = {
             status: statusCode.HTTP_NOT_FOUND,
             errNo: errorNumbers.resource_not_found,
-            errMsg: i18n.en.role.show.ROLE_NOT_FOUND,
+            errMsg: i18n.__("role.show.ROLE_NOT_FOUND"),
           }
 
           return customResponse.error(response, res);
@@ -312,7 +305,7 @@ class RoleController {
       const response = {
         status: statusCode.HTTP_BAD_REQUEST,
         errNo: errorNumbers.ivalid_resource,
-        errMsg: i18n.en.role.others.INVALID_ROLE_ID,
+        errMsg: i18n.__("role.others.INVALID_ROLE_ID"),
       }
 
       return customResponse.error(response, res);

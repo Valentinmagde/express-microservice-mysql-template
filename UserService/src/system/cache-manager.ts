@@ -1,5 +1,5 @@
 import { RedisClientType, createClient } from 'redis';
-import i18n from '../assets/translations';
+import i18n from './i18n-config';
 import config from '../config/index.config';
 
 /**
@@ -26,9 +26,9 @@ class CacheManager {
                 url: `redis://${config.redis_db_host}:${config.redis_db_port}`
             });
 
-            client.on('error', (err: any) => {
+            client.on('error', () => {
                 reject(
-                    `${i18n.en.config.cache.redis.REDIS_CONNECTION_TO} ${config.redis_db_host}:${config.redis_db_port} ${i18n.en.config.cache.redis.FAILD}`
+                    `${i18n.__("config.cache.redis.REDIS_CONNECTION_TO")} ${config.redis_db_host}:${config.redis_db_port} ${i18n.__("config.cache.redis.FAILD")}`
                 );
             });
 

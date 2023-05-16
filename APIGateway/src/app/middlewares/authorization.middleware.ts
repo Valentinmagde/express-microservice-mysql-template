@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken';
 import errorNumbers from '../utils/error-numbers.util';
 import statusCode from '../utils/status-code.util';
 import customResponse from '../utils/custom-response.util';
-import i18n from '../../assets/translations';
+import i18n from '../../system/i18n-config';
 import cacheConfig from '../../system/cache-manager';
 import config from '../../config/index.config';
 
@@ -42,7 +42,7 @@ class Authorization {
             const response = {
               status: statusCode.HTTP_UNAUTHORIZED,
               errNo: errorNumbers.invalid_token,
-              errMsg: i18n.en.unauthorize.INVALID_TOKEN,
+              errMsg: i18n.__("unauthorize.INVALID_TOKEN"),
             }
       
             return customResponse.error(response, res);
@@ -57,7 +57,7 @@ class Authorization {
                 const response = {
                   status: statusCode.HTTP_UNAUTHORIZED,
                   errNo: errorNumbers.invalid_token,
-                  errMsg: i18n.en.unauthorize.INVALID_TOKEN,
+                  errMsg: i18n.__("unauthorize.INVALID_TOKEN"),
                 }
 
                 return customResponse.error(response, res);
@@ -83,7 +83,7 @@ class Authorization {
       const response = {
         status: statusCode.HTTP_UNAUTHORIZED,
         errNo: errorNumbers.token_not_found,
-        errMsg: i18n.en.unauthorize.NO_TOKEN,
+        errMsg: i18n.__("unauthorize.NO_TOKEN"),
       }
 
       return customResponse.error(response, res);
@@ -102,7 +102,7 @@ class Authorization {
    * @returns any of next function or unauthorize message
    */
   public verifyRefreshToken = (refreshToken: string) => {
-    return new Promise(async (resolve, reject) => {
+    return new Promise((resolve, reject) => {
       try {
         const public_key = config.node_server_public_key as string;
 

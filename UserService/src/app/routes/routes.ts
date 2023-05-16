@@ -9,7 +9,9 @@ import genderRoutes from '../modules/gender/gender.routes';
 import statusCode from '../utils/status-code.util';
 import errorNumbers from '../utils/error-numbers.util';
 import customResponse from '../utils/custom-response.util';
-import i18n from '../../assets/translations';
+import i18n from '../../system/i18n-config';
+import setLocale from '../middlewares/set-locale.middleware';
+import authorization from '../middlewares/authorization.middleware';
 
 /**
  * @author Valentin Magde <valentinmagde@gmail.com>
@@ -41,14 +43,21 @@ class Routes {
   */
   public appRoutes() {
     this.app.use('/v1', routesGrouping.group((router) => {
-      // Includes user routes
-      router.use(userRoutes.userRoutes());
-      
-      // Includes role routes
-      router.use(roleRoutes.roleRoutes());
+      router.use(
+        '/:lang',
+        setLocale.setLocale,
+        authorization.isAuth,
+        routesGrouping.group((router) => {
 
-      // Includes gender routes
-      router.use(genderRoutes.genderRoutes());
+        // Includes user routes
+        router.use(userRoutes.userRoutes());
+    
+        // Includes role routes
+        router.use(roleRoutes.roleRoutes());
+
+        // Includes gender routes
+        router.use(genderRoutes.genderRoutes());
+      }));
       
       // Swagger documentation
       router.use(
@@ -67,7 +76,7 @@ class Routes {
       const response = {
         status: statusCode.HTTP_NOT_FOUND,
         errNo: errorNumbers.resource_not_found,
-        errMsg: i18n.en.others.ROUTE_NOT_FOUND,
+        errMsg: i18n.__("others.ROUTE_NOT_FOUND"),
       }
   
       return customResponse.error(response, res);

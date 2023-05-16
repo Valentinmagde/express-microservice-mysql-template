@@ -38,6 +38,14 @@
     "others": {
         "ROUTE_NOT_FOUND" : "Route not found"
     },
+    "config": {
+        "cache": {
+            "redis": {
+                "REDIS_CONNECTION_TO": "La connexion Redis à",
+                "FAILD": "a échoué"
+            }
+        }
+    },
     "role": {
         "show": {
             "ROLE_NOT_FOUND": "Role does not exits."

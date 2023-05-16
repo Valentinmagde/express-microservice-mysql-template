@@ -10,13 +10,6 @@ import cacheManager from '../../../system/cache-manager';
  * Class AuthenticationService
  */
 class AuthenticationService {
-  
-  /**
-   * Create a new AuthenticationService instance.
-   *
-   * @return void
-   */
-  constructor() {}
 
   /**
    * Logout
@@ -28,14 +21,14 @@ class AuthenticationService {
    * @returns any
    */
   public async logout(req: Request) {
-    return new Promise(async (resolve, reject) => {
+    return new Promise((resolve, reject) => {
       try {
         const authorization = req.headers.authorization;
         const token = authorization && authorization.slice(7, authorization.length); // Bearer XXXXXX
             
         if(token) {
           this.setTokenToRedis(token)
-          .then((result: any) => resolve(result))
+          .then((result) => resolve(result))
           .catch(error => reject(error));
         }
         else{
@@ -55,7 +48,7 @@ class AuthenticationService {
    * @returns any
    */
   public async refresh(req: Request) {
-    return new Promise(async (resolve, reject) => {
+    return new Promise((resolve, reject) => {
       try {
         const refresh_token = req.body.refreshtoken;
 
@@ -104,12 +97,12 @@ class AuthenticationService {
   // Private functions
   // ---------------------------------------------------------------------------------------
 
-  private parseJwt = (token: any) => {
+  private parseJwt = (token: string) => {
     return JSON.parse(Buffer.from(token.split('.')[1], 'base64').toString());
   }
 
-  private setTokenToRedis = (token: any) => {
-    return new Promise(async (resolve, reject) => {
+  private setTokenToRedis = (token: string) => {
+    return new Promise((resolve, reject) => {
       if(token) {
         // Connect to redis database
         cacheManager.connectToRedis()

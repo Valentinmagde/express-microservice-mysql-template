@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import authenticationService from "./authentication.service";
-import i18n from '../../../assets/translations';
+import i18n from '../../../system/i18n-config';
 import customResponse from '../../utils/custom-response.util';
 import statusCode from '../../utils/status-code.util';
 import errorNumbers from '../../utils/error-numbers.util';
@@ -14,12 +14,6 @@ import { Errors } from 'validatorjs';
  */
 class AuthenticationController {
   
-  /**
-   * Create a new AuthenticationController instance.
-   *
-   * @return void
-   */
-  public constructor() {}
 
   /**
    * Logs out current logged in user session
@@ -39,7 +33,7 @@ class AuthenticationController {
         const response = {
           status: statusCode.HTTP_UNAUTHORIZED,
           errNo: errorNumbers.token_not_found,
-          errMsg: i18n.en.unauthorize.NO_TOKEN,
+          errMsg: i18n.__("unauthorize.NO_TOKEN"),
         }
 
         return customResponse.error(response, res);
@@ -81,7 +75,7 @@ class AuthenticationController {
     };
 
     await validator
-    .validator(req.body, validationRule,{}, (err: Errors, status: Boolean) => {
+    .validator(req.body, validationRule,{}, (err: Errors, status: boolean) => {
       if (!status) {
         const response = {
           status: statusCode.HTTP_PRECONDITION_FAILED,
@@ -98,7 +92,7 @@ class AuthenticationController {
             const response = {
               status: statusCode.HTTP_UNAUTHORIZED,
               errNo: errorNumbers.token_not_found,
-              errMsg: i18n.en.unauthorize.NO_REFRESH_TOKEN,
+              errMsg: i18n.__("unauthorize.NO_REFRESH_TOKEN"),
             }
     
             return customResponse.error(response, res);
@@ -107,7 +101,7 @@ class AuthenticationController {
             const response = {
               status: statusCode.HTTP_UNAUTHORIZED,
               errNo: errorNumbers.token_not_found,
-              errMsg: i18n.en.unauthorize.INVALID_REFRESH_TOKEN,
+              errMsg: i18n.__("unauthorize.INVALID_REFRESH_TOKEN"),
             }
     
             return customResponse.error(response, res);

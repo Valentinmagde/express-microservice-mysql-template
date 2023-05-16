@@ -69,7 +69,7 @@ class AppConfig {
    */
   public loadExpressConfig() {
     new ExpressConfigModule(this.app).setAppEngine();
-    new Authorization(this.app).setJWTConfig();
+    // new Authorization(this.app).setJWTConfig();
     new DBManager(this.app).setDBConnection();
   }
 }

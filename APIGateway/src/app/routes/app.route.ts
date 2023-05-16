@@ -6,7 +6,7 @@ import swaggerUi from "swagger-ui-express";
 import swaggerMicroservicesOptions from "../../assets/swagger/microservices-docs/microservices-docs.json";
 import statusCode from "../utils/status-code.util";
 import errorNumbers from "../utils/error-numbers.util";
-import i18n from "../../assets/translations";
+import i18n from '../../system/i18n-config';
 import customResponse from "../utils/custom-response.util";
 import routesGrouping from "../utils/routes-grouping.util";
 import authenticationRoutes from "../modules/authentication/authentication.route";
@@ -112,11 +112,11 @@ class AppRoutes {
     });
 
     // error handler for not found router
-    this.app.get("*", (req, res, next) => {
+    this.app.get("*", (req, res) => {
       const response = {
         status: statusCode.HTTP_NOT_FOUND,
         errNo: errorNumbers.resource_not_found,
-        errMsg: i18n.en.others.ROUTE_NOT_FOUND,
+        errMsg: i18n.__("others.ROUTE_NOT_FOUND"),
       };
 
       return customResponse.error(response, res);
