@@ -1,9 +1,9 @@
 import { Request, Response, NextFunction } from "express";
-import config from "../../config/index.config";
+import config from "../../config";
 import statusCode from "../utils/status-code.util";
 import errorNumbers from "../utils/error-numbers.util";
 import customResponse from "../utils/custom-response.util";
-import i18n from '../../system/i18n-config';
+import i18n from "../../core/i18n";
 
 /**
  * @author Valentin Magde <valentinmagde@gmail.com>
@@ -22,12 +22,8 @@ class SetLocale {
    */
   public setLocale(req: Request, res: Response, next: NextFunction): void {
     const swagger_base_url: string = config.swagger_base_url;
-    const swagger_auth_base_url: string = config.swagger_auth_base_url;
     // Except documentation route for localization
-    if (
-      req.originalUrl.indexOf(swagger_base_url) > -1 ||
-      req.originalUrl.indexOf(swagger_auth_base_url) > -1
-    ) {
+    if (req.originalUrl.indexOf(swagger_base_url) > -1) {
       return next();
     } else {
       const locale: string = req.params.lang || "";

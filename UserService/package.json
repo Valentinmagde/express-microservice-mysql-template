@@ -2,13 +2,13 @@
   "name": "userservice",
   "version": "1.0.0",
   "description": "This is a service to manage Users API",
-  "main": "./scr/server/index.ts",
+  "main": "server.ts",
   "//type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon --watch src/** --ext ts,json --ignore src/**/*.spec.ts --exec ts-node --files src/server/index.ts",
-    "start-dev": "NODE_ENV=development nodemon --watch src/** --ext ts,json --ignore src/**/*.spec.ts --exec ts-node --files src/server/index.ts",
-    "start-prod": "NODE_ENV=production nodemon --watch src/** --ext ts,json --ignore src/**/*.spec.ts --exec ts-node --files src/server/index.ts",
+    "start": "nodemon --watch src/** --ext ts,json --ignore src/**/*.spec.ts --exec ts-node --files server.ts",
+    "start-dev": "NODE_ENV=development nodemon --watch src/** --ext ts,json --ignore src/**/*.spec.ts --exec ts-node --files server.ts",
+    "start-prod": "NODE_ENV=production nodemon --watch src/** --ext ts,json --ignore src/**/*.spec.ts --exec ts-node --files server.ts",
     "lint": "eslint ."
   },
   "author": "Iosys Pvt Ltd",

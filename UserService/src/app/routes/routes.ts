@@ -1,6 +1,6 @@
 import { Application, Request, Response } from 'express';
 import userRoutes from '../modules/user/user.routes';
-import swaggerOptions from '../../assets/swagger/user-docs/user-docs.json';
+import swaggerOptions from '../../resources/swagger/user-docs/user-docs.json';
 import swaggerJSDoc from "swagger-jsdoc";
 import swaggerUi from "swagger-ui-express";
 import roleRoutes from '../modules/role/role.routes';
@@ -9,7 +9,7 @@ import genderRoutes from '../modules/gender/gender.routes';
 import statusCode from '../utils/status-code.util';
 import errorNumbers from '../utils/error-numbers.util';
 import customResponse from '../utils/custom-response.util';
-import i18n from '../../system/i18n-config';
+import i18n from '../../core/i18n';
 import setLocale from '../middlewares/set-locale.middleware';
 import authorization from '../middlewares/authorization.middleware';
 
@@ -21,7 +21,7 @@ import authorization from '../middlewares/authorization.middleware';
  */
 class Routes {
   private app: Application;
-  private specs: any;
+  private specs: object;
 
   /**
    * Create a new Routes instance.

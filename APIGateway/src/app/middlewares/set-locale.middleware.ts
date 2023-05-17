@@ -1,9 +1,9 @@
 import { Request, Response, NextFunction } from "express";
-import config from "../../config/index.config";
+import config from "../../config";
 import statusCode from "../utils/status-code.util";
 import errorNumbers from "../utils/error-numbers.util";
 import customResponse from "../utils/custom-response.util";
-import i18n from '../../system/i18n-config';
+import i18n from '../../core/i18n';
 
 /**
  * @author Valentin Magde <valentinmagde@gmail.com>

@@ -4,7 +4,7 @@ i18n.configure({
   locales: ["en", "fr"],
   defaultLocale: "en",
   queryParameter: "lang",
-  directory: './src/assets/i18n-data',
+  directory: './src/resources/lang',
   register: global,
   objectNotation: true,
   api: {

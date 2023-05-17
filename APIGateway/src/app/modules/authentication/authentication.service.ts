@@ -1,7 +1,7 @@
 import { Request } from 'express';
 import authentication from '../../middlewares/authentication.middleware';
 import authorization from '../../middlewares/authorization.middleware';
-import cacheManager from '../../../system/cache-manager';
+import cacheManager from '../../../core/cache';
 
 /**
  * @author Valentin Magde <valentinmagde@gmail.com>

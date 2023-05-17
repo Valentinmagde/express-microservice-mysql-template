@@ -1,12 +1,12 @@
 /* eslint-disable no-console */
 import express, { NextFunction, Request, Response } from 'express';
 import http from 'http';
-import customResponse from '../app/utils/custom-response.util';
-import AppConfig from '../system/app-config';
-import Routes from '../app/routes/routes';
-import statusCode from '../app/utils/status-code.util';
-import errorNumbers from '../app/utils/error-numbers.util';
-import config from '../config/index.config';
+import customResponse from './src/app/utils/custom-response.util';
+import Routes from './src/app/routes/routes';
+import statusCode from './src/app/utils/status-code.util';
+import errorNumbers from './src/app/utils/error-numbers.util';
+import config from './src/config';
+import AppConfig from './src/core/app';
 
 /**
  * @author Valentin Magde <valentinmagde@gmail.com>
@@ -81,7 +81,7 @@ class Server {
       return customResponse.error(response, res);
     });
 
-    const port: number = config.node_server_port;
+    const port: number = config.node_server_port as number;
     const host: string = config.node_server_host;
 
     this.http.listen(port, host, () => {

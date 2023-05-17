@@ -3,9 +3,9 @@ import jwt from 'jsonwebtoken';
 import errorNumbers from '../utils/error-numbers.util';
 import statusCode from '../utils/status-code.util';
 import customResponse from '../utils/custom-response.util';
-import i18n from '../../system/i18n-config';
-import cacheConfig from '../../system/cache-manager';
-import config from '../../config/index.config';
+import i18n from '../../core/i18n';
+import cacheConfig from '../../core/cache';
+import config from '../../config';
 
 /**
  * @author Valentin Magde <valentinmagde@gmail.com>

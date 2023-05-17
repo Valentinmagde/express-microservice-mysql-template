@@ -2,13 +2,14 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-const prod = {
+const dev = {
     // Environment
-    env: process.env.NODE_ENV || 'production',
+    env: process.env.NODE_ENV || 'development',
 
     // Server config
     node_server_port: process.env.NODE_SERVER_PORT || 1100,
-    node_server_public_key: process.env.NODE_SERVER_PUBLIC_KEY?.replace(/\\n/, '\n'),
+    node_server_host: process.env.NODE_SERVER_HOST || 'localhost',
+    node_server_public_key: process.env.NODE_SERVER_PUBLIC_KEY?.replace(/\\n/g, '\n'),
 
     // Redis db
     redis_db_port: process.env.REDIS_DB_PORT || 6379,
@@ -28,4 +29,4 @@ const prod = {
     swagger_base_url: process.env.SWAGGER_BASE_URL || '/v1/users/docs',
 };
 
-export default prod;
+export default dev;

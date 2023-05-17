@@ -3,7 +3,7 @@
 import bodyParser from "body-parser";
 import cors from "cors";
 import { Application } from "express";
-import DBManager from "./db-manager";
+import DBManager from "./db";
 
 /**
  * @author Valentin Magde <valentinmagde@gmail.com>

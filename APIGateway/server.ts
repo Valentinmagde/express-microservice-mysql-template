@@ -1,9 +1,9 @@
 /* eslint-disable no-console */
 import express from "express";
 import http from "http";
-import AppRoutes from "../app/routes/app.route";
-import AppConfig from "../system/app-config";
-import config from "../config/index.config";
+import AppRoutes from "./src/app/routes/app.route";
+import AppConfig from "./src/core/app";
+import config from "./src/config";
 
 /**
  * @author Valentin Magde <valentinmagde@gmail.com>
@@ -64,7 +64,7 @@ class Server {
     this.appConfig();
     this.includeRoutes();
 
-    const port: number = config.node_server_port;
+    const port: number = config.node_server_port as number;
     const host: string = config.node_server_host;
 
     this.http.listen(port, host, () => {

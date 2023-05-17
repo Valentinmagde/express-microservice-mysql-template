@@ -36,7 +36,7 @@ class GenderRoutes {
             router.use('/genders', routesGrouping.group((router) => {
                 /**
                  * @swagger
-                 * /v1/genders:
+                 * /v1/{lang}/genders:
                  *   post:
                  *     security:
                  *      - bearerAuth: []

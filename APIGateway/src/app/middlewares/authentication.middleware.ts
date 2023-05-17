@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken';
-import config from '../../config/index.config';
+import config from '../../config';
 import AuthenticationType from '../modules/authentication/authentication.type';
 
 /**

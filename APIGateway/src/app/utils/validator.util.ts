@@ -15,8 +15,8 @@ class Validator {
    * @since 2023-29-03
    *
    * @param any body
-   * @param any rules
-   * @param any customMessages
+   * @param Rules rules
+   * @param ErrorMessages customMessages
    * @param any callback
    *
    * @return void

@@ -4,10 +4,11 @@ dotenv.config();
 
 const dev = {
     // Environment
-    env: process.env.NODE_ENV || 'development',
+    env: process.env.NODE_ENV || 'local',
 
     // Server config
     node_server_port: process.env.NODE_SERVER_PORT || 1100,
+    node_server_host: process.env.NODE_SERVER_HOST || 'localhost',
     node_server_public_key: process.env.NODE_SERVER_PUBLIC_KEY?.replace(/\\n/g, '\n'),
 
     // Redis db

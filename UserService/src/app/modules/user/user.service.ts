@@ -141,7 +141,7 @@ class UserService {
             
             if(role){
               if(user.roles.length > 0){
-                user.roles = user.roles.filter((x: any) => x._id.toString() != role._id.toString());
+                user.roles = user.roles.filter(x => x.toString() != role._id.toString());
 
                 await new User(user).save();
               }

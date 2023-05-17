@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import authenticationService from "./authentication.service";
-import i18n from '../../../system/i18n-config';
+import i18n from '../../../core/i18n';
 import customResponse from '../../utils/custom-response.util';
 import statusCode from '../../utils/status-code.util';
 import errorNumbers from '../../utils/error-numbers.util';
