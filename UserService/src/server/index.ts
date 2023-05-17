@@ -6,6 +6,7 @@ import AppConfig from '../system/app-config';
 import Routes from '../app/routes/routes';
 import statusCode from '../app/utils/status-code.util';
 import errorNumbers from '../app/utils/error-numbers.util';
+import config from '../config/index.config';
 
 /**
  * @author Valentin Magde <valentinmagde@gmail.com>
@@ -80,8 +81,8 @@ class Server {
       return customResponse.error(response, res);
     });
 
-    const port: any = process.env.NODE_SERVER_PORT || 4000;
-    const host: any = process.env.NODE_SERVER_HOST || 'localhost';
+    const port: number = config.node_server_port;
+    const host: string = config.node_server_host;
 
     this.http.listen(port, host, () => {
       console.log(`Listening on http://${host}:${port}`);

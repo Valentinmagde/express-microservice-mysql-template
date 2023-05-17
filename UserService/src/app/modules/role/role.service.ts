@@ -7,13 +7,6 @@ import Role from './role.model';
  * Class RoleService
  */
 class RoleService {
-  
-  /**
-   * Create a new RoleService instance.
-   *
-   * @return void
-   */
-  constructor() {}
 
   /**
    * Get role details
@@ -25,14 +18,16 @@ class RoleService {
    * @returns any role
    */
   public getById(roleId: string) {
-    return new Promise(async (resolve, reject) => {
-      try {
-        const role = await Role.findById(roleId);
-        
-        resolve(role);
-      } catch (error) {
-        reject(error);
-      }
+    return new Promise((resolve, reject) => {
+      (async () => {
+        try {
+          const role = await Role.findById(roleId);
+          
+          resolve(role);
+        } catch (error) {
+          reject(error);
+        }
+      })();
     });
   }
 
@@ -45,14 +40,16 @@ class RoleService {
    * @returns any roles
    */
   public getAll() {
-    return new Promise(async (resolve, reject) => {
-      try {
-        const roles = await Role.find();
-        
-        resolve(roles);
-      } catch (error) {
-        reject(error);
-      }
+    return new Promise((resolve, reject) => {
+      (async () => {
+        try {
+          const roles = await Role.find();
+          
+          resolve(roles);
+        } catch (error) {
+          reject(error);
+        }
+      })();
     });
   }
 
@@ -65,17 +62,19 @@ class RoleService {
    * @param any data 
    * @returns any role
    */
-  public async store(data: any) {
-    return new Promise(async (resolve, reject) => {
-      try {
-        const role = new Role({ name: data.name });
-    
-        const createdRole = await role.save();
+  public async store(data: { name: string }) {
+    return new Promise((resolve, reject) => {
+      (async () => {
+        try {
+          const role = new Role({ name: data.name });
+      
+          const createdRole = await role.save();
 
-        resolve(createdRole);
-      } catch (error) {
-        reject(error)
-      }
+          resolve(createdRole);
+        } catch (error) {
+          reject(error)
+        }
+      })();
     })
   }
 
@@ -89,23 +88,25 @@ class RoleService {
    * @param any data 
    * @returns any role
    */
-  public async update(roleId: string, data: any) {
-    return new Promise(async (resolve, reject) => {
-      try {
-        const role = await Role.findById(roleId);
+  public async update(roleId: string, data: { name: string }) {
+    return new Promise((resolve, reject) => {
+      (async () => {
+        try {
+          const role = await Role.findById(roleId);
 
-        if(role) {
-          role.name = data.name || role.name;
-          
-          const updatedRole = await role.save();
+          if(role) {
+            role.name = data.name || role.name;
+            
+            const updatedRole = await role.save();
 
-          resolve(updatedRole);
-        } else {
-          resolve(role);
+            resolve(updatedRole);
+          } else {
+            resolve(role);
+          }
+        } catch (error) {
+          reject(error)
         }
-      } catch (error) {
-        reject(error)
-      }
+      })();
     })
   }
 
@@ -119,20 +120,22 @@ class RoleService {
    * @returns any role
    */
   public delete(roleId: string) {
-    return new Promise(async (resolve, reject) => {
-      try {
-        const role = await Role.findById(roleId);
+    return new Promise((resolve, reject) => {
+      (async () => {
+        try {
+          const role = await Role.findById(roleId);
 
-        if(role) {
-          const deleteRole = await role.deleteOne();
-          
-          resolve(deleteRole);
-        } else {
-          resolve(role);
+          if(role) {
+            const deleteRole = await role.deleteOne();
+            
+            resolve(deleteRole);
+          } else {
+            resolve(role);
+          }
+        } catch (error) {
+          reject(error);
         }
-      } catch (error) {
-        reject(error);
-      }
+      })();
     });
   }
 }

@@ -304,49 +304,6 @@ class UserController {
   }
 
   /**
-   * Logs out current logged in user session
-   * 
-   * @author Valentin Magde <valentinmagde@gmail.com>
-   * @since 2023-04-11
-   * 
-   * @param Request req 
-   * @param Response res 
-   * 
-   * @return json of Response
-   */
-  public async logout(req: Request, res: Response) {
-    userService.logout(req)
-    .then(result => {
-      if (result === null || result === undefined) {
-        const response = {
-          status: statusCode.HTTP_UNAUTHORIZED,
-          errNo: errorNumbers.token_not_found,
-          errMsg: i18n.__("user.unauthorize.NO_TOKEN"),
-        }
-
-        return customResponse.error(response, res);
-      } 
-      else {
-          const response = {
-            status: statusCode.HTTP_OK,
-            data: result,
-          }
-  
-          return customResponse.success(response, res);
-      }
-    })
-    .catch(error => {
-      const response = {
-        status: error?.status || statusCode.HTTP_INTERNAL_SERVER_ERROR,
-        errNo: errorNumbers.generic_error,
-        errMsg: error?.message || error,
-      }
-
-      return customResponse.error(response, res);
-    })
-  }
-    
-  /**
    * Register route handler
    * 
    * @author Valentin Magde <valentinmagde@gmail.com>

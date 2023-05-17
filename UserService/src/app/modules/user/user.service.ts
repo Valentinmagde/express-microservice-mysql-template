@@ -1,11 +1,8 @@
 import User from './user.model';
 import passwordHash from '../../utils/password-hash.util';
-import { Request } from 'express';
-import jwt from 'jsonwebtoken';
-import fs from 'fs';
-import path from 'path';
 import Role from '../role/role.model';
 import UserType from './user.type';
+import RoleType from '../role/role.type';
 
 /**
  * @author Valentin Magde <valentinmagde@gmail.com>
@@ -24,76 +21,35 @@ class UserService {
    * @param any data 
    * @returns any user
    */
-  public async login(data: any) {
-    return new Promise(async(resolve, reject) => {
-      try {
-        const user: any = await User
-        .findOne({email: data.email})
-        .populate('gender')
-        .populate('roles');
-        
-        if(user && passwordHash.compareHash(data.password, user.password)) {
-          await User.findOneAndUpdate({email: data.email}, { $set: { online: true } });
-
-          const loginRes = {
-            _id: user._id,
-            username: user.username,
-            lastname: user.lastname,
-            firstname: user.firstname,
-            email: user.email,
-            gender: user.gender,
-            roles: user.roles
-          };
-
-          resolve(loginRes);
-        }
-        else{
-          resolve(null);
-        }
-      } catch (error) { reject(error); }
-    });
-  }
-
-  /**
-   * Logout
-   * 
-   * @author Valentin Magde <valentinmagde@gmail.com>
-   * @since 2023-04-11
-   * 
-   * @param any data 
-   * @returns any user
-   */
-  public async logout(req: Request) {
-    return new Promise(async(resolve, reject) => {
-      try {
-        const authorization = req.headers.authorization;
-        
-        if(authorization) {
-          const token = authorization.slice(7, authorization.length); // Bearer XXXXXX
+  public async login(data: { email: string, password: string }) {
+    return new Promise((resolve, reject) => {
+      (async () => {
+        try {
+          const user: UserType = await User
+          .findOne({email: data.email})
+          .populate('gender')
+          .populate('roles') as UserType;
           
-          // jwt.sign(authorization, "", { expiresIn: 1 } , (logout, err) => {
-          //   if (logout) resolve(logout);
-          //   else reject(err);
-          // });
-          const privateKey = fs.readFileSync(path.join(__dirname,'../auth/private.key'));
+          if(user && passwordHash.compareHash(data.password, user.password)) {
+            await User.findOneAndUpdate({email: data.email}, { $set: { online: true } });
 
-          jwt.sign(
-            {
-              exp: 0, // Zero minute
-              iat: 0
-            },
-            privateKey,
-            {algorithm: 'RS256'},
-            (err, token) => {
-              if(token) resolve(token);
-              else reject(err);
-            }
-          );
-        }
-        else{
-          resolve(authorization);
-        }
-      } catch (error) { reject(error); }
+            const loginRes = {
+              _id: user._id,
+              username: user.username,
+              lastname: user.lastname,
+              firstname: user.firstname,
+              email: user.email,
+              gender: user.gender,
+              roles: user.roles
+            };
+
+            resolve(loginRes);
+          }
+          else{
+            resolve(null);
+          }
+        } catch (error) { reject(error); }
+      })();
     });
   }
 
@@ -107,14 +63,16 @@ class UserService {
    * @returns user
    */
   public profile(userId: string) {
-    return new Promise(async(resolve, reject) => {
-      try {
-        const user = await User.findById(userId);
-        
-        resolve(user);
-      } catch (error) {
-        reject(error);
-      }
+    return new Promise((resolve, reject) => {
+      (async () => {
+        try {
+          const user = await User.findById(userId);
+          
+          resolve(user);
+        } catch (error) {
+          reject(error);
+        }
+      })();
     });
   }
 
@@ -130,35 +88,35 @@ class UserService {
    */
   public assign(userId: string, roleId: string) {
     return new Promise((resolve, reject) => {
-      try {
-        const user: any = User.findById(userId);
+      (async () => {
+        try {
+          const user: UserType | null = await User.findById(userId);
 
-        if(user) {
-          const role: any = Role.findById(roleId);
-          
-          if(role){
-            // Check if the user doesn't already have this role
-            const existRole: any = user.roles.filter((x: any) => x._id.toString() == role._id.toString());
+          if(user) {
+            const role: RoleType | null = await Role.findById(roleId);
             
-            if(existRole.length > 0) resolve('ALREADY_ASSIGNED');
-            else{
-              user.roles = [...user.roles, role._id];
+            if(role){
+              // Check if the user doesn't already have this role
+              if(user.roles.includes(role._id)) resolve('ALREADY_ASSIGNED');
+              else{
+                user.roles = [...user.roles, role._id];
 
-              user.save();
+                await new User(user).save();
+              }
+              
+              resolve(user);
             }
-            
-            resolve(user);
+            else{
+              resolve('ROLE_NOT_FOUND');
+            }
           }
           else{
-            resolve('ROLE_NOT_FOUND');
-          }
+            resolve('USER_NOT_FOUND');
+          }        
+        } catch (error) {
+          reject(error);
         }
-        else{
-          resolve('USER_NOT_FOUND');
-        }        
-      } catch (error) {
-        reject(error);
-      }
+      })();
     });
   }
 
@@ -174,31 +132,33 @@ class UserService {
    */
   public unassign(userId: string, roleId: string) {
     return new Promise((resolve, reject) => {
-      try {
-        const user: any = User.findById(userId);
+      (async () => {
+        try {
+          const user: UserType | null = await User.findById(userId);
 
-        if(user) {
-          const role: any = Role.findById(roleId);
-          
-          if(role){
-            if(user.roles.length > 0){
-              user.roles = user.roles.filter((x: any) => x._id.toString() != role._id.toString());
-
-              user.save();
-            }
+          if(user) {
+            const role: RoleType | null = await Role.findById(roleId);
             
-            resolve(user);
+            if(role){
+              if(user.roles.length > 0){
+                user.roles = user.roles.filter((x: any) => x._id.toString() != role._id.toString());
+
+                await new User(user).save();
+              }
+              
+              resolve(user);
+            }
+            else{
+              resolve('ROLE_NOT_FOUND');
+            }
           }
           else{
-            resolve('ROLE_NOT_FOUND');
-          }
+            resolve('USER_NOT_FOUND');
+          }        
+        } catch (error) {
+          reject(error);
         }
-        else{
-          resolve('USER_NOT_FOUND');
-        }        
-      } catch (error) {
-        reject(error);
-      }
+      })();
     });
   }
 
@@ -211,23 +171,25 @@ class UserService {
    * @param any data 
    * @returns any user
    */
-  public async register(data: any) {
+  public async register(data: UserType) {
     return new Promise((resolve, reject) => {
-      try {
-        const user: any = new User({
-          username: data.username,
-          email: data.email,
-          lastname: data.lastname,
-          gender: data.gender,
-          password: passwordHash.createHash(data.password),
-        });
-    
-        const createdUser = user.save();
+      (async () => {
+        try {
+          const user = new User({
+            username: data.username,
+            email: data.email,
+            lastname: data.lastname,
+            gender: data.gender,
+            password: passwordHash.createHash(data.password),
+          });
+      
+          const createdUser = await user.save();
 
-        resolve(createdUser);
-      } catch (error) {
-        reject(error)
-      }
+          resolve(createdUser);
+        } catch (error) {
+          reject(error)
+        }
+      })();
     })
   }
 
@@ -241,24 +203,27 @@ class UserService {
    * @param any data 
    * @returns any user
    */
-  public async update(userId: string, data: any) {
+  public async update(userId: string, data: UserType) {
     return new Promise((resolve, reject) => {
-      try {
-        const user: any = User.findById(userId);
-        if (user) {
-          user.firstname = data.firstname || user.firstname;
-          user.lastname = data.lastname;
-          user.gender = data.gender;
-          
-          const updatedUser = user.save();
+      (async () => {
+        try {
+          const user: UserType | null = await User.findById(userId);
 
-          resolve(updatedUser);
-        } else {
-          resolve(user);
+          if (user) {
+            user.firstname = data.firstname || user.firstname;
+            user.lastname = data.lastname;
+            user.gender = data.gender;
+            
+            const updatedUser = await new User(user).save();
+
+            resolve(updatedUser);
+          } else {
+            resolve(user);
+          }
+        } catch (error) {
+          reject(error)
         }
-      } catch (error) {
-        reject(error)
-      }
+      })();
     })
   }
 
@@ -273,25 +238,27 @@ class UserService {
    */
   public delete(userId: string) {
     return new Promise((resolve, reject) => {
-      try {
-        const user: any = User.findById(userId).populate('roles');
+      (async () => {
+        try {
+          const user: UserType | null = await User.findById(userId).populate('roles');
 
-        if(user) {
-          let roles: Array<any> = user?.roles as any
-          roles = roles.filter(role => role.name == 'Admin');
-          
-          if(roles.length) resolve('isAdmin');
-          else{
-            const deleteUser = user.deleteOne();
+          if(user) {
+            let roles: Array<RoleType> = user?.roles as Array<RoleType>;
+            roles = roles.filter(role => role.name == 'Admin');
+            
+            if(roles.length) resolve('isAdmin');
+            else{
+              const deleteUser = await new User(user).deleteOne();
 
-            resolve(deleteUser);
+              resolve(deleteUser);
+            }
+          } else {
+            resolve(user);
           }
-        } else {
-          resolve(user);
+        } catch (error) {
+          reject(error);
         }
-      } catch (error) {
-        reject(error);
-      }
+      })();
     });
   }
 }

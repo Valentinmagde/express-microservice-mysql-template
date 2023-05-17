@@ -18,7 +18,7 @@ class RoutesGrouping {
    * @returns void
    */
   public group = ((callback: (router: Router) => void) => {
-    const router = express.Router();
+    const router = express.Router({mergeParams: true});
     callback(router);
     return router;
   });

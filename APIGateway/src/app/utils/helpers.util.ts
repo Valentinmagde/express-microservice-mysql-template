@@ -28,18 +28,18 @@ class Helpers {
    * @param array data
    * @return array of object
    */
-  public convertToArrayOfProperties(
-    data: Array<any>,
-    properties: Array<string>
-  ) {
-    var finalArray: Array<any> = data.map(function (obj) {
-      return properties.map((propertie) => {
-        return obj[propertie];
-      }).toString();
-    });
+  // public convertToArrayOfProperties(
+  //   data: Array<>,
+  //   properties: Array<string>
+  // ) {
+  //   var finalArray: Array<any> = data.map(function (obj) {
+  //     return properties.map((propertie) => {
+  //       return obj[propertie];
+  //     }).toString();
+  //   });
 
-    return finalArray;
-  }
+  //   return finalArray;
+  // }
 }
 
 const helpers = new Helpers();

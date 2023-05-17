@@ -7,13 +7,6 @@ import Gender from './gender.model';
  * Class GenderService
  */
 class GenderService {
-  
-  /**
-   * Create a new GenderService instance.
-   *
-   * @return void
-   */
-  constructor() {}
 
   /**
    * Get gender details
@@ -25,14 +18,16 @@ class GenderService {
    * @returns any gender
    */
   public getById(genderId: string) {
-    return new Promise(async (resolve, reject) => {
-      try {
-        const gender = await Gender.findById(genderId);
-        
-        resolve(gender);
-      } catch (error) {
-        reject(error);
-      }
+    return new Promise((resolve, reject) => {
+      (async () => {
+        try {
+          const gender = await Gender.findById(genderId);
+          
+          resolve(gender);
+        } catch (error) {
+          reject(error);
+        }
+      })();
     });
   }
 
@@ -45,14 +40,16 @@ class GenderService {
    * @returns any gender
    */
   public getAll() {
-    return new Promise(async (resolve, reject) => {
-      try {
-        const genders = await Gender.find();
-        
-        resolve(genders);
-      } catch (error) {
-        reject(error);
-      }
+    return new Promise((resolve, reject) => {
+      (async () => {
+        try {
+          const genders = await Gender.find();
+          
+          resolve(genders);
+        } catch (error) {
+          reject(error);
+        }
+      })();
     });
   }
 
@@ -65,17 +62,19 @@ class GenderService {
    * @param any data 
    * @returns any gender
    */
-  public async store(data: any) {
-    return new Promise(async (resolve, reject) => {
-      try {
-        const gender = new Gender({ name: data.name });
-    
-        const createdGender = await gender.save();
+  public async store(data: { name: string }) {
+    return new Promise((resolve, reject) => {
+      (async () => {
+        try {
+          const gender = new Gender({ name: data.name });
+      
+          const createdGender = await gender.save();
 
-        resolve(createdGender);
-      } catch (error) {
-        reject(error)
-      }
+          resolve(createdGender);
+        } catch (error) {
+          reject(error)
+        }
+      })();
     })
   }
 
@@ -89,23 +88,25 @@ class GenderService {
    * @param any data 
    * @returns any gender
    */
-  public async update(genderId: string, data: any) {
-    return new Promise(async (resolve, reject) => {
-      try {
-        const gender = await Gender.findById(genderId);
+  public async update(genderId: string, data: { name: string }) {
+    return new Promise((resolve, reject) => {
+      (async () => {
+        try {
+          const gender = await Gender.findById(genderId);
 
-        if(gender) {
-          gender.name = data.name || gender.name;
-          
-          const updatedGender = await gender.save();
+          if(gender) {
+            gender.name = data.name || gender.name;
+            
+            const updatedGender = await gender.save();
 
-          resolve(updatedGender);
-        } else {
-          resolve(gender);
+            resolve(updatedGender);
+          } else {
+            resolve(gender);
+          }
+        } catch (error) {
+          reject(error)
         }
-      } catch (error) {
-        reject(error)
-      }
+      })();
     })
   }
 
@@ -119,20 +120,22 @@ class GenderService {
    * @returns any gender
    */
   public delete(genderId: string) {
-    return new Promise(async (resolve, reject) => {
-      try {
-        const gender = await Gender.findById(genderId);
+    return new Promise((resolve, reject) => {
+      (async () => {
+        try {
+          const gender = await Gender.findById(genderId);
 
-        if(gender) {
-          const deleteGender = await gender.deleteOne();
-          
-          resolve(deleteGender);
-        } else {
-          resolve(gender);
+          if(gender) {
+            const deleteGender = await gender.deleteOne();
+            
+            resolve(deleteGender);
+          } else {
+            resolve(gender);
+          }
+        } catch (error) {
+          reject(error);
         }
-      } catch (error) {
-        reject(error);
-      }
+      })();
     });
   }
 }

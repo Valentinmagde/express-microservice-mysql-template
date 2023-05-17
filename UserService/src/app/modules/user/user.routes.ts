@@ -20,7 +20,7 @@ class UserRoutes {
      * @return void
      */
     constructor() {
-        this.router = express.Router();
+        this.router = express.Router({mergeParams: true});
     }
 
     /** 
@@ -242,91 +242,7 @@ class UserRoutes {
                  * 
                  */
                 router.post('/login', userController.login);
-        
-                /**
-                 * // @swagger
-                 * /v1/users/logout:
-                 *   get:
-                 *     security:
-                 *      - bearerAuth: []
-                 *     tags:
-                 *     - User
-                 *     operationId: logout
-                 *     summary: Logs out current logged in user session.
-                 *     description: Logs out current logged in user session.
-                 *     
-                 *     responses:
-                 *       200:
-                 *         description: The user has successfully logged in.
-                 *         content:
-                 *           application/json:
-                 *             schema:
-                 *               type: object
-                 *               properties:
-                 *                 status:
-                 *                  type: string
-                 *                  example: Ok
-                 *                 data:
-                 *                   type: array
-                 *                   items:
-                 *                     type: object
-                 *                     properties:
-                 *                       _id:
-                 *                         type: integer
-                 *                         description: The user ID.
-                 *                         example: 0
-                 *                       name:
-                 *                         type: string
-                 *                         description: The user's name.
-                 *                         example: Leanne Graham
-                 *                       email:
-                 *                         type: string
-                 *                         description: The user's email.
-                 *                         example: admin@example.com
-                 *                       isAdmin:
-                 *                         type: boolean
-                 *                         description: The user's role.
-                 *                         example: true
-                 *                       token:
-                 *                         type: string
-                 *                         description: json web token.
-                 *       '400':
-                 *         description: Bad Request.
-                 *         content:
-                 *          application/json:
-                 *             schema:
-                 *              $ref: '#/responses/schemas/400'
-                 *       
-                 *       '401':
-                 *         description: Unauthorized.
-                 *         content:
-                 *          application/json:
-                 *             schema:
-                 *              $ref: '#/responses/schemas/401'
-                 * 
-                 *       '404':
-                 *         description: Not Found.
-                 *         content:
-                 *          application/json:
-                 *             schema:
-                 *              $ref: '#/responses/schemas/404'
-                 * 
-                 *       '412':
-                 *         description: Precondition Failed.
-                 *         content:
-                 *          application/json:
-                 *             schema:
-                 *              $ref: '#/responses/schemas/412'
-                 * 
-                 *       '500':
-                 *         description: Internal Server Error.
-                 *         content:
-                 *          application/json:
-                 *             schema:
-                 *              $ref: '#/responses/schemas/500'
-                 * 
-                 */
-                router.get('/logout', userController.logout);
+
             }));
     
             router.use('/user', routesGrouping.group((router) => {

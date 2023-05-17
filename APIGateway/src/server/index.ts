@@ -3,6 +3,7 @@ import express from "express";
 import http from "http";
 import AppRoutes from "../app/routes/app.route";
 import AppConfig from "../system/app-config";
+import config from "../config/index.config";
 
 /**
  * @author Valentin Magde <valentinmagde@gmail.com>
@@ -63,8 +64,8 @@ class Server {
     this.appConfig();
     this.includeRoutes();
 
-    const port: any = process.env.NODE_SERVER_PORT || 8000;
-    const host: any = process.env.NODE_SERVER_HOST || "localhost";
+    const port: number = config.node_server_port;
+    const host: string = config.node_server_host;
 
     this.http.listen(port, host, () => {
       console.log(`Listening on http://${host}:${port}`);

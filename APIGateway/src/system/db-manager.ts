@@ -1,5 +1,5 @@
 import { Application, NextFunction, Request, Response } from "express";
-import mongoose, { Connection } from "mongoose";
+import mongoose from "mongoose";
 import customResponse from "../app/utils/custom-response.util";
 import errorNumbers from "../app/utils/error-numbers.util";
 import statusCode from "../app/utils/status-code.util";

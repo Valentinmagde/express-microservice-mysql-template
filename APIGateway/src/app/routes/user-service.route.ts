@@ -118,7 +118,7 @@ class UserServiceRoutes {
             router.use(routesGrouping.group((router) => {
                 router.use('/users', routesGrouping.group((router) => {
                     router.post('/', (req, res, next) => {
-                        const bearerToken = authentication.generateGatewayToken(req);
+                        const bearerToken = authentication.generateGatewayToken();
                         
                         // Set request header authorization with generic gateway
                         req.headers.authorization = `Bearer ${bearerToken}`;
@@ -129,7 +129,7 @@ class UserServiceRoutes {
                     });
 
                     router.post('/login', (req: Request, res: Response, next: NextFunction) => {
-                        const bearerToken = authentication.generateGatewayToken(req);
+                        const bearerToken = authentication.generateGatewayToken();
 
                         // Set request header authorization with generic gateway
                         req.headers.authorization = `Bearer ${bearerToken}`;

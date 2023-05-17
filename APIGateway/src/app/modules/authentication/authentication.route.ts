@@ -11,7 +11,6 @@ dotenv.config();
 
 const userServiceProxy = httpProxy(process.env.USER_SERVICE_URL as string, {
   userResDecorator: function (proxyRes, proxyResData, userReq, userRes) {
-    console.log(userReq);
     const data = JSON.parse(proxyResData.toString("utf8"));
 
     // Add the access token and refresh token information
@@ -138,15 +137,13 @@ class AuthenticationRoutes {
          *
          */
         router.post("/login", (req, res, next) => {
-          const bearerToken = authentication.generateGatewayToken(req);
+          const bearerToken = authentication.generateGatewayToken();
 
           // Set request header authorization with generic gateway
           req.headers.authorization = `Bearer ${bearerToken}`;
 
           // Update url with original url which contain all path
-          const param : any = req.params;
-          const url = `/v1/${param.lang}/users/login`;
-          req.url = url;
+          req.url = `/v1/${JSON.parse(JSON.stringify(req.params)).lang}/users/login`;
 
           userServiceProxy(req, res, next);
         });

@@ -1,4 +1,4 @@
-import express, { Application, NextFunction, Request, Response, Router } from 'express';
+import express, { Router } from 'express';
 import dotenv from "dotenv";
 import routesGrouping from '../../utils/routes-grouping.util';
 import roleController from './role.controller';
@@ -20,7 +20,7 @@ class RoleRoutes {
      * @return void
      */
     constructor() {
-        this.router = express.Router();
+        this.router = express.Router({mergeParams: true});
     }
 
     /** 

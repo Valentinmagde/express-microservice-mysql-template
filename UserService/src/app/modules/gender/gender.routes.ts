@@ -20,7 +20,7 @@ class GenderRoutes {
      * @return void
      */
     constructor() {
-        this.router = express.Router();
+        this.router = express.Router({mergeParams: true});
     }
 
     /** 

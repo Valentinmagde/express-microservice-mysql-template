@@ -1,3 +1,6 @@
+import GenderType from "../gender/gender.type"
+import RoleType from "../role/role.type"
+
 export default interface UserType {
     _id: string,
     firstname: string,
@@ -5,10 +8,10 @@ export default interface UserType {
     username: string,
     email: string,
     password: string,
-    gender: string,
+    gender: GenderType | string,
     isSeller: boolean,
     seller: Seller,
-    roles: string,
+    roles: Array<string | RoleType>,
     isDeleted: boolean,
     online: boolean
 }

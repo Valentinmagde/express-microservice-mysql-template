@@ -20,7 +20,7 @@ class CustomResponse {
      * 
      * @return Response of customize response
      */
-    public success(data: any, res: Response) {
+    public success(data: DataType, res: Response) {
         res
         .status(data.status)
         .send({ status: "OK", data: data.data });
@@ -37,7 +37,7 @@ class CustomResponse {
      * 
      * @return Response of customize response
      */
-    public error(data: any, res: Response) {
+    public error(data: DataType, res: Response) {
         res
         .status(data.status)
         .send({ 
@@ -45,6 +45,13 @@ class CustomResponse {
             data: { errNo: data.errNo, errMsg: data.errMsg }
         });
     }
+}
+
+interface DataType {
+    status : number,
+    errNo? : number,
+    errMsg?: unknown,
+    data?  : unknown
 }
 
 const customResponse = new CustomResponse();

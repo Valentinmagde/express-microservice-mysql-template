@@ -1,6 +1,6 @@
-import { Request } from 'express';
 import jwt from 'jsonwebtoken';
 import config from '../../config/index.config';
+import AuthenticationType from '../modules/authentication/authentication.type';
 
 /**
  * @author Valentin Magde <valentinmagde@gmail.com>
@@ -19,7 +19,7 @@ class Authentication {
    * @param any user 
    * @returns string jwt
    */
-  public generateToken = (user: any) => {
+  public generateToken = (user: AuthenticationType) => {
     const private_key = config.node_server_private_key as string;
     const access_token_life = config.access_token_life;
     const refresh_token_life = config.refresh_token_life;
@@ -64,7 +64,7 @@ class Authentication {
    * @param any user 
    * @returns string jwt
    */
-  public generateGatewayToken = (req: Request) => {
+  public generateGatewayToken = () => {
     const private_key = config.node_server_private_key as string;
     const access_token_life = config.access_token_life;
 

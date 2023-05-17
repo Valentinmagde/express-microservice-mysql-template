@@ -4,7 +4,6 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 import ExpressConfigModule from './express-config';
 import { Application } from 'express';
-import Authorization from '../app/middlewares/authorization.middleware';
 import DBManager from './db-manager';
 
 /**

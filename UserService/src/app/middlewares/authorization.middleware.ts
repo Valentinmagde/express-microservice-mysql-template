@@ -47,7 +47,7 @@ class Authorization {
       if(token) {
         cacheManager.connectToRedis()
         .then(async(redisClient) => {
-          const inDenyList: any = await redisClient.get(`bl_${token}`);
+          const inDenyList: string | null = await redisClient.get(`bl_${token}`);
 
           // token in deny list?
           if (inDenyList) {
@@ -114,7 +114,7 @@ class Authorization {
    * @param NextFunction next 
    * @returns any of next function or unauthorize message
    */
-  public auth = (req: Request, res: Response, next: NextFunction) => {
+  public auth = (req: Request) => {
     const authorization = req.headers.authorization;
     if (authorization) {
       const token = authorization.slice(7, authorization.length); // Bearer XXXXXX

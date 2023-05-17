@@ -161,7 +161,7 @@ class Authorization {
    * @param NextFunction next 
    * @returns any of next function or unauthorize message
    */
-  public auth = (req: Request, res: Response, next: NextFunction) => {
+  public auth = (req: Request) => {
     const public_key = config.node_server_public_key as string;
     const authorization = req.headers.authorization;
 

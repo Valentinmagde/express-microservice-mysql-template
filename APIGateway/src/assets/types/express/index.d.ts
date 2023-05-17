@@ -1,12 +1,12 @@
-import { Request } from "express"
+import AuthenticationType from "../../app/modules/authentication/authentication.type"
 
 export { }
 
 declare global {
   declare namespace Express {
     interface Request {
-      user? : any
-      file? : any
+      user? : AuthenticationType
+      file? : File
     }
   }
 }
