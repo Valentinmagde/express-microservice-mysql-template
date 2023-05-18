@@ -1,5 +1,5 @@
-# Microservices in Nodejs
-This project is basic demo of Microservices in Nodejs, Along with API gatway. In this project we have three Microservices, as slisted below
+# Microservices in Nodejs with ExpressJs
+This project is RESTful API Microservice Starter in Nodejs, Along with API gatway. In this project we have three Microservices, as slisted below
 1. [User Service](https://github.com/ShankyTiwari/Microservices-in-Nodejs/tree/master/UserService)
 2. [Product Service](https://github.com/ShankyTiwari/Microservices-in-Nodejs/tree/master/ProductService)
 3. [Order Service](https://github.com/ShankyTiwari/Microservices-in-Nodejs/tree/master/OrderService)
