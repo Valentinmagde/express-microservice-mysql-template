@@ -9,7 +9,6 @@ i18n.configure({
   objectNotation: true,
   api: {
     __: "translate",
-
     __n: "translateN",
   },
 });
