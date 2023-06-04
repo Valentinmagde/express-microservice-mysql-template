@@ -13,13 +13,14 @@ import config from "../config";
  */
 class DBManager {
   private app?: Application;
+
   /**
    * Create a newDBManager instance.
    *
    * @author Valentin Magde <valentinmagde@gmail.com>
    * @since 2023-22-03
    *
-   * @return void
+   * @param {Application} app the application
    */
   constructor(app?: Application) {
     this.app = app;
@@ -31,25 +32,35 @@ class DBManager {
    * @author Valentin Magde <valentinmagde@gmail.com>
    * @since 2023-22-03
    *
-   * @return promise
+   * @param {Request} req the http request
+   * @param {Response} res the http response
+   * @param {NextFunction} next the callback
+   *
+   * @return {void}
    */
-  public onConnect(req: Request, res: Response, next: NextFunction) {
-    const swagger_base_url = config.swagger_base_url;
+  public onConnect(req: Request, res: Response, next: NextFunction): void {
+    const swaggerMicroBaseUrl = config.swaggerBaseUrl;
+    const swaggerAuthBaseUrl = config.swaggerAuthBaseUrl;
 
     // Except documentation route for authentication
-    if (req.path.indexOf(swagger_base_url) > -1) return next();
+    if (
+      req.path.indexOf(swaggerMicroBaseUrl) > -1 ||
+      req.path.indexOf(swaggerAuthBaseUrl) > -1
+    )
+      next();
     else {
+      const mongoUrl = `mongodb://${config.mongoDbHost}:
+        ${config.mongoDbPort}/${config.mongoDbName}`;
+
       mongoose
-        .connect(
-          `mongodb://${config.mongo_db_host}:${config.mongo_db_port}/${config.mongo_db_name}`
-        )
+        .connect( mongoUrl.replace(/\s+/g, ''))
         .then(() => {
           next();
         })
         .catch((error) => {
           const response = {
-            status: error?.status || statusCode.HTTP_INTERNAL_SERVER_ERROR,
-            errNo: errorNumbers.generic_error,
+            status: error?.status || statusCode.httpInternalServerError,
+            errNo: errorNumbers.genericError,
             errMsg: error?.message || error,
           };
 
@@ -62,11 +73,11 @@ class DBManager {
    * Set db connection
    *
    * @author Valentin Magde <valentinmagde@gmail.com>
-   * @since 2023-23-03
+   * @since 2023-03-23
    *
-   * @returns void
+   * @returns {void}
    */
-  public setDBConnection() {
+  public setDBConnection(): void {
     this.app?.use(this.onConnect); // General middleware
   }
 }

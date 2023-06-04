@@ -18,9 +18,9 @@ class AppConfig {
    * Create a new UserController instance.
    *
    * @author Valentin Magde <valentinmagde@gmail.com>
-   * @since 2023-22-03
+   * @since 2023-03-22
    *
-   * @return void
+   * @param {Application} app express application
    */
   constructor(app: Application) {
     process.on("unhandledRejection", (reason, p) => {
@@ -36,9 +36,9 @@ class AppConfig {
    * @author Valentin Magde <valentinmagde@gmail.com>
    * @since 2023-22-03
    *
-   * @return void
+   * @return {void}
    */
-  public includeConfig() {
+  public includeConfig(): void {
     this.loadAppLevelConfig();
     this.loadExpressConfig();
   }
@@ -49,9 +49,9 @@ class AppConfig {
    * @author Valentin Magde <valentinmagde@gmail.com>
    * @since 2023-05-09
    *
-   * @return void
+   * @return {void}
    */
-  public loadAppLevelConfig() {
+  public loadAppLevelConfig(): void {
     this.app.use(bodyParser.json());
     this.app.use(bodyParser.urlencoded({ extended: true }));
     this.app.use(cors());
@@ -63,9 +63,9 @@ class AppConfig {
    * @author Valentin Magde <valentinmagde@gmail.com>
    * @since 2023-05-09
    *
-   * @return void
+   * @return {void}
    */
-  public loadExpressConfig() {
+  public loadExpressConfig(): void {
     new DBManager(this.app).setDBConnection();
   }
 }

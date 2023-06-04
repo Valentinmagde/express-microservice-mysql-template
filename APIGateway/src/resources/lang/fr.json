@@ -16,10 +16,12 @@
 	},
 	"unauthorize": {
 		"NO_TOKEN": "Pas de jeton",
-		"IVALID_TOKEN": "Token invalide",
+		"INVALID_TOKEN": "Jeton non valide",
 		"INVALID_ADMIN_TOKEN": "Invalid Admin Token",
 		"INVALID_SELLER_TOKEN": "Invalid Seller Token",
-		"INVALID_ADMIN_OR_SELLER": "Invalid Admin or Seller Token"
+		"INVALID_ADMIN_OR_SELLER": "Invalid Admin or Seller Token",
+		"INVALID_REFRESH_TOKEN": "Jeton de rafraîchissement invalide",
+		"NO_REFRESH_TOKEN": "Pas de jeton de rafraîchissement"
 	},
 	"profile": {
 		"USER_NOT_FOUND": "User does not exits."

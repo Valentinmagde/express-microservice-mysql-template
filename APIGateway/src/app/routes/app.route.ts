@@ -1,26 +1,19 @@
-import httpProxy from "express-http-proxy";
 import dotenv from "dotenv";
 import { Application } from "express";
-import userServiceRoutes from "./user-service.route";
 import swaggerUi from "swagger-ui-express";
-import swaggerMicroservicesOptions from "../../resources/swagger/microservices-docs/microservices-docs.json";
+import
+  swaggerMicroservicesOptions
+from "../../resources/swagger/microservices-docs/microservices-docs.json";
 import statusCode from "../utils/status-code.util";
 import errorNumbers from "../utils/error-numbers.util";
-import i18n from '../../core/i18n';
+import i18n from "../../core/i18n";
 import customResponse from "../utils/custom-response.util";
 import routesGrouping from "../utils/routes-grouping.util";
-import authenticationRoutes from "../modules/authentication/authentication.route";
-import swaggerauthenticationOptions from "../../resources/swagger/authentication-docs/authentication-docs.json";
-import swaggerJSDoc from "swagger-jsdoc";
+import authenticationModuleRoutes from "./authentication-module.route";
+import userServiceRoutes from "./user-service.route";
 import setLocale from "../middlewares/set-locale.middleware";
 
 dotenv.config();
-
-const productServiceProxy = httpProxy(
-  process.env.PRODUCT_SERVICE_URL as string
-);
-const orderServiceProxy = httpProxy(process.env.ORDER_SERVICE_URL as string);
-const specs = swaggerJSDoc(swaggerauthenticationOptions);
 
 /**
  * @author Valentin Magde <valentinmagde@gmail.com>
@@ -34,7 +27,10 @@ class AppRoutes {
   /**
    * Create a new Routes instance.
    *
-   * @return void
+   * @author Valentin Magde <valentinmagde@gmail.com>
+   * @since 2023-03-26
+   *
+   * @param {Application} app express application
    */
   constructor(app: Application) {
     this.app = app;
@@ -46,9 +42,9 @@ class AppRoutes {
    * @author Valentin Magde <valentinmagde@gmail.com>
    * @since 2023-26-03
    *
-   * @returns void
+   * @returns {void}
    */
-  public appRoutes() {
+  public appRoutes(): void {
     this.app.use(
       "/v1",
       routesGrouping.group((router) => {
@@ -56,66 +52,41 @@ class AppRoutes {
           "/:lang",
           setLocale.setLocale,
           routesGrouping.group((router) => {
-            // Includes user routes
+            /******************************************************************
+            * Includes all microservices routes here
+            ******************************************************************/
+
+            // user service routes
             router.use(userServiceRoutes.userServiceRoutes());
 
-            // Includes authentication routes
-            router.use(authenticationRoutes.authenticationRoutes());
-          })
-        );
-
-        // Swagger documentation
-        router.use(
-          routesGrouping.group((router) => {
-            // All microservice swagger documentation route
-            router.use(
-              "/docs",
-              swaggerUi.serveFiles(undefined, swaggerMicroservicesOptions),
-              swaggerUi.setup(undefined, swaggerMicroservicesOptions)
-            );
-
-            // Authentication swagger documentation
-            router.use(
-              "/auth",
-              routesGrouping.group((router) => {
-                router.use(
-                  "/docs",
-                  swaggerUi.serveFiles(undefined, specs),
-                  swaggerUi.setup(undefined, specs)
-                );
-
-                router.get("/docs.json", (req, res) => {
-                  res.setHeader("Content-Type", "application/json");
-                  res.send(specs);
-                });
-              })
-            );
+            // authentication module routes
+            router.use(authenticationModuleRoutes.authenticationRoutes());
           })
         );
       })
     );
 
-    this.app.get("/product/:productId", (req, res, next) => {
-      productServiceProxy(req, res, next);
-    });
+    // Swagger documentation routes
+    this.app.use(
+      "/v1",
+      routesGrouping.group((router) => {
+        // All microservice swagger documentation route
+        router.use(
+          "/docs",
+          swaggerUi.serveFiles(undefined, swaggerMicroservicesOptions),
+          swaggerUi.setup(undefined, swaggerMicroservicesOptions)
+        );
 
-    this.app.get("/product", (req, res, next) => {
-      productServiceProxy(req, res, next);
-    });
-
-    this.app.post("/order", (req, res, next) => {
-      orderServiceProxy(req, res, next);
-    });
-
-    this.app.get("/order", (req, res, next) => {
-      orderServiceProxy(req, res, next);
-    });
+        // Authentication swagger documentation
+        router.use(authenticationModuleRoutes.authenticationDocsRoutes());
+      })
+    );
 
     // error handler for not found router
     this.app.get("*", (req, res) => {
       const response = {
-        status: statusCode.HTTP_NOT_FOUND,
-        errNo: errorNumbers.resource_not_found,
+        status: statusCode.httpNotFound,
+        errNo: errorNumbers.resourceNotFound,
         errMsg: i18n.__("others.ROUTE_NOT_FOUND"),
       };
 
@@ -127,11 +98,11 @@ class AppRoutes {
    * Load routes
    *
    * @author Valentin Magde <valentinmagde@gmail.com>
-   * @since 2023-26-03
+   * @since 2023-03-26
    *
-   * @returns void
+   * @returns {void}
    */
-  public routesConfig() {
+  public routesConfig(): void {
     this.appRoutes();
   }
 }

@@ -16,21 +16,23 @@ class CacheManager {
    * @author Valentin Magde <valentinmagde@gmail.com>
    * @since 2023-04-23
    *
-   * @return RedisClientType
+   * @return {Promise<RedisClientType>} the eventual completion or failure
    */
-  public async connectToRedis() {
+  public async connectToRedis(): Promise<RedisClientType> {
     return new Promise<RedisClientType>((resolve, reject) => {
       (async () => {
         const client: RedisClientType = createClient({
-          url: `redis://${config.redis_db_host}:${config.redis_db_port}`,
+          url: `redis://${config.redisDbHost}:${config.redisDbPort}`,
         });
 
-        client.on("error", ()  => {
+        client.on("error", () => {
           reject(
-            `${i18n.__("cache.redis.REDIS_CONNECTION_TO")} ${config.redis_db_host}:${config.redis_db_port} ${i18n.__("cache.redis.FAILD")}`
+            `${i18n.__("cache.redis.REDIS_CONNECTION_TO")} ${
+              config.redisDbHost
+            }:${config.redisDbPort} ${i18n.__("cache.redis.FAILD")}`
           );
         });
-  
+
         await client.connect();
 
         resolve(client);

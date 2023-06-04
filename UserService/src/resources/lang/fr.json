@@ -15,8 +15,8 @@
             "USER_LOGIN_FAILED" : "Incorrect username or password."
         },
         "unauthorize": {
-            "NO_TOKEN" : "No Token",
-            "IVALID_TOKEN" : "Invalid Token",
+            "NO_TOKEN" : "Pas de jeton",
+            "INVALID_TOKEN" : "Invalid Token",
             "INVALID_ADMIN_TOKEN" : "Invalid Admin Token",
             "INVALID_SELLER_TOKEN" : "Invalid Seller Token",
             "INVALID_ADMIN_OR_SELLER" : "Invalid Admin or Seller Token"
@@ -33,6 +33,12 @@
         },
         "others": {
             "INVALID_USER_ID" : "Invalid user id."
+        },
+        "assign": {
+            "ROLE_ALREADY_ASSIGNED" : "Ce rôle est déjà attribué à cet utilisateur."
+        },
+        "unassign": {
+            "NOT_HAVE_THIS_ROLE" : "L'utilisateur n'a pas ce rôle."
         }
     },
     "others": {

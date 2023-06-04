@@ -18,16 +18,20 @@ class SetLocale {
    * @author Valentin Magde <valentinmagde@gmail.com>
    * @since 2023-05-09
    *
-   * @return void
+   * @param {Request} req the http request
+   * @param {Response} res the http response
+   * @param {NextFunction} next the callback
+   *
+   * @return {void}
    */
   public setLocale(req: Request, res: Response, next: NextFunction): void {
-    const swagger_base_url: string = config.swagger_base_url;
-    const swagger_auth_base_url: string = config.swagger_auth_base_url;
+    const swaggerBaseUrl: string = config.swaggerBaseUrl;
+    const swaggerAuthBaseUrl: string = config.swaggerAuthBaseUrl;
 
     // Except documentation route for localization
     if (
-      req.originalUrl.indexOf(swagger_base_url) > -1 ||
-      req.originalUrl.indexOf(swagger_auth_base_url) > -1
+      req.originalUrl.indexOf(swaggerBaseUrl) > -1 ||
+      req.originalUrl.indexOf(swaggerAuthBaseUrl) > -1
     ) {
       return next();
     } else {
@@ -36,8 +40,8 @@ class SetLocale {
 
       if (!locales.includes(locale)) {
         const response = {
-          status: statusCode.HTTP_BAD_REQUEST,
-          errNo: errorNumbers.generic_error,
+          status: statusCode.httpBadRequest,
+          errNo: errorNumbers.genericError,
           errMsg: "Language not supported",
         };
 

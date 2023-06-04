@@ -16,7 +16,7 @@
         },
         "unauthorize": {
             "NO_TOKEN" : "No Token",
-            "IVALID_TOKEN" : "Invalid Token",
+            "INVALID_TOKEN" : "Invalid Token",
             "INVALID_ADMIN_TOKEN" : "Invalid Admin Token",
             "INVALID_SELLER_TOKEN" : "Invalid Seller Token",
             "INVALID_ADMIN_OR_SELLER" : "Invalid Admin or Seller Token"
@@ -36,6 +36,9 @@
         },
         "assign": {
             "ROLE_ALREADY_ASSIGNED" : "This role is already assigned to this user."
+        },
+        "unassign": {
+            "NOT_HAVE_THIS_ROLE" : "User does not have this role."
         }
     },
     "others": {

@@ -59,7 +59,7 @@
   "apis": [
     "./src/app/routes/*/*.ts",
     "./src/app/modules/*/*.ts",
-    "./src/assets/swagger/user-docs/components/*.yaml",
-    "./src/assets/swagger/user-docs/responses/*.yaml"
+    "./src/resources/swagger/user-docs/components/*.yaml",
+    "./src/resources/swagger/user-docs/responses/*.yaml"
   ]
 }

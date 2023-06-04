@@ -3,19 +3,19 @@ import { Application } from "express";
 /**
  * @author Valentin Magde <valentinmagde@gmail.com>
  * @since 2023-22-03
- * 
+ *
  * Class ExpressConfig
  */
 class ExpressConfig {
   private app;
-  
+
   /**
    * Create a new ExpressConfig instance.
    *
    * @author Valentin Magde <valentinmagde@gmail.com>
-   * @since 2023-22-03
-   * 
-   * @return void
+   * @since 2023-03-22
+   *
+   * @param {Application} app express application
    */
   constructor(app: Application) {
     this.app = app;
@@ -25,12 +25,12 @@ class ExpressConfig {
    * Set App Engine.
    *
    * @author Valentin Magde <valentinmagde@gmail.com>
-   * @since 2023-22-03
-   * 
-   * @return void
+   * @since 2023-03-22
+   *
+   * @return {void}
    */
-  public setAppEngine() {
-    this.app.set('view engine', 'html');
+  public setAppEngine(): void {
+    this.app.set("view engine", "html");
   }
 }
 

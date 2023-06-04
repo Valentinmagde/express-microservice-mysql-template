@@ -19,7 +19,10 @@ class Authorization {
   /**
    * Create a new Authorization instance.
    *
-   * @return void
+   * @author Valentin Magde <valentinmagde@gmail.com>
+   * @since 2023-03-26
+   *
+   * @param {Application} app express application
    */
   constructor(app?: Application) {
     this.app = app;
@@ -31,18 +34,20 @@ class Authorization {
    * @author Valentin Magde <valentinmagde@gmail.com>
    * @since 2023-03-26
    *
-   * @param Request req
-   * @param Response res
-   * @param NextFunction next
-   * @returns any of next function or unauthorize message
+   * @param {Request} req the http request
+   * @param {Response} res the http response
+   * @param {NextFunction} next the callback
+   * @returns {void}
    */
-  public isAuth = (req: Request, res: Response, next: NextFunction) => {
-    if (req.originalUrl.indexOf(config.swagger_base_url) > -1) return next();
+  public isAuth = (req: Request, res: Response, next: NextFunction): void => {
+    if (req.originalUrl.indexOf(config.swaggerBaseUrl) > -1) return next();
     else {
-      const public_key = config.node_server_public_key as string;
+      const publicKey = config.nodeServerPublicKey as string;
       const authorization = req.headers.authorization;
+
+      // Bearer XXXXXX
       const token =
-        authorization && authorization.slice(7, authorization.length); // Bearer XXXXXX
+        authorization && authorization.slice(7, authorization.length);
 
       // token provided?
       if (token) {
@@ -56,20 +61,20 @@ class Authorization {
             // token in deny list?
             if (inDenyList) {
               const response = {
-                status: statusCode.HTTP_UNAUTHORIZED,
-                errNo: errorNumbers.invalid_token,
-                errMsg: i18n.__("user.unauthorize.IVALID_TOKEN"),
+                status: statusCode.httpUnauthorized,
+                errNo: errorNumbers.invalidToken,
+                errMsg: i18n.__("user.unauthorize.INVALID_TOKEN"),
               };
 
               return customResponse.error(response, res);
             } else {
               // token valid?
-              jwt.verify(token, public_key, (err, decode) => {
+              jwt.verify(token, publicKey, (err, decode) => {
                 if (err) {
                   const response = {
-                    status: statusCode.HTTP_UNAUTHORIZED,
-                    errNo: errorNumbers.invalid_token,
-                    errMsg: i18n.__("user.unauthorize.IVALID_TOKEN"),
+                    status: statusCode.httpUnauthorized,
+                    errNo: errorNumbers.invalidToken,
+                    errMsg: i18n.__("user.unauthorize.INVALID_TOKEN"),
                   };
 
                   return customResponse.error(response, res);
@@ -82,8 +87,8 @@ class Authorization {
           })
           .catch((error) => {
             const response = {
-              status: error?.status || statusCode.HTTP_INTERNAL_SERVER_ERROR,
-              errNo: errorNumbers.generic_error,
+              status: error?.status || statusCode.httpInternalServerError,
+              errNo: errorNumbers.genericError,
               errMsg: error?.message || error,
             };
 
@@ -91,8 +96,8 @@ class Authorization {
           });
       } else {
         const response = {
-          status: statusCode.HTTP_UNAUTHORIZED,
-          errNo: errorNumbers.token_not_found,
+          status: statusCode.httpUnauthorized,
+          errNo: errorNumbers.tokenNotFound,
           errMsg: i18n.__("user.unauthorize.NO_TOKEN"),
         };
 
@@ -100,127 +105,6 @@ class Authorization {
       }
     }
   };
-
-  /**
-   * Check if user is authenticated
-   *
-   * @author Valentin Magde <valentinmagde@gmail.com>
-   * @since 2023-03-26
-   *
-   * @param Request req
-   * @param Response res
-   * @param NextFunction next
-   * @returns any of next function or unauthorize message
-   */
-  public auth = (req: Request) => {
-    const authorization = req.headers.authorization;
-    if (authorization) {
-      const token = authorization.slice(7, authorization.length); // Bearer XXXXXX
-      jwt.verify(
-        token,
-        process.env.JWT_SECRET || "somethingsecret",
-        (err, decode) => {
-          if (err) {
-            return null;
-          } else {
-            req.user = decode;
-          }
-        }
-      );
-    } else {
-      return null;
-    }
-    return req.user;
-  };
-
-  /**
-   * Check if user is administrator
-   *
-   * @author Valentin Magde <valentinmagde@gmail.com>
-   * @since 2023-03-26
-   *
-   * @param Request req
-   * @param Response res
-   * @param NextFunction next
-   * @returns any of next function or unauthorize message
-   */
-  public isAdmin = (req: Request, res: Response, next: NextFunction) => {
-    if (req.user && req.user.isAdmin) {
-      next();
-    } else {
-      const response = {
-        status: statusCode.HTTP_UNAUTHORIZED,
-        errNo: errorNumbers.validator,
-        errMsg: i18n.__("user.unauthorize.INVALID_ADMIN_TOKEN"),
-      };
-
-      return customResponse.error(response, res);
-    }
-  };
-
-  /**
-   * Check if user is seller
-   *
-   * @author Valentin Magde <valentinmagde@gmail.com>
-   * @since 2023-03-26
-   *
-   * @param Request req
-   * @param Response res
-   * @param NextFunction next
-   * @returns any of next function or unauthorize message
-   */
-  public isSeller = (req: Request, res: Response, next: NextFunction) => {
-    if (req.user && req.user.isSeller) {
-      next();
-    } else {
-      const response = {
-        status: statusCode.HTTP_UNAUTHORIZED,
-        errNo: errorNumbers.validator,
-        errMsg: i18n.__("user.unauthorize.INVALID_SELLER_TOKEN"),
-      };
-
-      return customResponse.error(response, res);
-    }
-  };
-
-  /**
-   * Check if user is seller or administrator
-   *
-   * @author Valentin Magde <valentinmagde@gmail.com>
-   * @since 2023-03-26
-   *
-   * @param Request req
-   * @param Response res
-   * @param NextFunction next
-   * @returns any of next function or unauthorize message
-   */
-  public isSellerOrAdmin = (
-    req: Request,
-    res: Response,
-    next: NextFunction
-  ) => {
-    if (req.user && (req.user.isSeller || req.user.isAdmin)) {
-      next();
-    } else {
-      res.status(401).send({ message: "Invalid Admin/Seller Token" });
-      const response = {
-        status: statusCode.HTTP_UNAUTHORIZED,
-        errNo: errorNumbers.validator,
-        errMsg: i18n.__("user.unauthorize.INVALID_ADMIN_OR_SELLER"),
-      };
-
-      return customResponse.error(response, res);
-    }
-  };
-
-  /**
-   * Set JWT config
-   *
-   * @returns void
-   */
-  // public setJWTConfig() {
-  //   this.app?.use(this.isAuth); // General middleware
-  // }
 }
 
 const authorization = new Authorization();

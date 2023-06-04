@@ -14,19 +14,19 @@ class Validator {
    * @author Valentin Magde <valentinmagde@gmail.com>
    * @since 2023-29-03
    *
-   * @param any body
-   * @param any rules
-   * @param any customMessages
-   * @param any callback
+   * @param {any} body data to validate
+   * @param {Rules} rules the error rules
+   * @param {ErrorMessages} customMessages the custom error message
+   * @param {any} callback the callback
    *
-   * @return void
+   * @return {Promise<void>} the eventual completion or failure
    */
   public async validator(
     body: any,
     rules: Rules,
     customMessages: ErrorMessages,
     callback: any
-  ) {
+  ): Promise<void> {
     const validation = new Validatorjs(body, rules, customMessages);
     validation.passes(() => callback(null, true));
     validation.fails(() => callback(validation.errors, false));

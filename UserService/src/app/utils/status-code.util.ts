@@ -1,452 +1,951 @@
 /**
  * @author Valentin Magde <valentinmagde@gmail.com>
  * @since 2023-27-03
- * 
+ *
  * Class StatusCode
- * 
- * @para number _HTTP_CONTINUE
- * @para number _HTTP_SWITCHING_PROTOCOLS
- * @para number _HTTP_PROCESSING
- * @para number _HTTP_OK
- * @para number _HTTP_CREATED
- * @para number _HTTP_ACCEPTED
- * @para number _HTTP_NON_AUTHORITATIVE_INFORMATION
- * @para number _HTTP_NO_CONTENT
- * @para number _HTTP_RESET_CONTENT
- * @para number _HTTP_PARTIAL_CONTENT
- * @para number _HTTP_MULTI_STATUS
- * @para number _HTTP_ALREADY_REPORTED
- * @para number _HTTP_IM_USED
- * @para number _HTTP_MULTIPLE_CHOICES
- * @para number _HTTP_MOVED_PERMANENTLY
- * @para number _HTTP_FOUND
- * @para number _HTTP_SEE_OTHER
- * @para number _HTTP_NOT_MODIFIED
- * @para number _HTTP_RESERVED
- * @para number _HTTP_TEMPORARY_REDIRECT
- * @para number _HTTP_PERMANENTLY_REDIRECT
- * @para number _HTTP_BAD_REQUEST
- * @para number _HTTP_UNAUTHORIZED
- * @para number _HTTP_PAYMENT_REQUIRED
- * @para number _HTTP_FORBIDDEN
- * @para number _HTTP_NOT_FOUND
- * @para number _HTTP_METHOD_NOT_ALLOWED
- * @para number _HTTP_NOT_ACCEPTABLE
- * @para number _HTTP_PROXY_AUTHENTICATION_REQUIRED
- * @para number _HTTP_REQUEST_TIMEOUT
- * @para number _HTTP_CONFLICT
- * @para number _HTTP_GONE
- * @para number _HTTP_LENGTH_REQUIRED
- * @para number _HTTP_PRECONDITION_FAILED
- * @para number _HTTP_REQUEST_ENTITY_TOO_LARGE
- * @para number _HTTP_REQUEST_URI_TOO_LONG
- * @para number _HTTP_UNSUPPORTED_MEDIA_TYPE
- * @para number _HTTP_REQUESTED_RANGE_NOT_SATISFIABLE
- * @para number _HTTP_EXPECTATION_FAILED
- * @para number _HTTP_I_AM_A_TEAPOT
- * @para number _HTTP_MISDIRECTED_REQUEST
- * @para number _HTTP_UNPROCESSABLE_ENTITY
- * @para number _HTTP_LOCKED
- * @para number _HTTP_FAILED_DEPENDENCY
- * @para number _HTTP_RESERVED_FOR_WEBDAV_ADVANCED_COLLECTIONS_EXPIRED_PROPOSAL
- * @para number _HTTP_UPGRADE_REQUIRED
- * @para number _HTTP_UPGRADE_REQUIRED
- * @para number _HTTP_PRECONDITION_REQUIRED
- * @para number _HTTP_TOO_MANY_REQUESTS
- * @para number _HTTP_REQUEST_HEADER_FIELDS_TOO_LARGE
- * @para number _HTTP_UNAVAILABLE_FOR_LEGAL_REASONS
- * @para number _HTTP_INTERNAL_SERVER_ERROR
- * @para number _HTTP_NOT_IMPLEMENTED
- * @para number _HTTP_BAD_GATEWAY
- * @para number _HTTP_SERVICE_UNAVAILABLE
- * @para number _HTTP_GATEWAY_TIMEOUT
- * @para number _HTTP_VERSION_NOT_SUPPORTED
- * @para number _HTTP_VARIANT_ALSO_NEGOTIATES_EXPERIMENTAL
- * @para number _HTTP_INSUFFICIENT_STORAGE
- * @para number _HTTP_LOOP_DETECTED
- * @para number _HTTP_NOT_EXTENDED
- * @para number _HTTP_NETWORK_AUTHENTICATION_REQUIRED
+ *
+ * @para number _httpContinue
+ * @para number _httpSwitchingProtocols
+ * @para number _httpProcessing
+ * @para number _httpOk
+ * @para number _httpCreated
+ * @para number _httpAccepted
+ * @para number _http_nonAuthoritativeInformation
+ * @para number _httpNoContent
+ * @para number _httpResetContent
+ * @para number _httpPartialContent
+ * @para number _httpMultiStatus
+ * @para number _httpAlreadyReported
+ * @para number _httpImUsed
+ * @para number _httpMultipleChoices
+ * @para number _httpMovedPermanently
+ * @para number _httpFound
+ * @para number _httpSeeOther
+ * @para number _httpNotModified
+ * @para number _httpReserved
+ * @para number _httpTemporaryRedirect
+ * @para number _httpPermanentlyRedirect
+ * @para number _httpBadRequest
+ * @para number _httpUnauthorized
+ * @para number _httpPaymentRequired
+ * @para number _httpForbidden
+ * @para number _httpNotFound
+ * @para number _httpMethodNotAllowed
+ * @para number _httpNotAcceptable
+ * @para number _httpProxyAuthenticationRequired
+ * @para number _httpRequestTimeout
+ * @para number _httpConflict
+ * @para number _httpGone
+ * @para number _httpLengthRequired
+ * @para number _httpPreconditionFailed
+ * @para number _httpRequestEntityTooLarge
+ * @para number _httpRequestUriTooLong
+ * @para number _httpUnsupportedMediaType
+ * @para number _httpRequestedRangeNotSatisfiable
+ * @para number _httpExpectationFailed
+ * @para number _httpIAmATeapot
+ * @para number _httpMisdirectedRequest
+ * @para number _httpUnprocessableEntity
+ * @para number _httpLocked
+ * @para number _httpFailedDependency
+ * @para number _httpReservedForWebdavAdvancedCollectionsExpiredProposal
+ * @para number _httpUpgradeRequired
+ * @para number _httpUpgradeRequired
+ * @para number _httpPreconditionRequired
+ * @para number _httpTooManyRequests
+ * @para number _httpRequestHeaderFieldsTooLarge
+ * @para number _httpUnavailableForLegalReasons
+ * @para number _httpInternalServerError
+ * @para number _httpNotImplemented
+ * @para number _httpBadGateway
+ * @para number _httpServiceUnavailable
+ * @para number _httpGatewayTimeout
+ * @para number _httpVersionNotSupported
+ * @para number _httpVariantAlsoNegotiatesExperimental
+ * @para number _httpInsufficientStorage
+ * @para number _httpLoopDetected
+ * @para number _httpNotExtended
+ * @para number _httpNetworkAuthenticationRequired
  */
 class StatusCode {
-    private _HTTP_CONTINUE : number;
-    private _HTTP_SWITCHING_PROTOCOLS: number;
-    private _HTTP_PROCESSING: number;
-    private _HTTP_OK: number;
-    private _HTTP_CREATED: number;
-    private _HTTP_ACCEPTED: number;
-    private _HTTP_NON_AUTHORITATIVE_INFORMATION: number;
-    private _HTTP_NO_CONTENT: number;
-    private _HTTP_RESET_CONTENT: number;
-    private _HTTP_PARTIAL_CONTENT: number;
-    private _HTTP_MULTI_STATUS: number;
-    private _HTTP_ALREADY_REPORTED: number;
-    private _HTTP_IM_USED: number;
-    private _HTTP_MULTIPLE_CHOICES: number;
-    private _HTTP_MOVED_PERMANENTLY: number;
-    private _HTTP_FOUND: number;
-    private _HTTP_SEE_OTHER: number;
-    private _HTTP_NOT_MODIFIED: number;
-    private _HTTP_USE_PROXY: number;
-    private _HTTP_RESERVED: number;
-    private _HTTP_TEMPORARY_REDIRECT: number;
-    private _HTTP_PERMANENTLY_REDIRECT: number;
-    private _HTTP_BAD_REQUEST: number;
-    private _HTTP_UNAUTHORIZED: number;
-    private _HTTP_PAYMENT_REQUIRED: number;
-    private _HTTP_FORBIDDEN: number;
-    private _HTTP_NOT_FOUND: number;
-    private _HTTP_METHOD_NOT_ALLOWED: number;
-    private _HTTP_NOT_ACCEPTABLE: number;
-    private _HTTP_PROXY_AUTHENTICATION_REQUIRED: number;
-    private _HTTP_REQUEST_TIMEOUT: number;
-    private _HTTP_CONFLICT: number;
-    private _HTTP_GONE: number;
-    private _HTTP_LENGTH_REQUIRED: number;
-    private _HTTP_PRECONDITION_FAILED: number;
-    private _HTTP_REQUEST_ENTITY_TOO_LARGE: number;
-    private _HTTP_REQUEST_URI_TOO_LONG: number;
-    private _HTTP_UNSUPPORTED_MEDIA_TYPE: number;
-    private _HTTP_REQUESTED_RANGE_NOT_SATISFIABLE: number;
-    private _HTTP_EXPECTATION_FAILED: number;
-    private _HTTP_I_AM_A_TEAPOT: number;
-    private _HTTP_MISDIRECTED_REQUEST: number;
-    private _HTTP_UNPROCESSABLE_ENTITY: number;
-    private _HTTP_LOCKED: number;
-    private _HTTP_FAILED_DEPENDENCY: number;
-    private _HTTP_RESERVED_FOR_WEBDAV_ADVANCED_COLLECTIONS_EXPIRED_PROPOSAL: number;
-    private _HTTP_UPGRADE_REQUIRED: number;
-    private _HTTP_PRECONDITION_REQUIRED: number;
-    private _HTTP_TOO_MANY_REQUESTS: number;
-    private _HTTP_REQUEST_HEADER_FIELDS_TOO_LARGE: number;
-    private _HTTP_UNAVAILABLE_FOR_LEGAL_REASONS: number;
-    private _HTTP_INTERNAL_SERVER_ERROR: number;
-    private _HTTP_NOT_IMPLEMENTED: number;
-    private _HTTP_BAD_GATEWAY: number;
-    private _HTTP_SERVICE_UNAVAILABLE: number;
-    private _HTTP_GATEWAY_TIMEOUT: number;
-    private _HTTP_VERSION_NOT_SUPPORTED: number;
-    private _HTTP_VARIANT_ALSO_NEGOTIATES_EXPERIMENTAL: number;
-    private _HTTP_INSUFFICIENT_STORAGE: number;
-    private _HTTP_LOOP_DETECTED: number;
-    private _HTTP_NOT_EXTENDED: number;
-    private _HTTP_NETWORK_AUTHENTICATION_REQUIRED: number;
+  private _httpContinue: number;
+  private _httpSwitchingProtocols: number;
+  private _httpProcessing: number;
+  private _httpOk: number;
+  private _httpCreated: number;
+  private _httpAccepted: number;
+  private _httpNonAuthoritativeInformation: number;
+  private _httpNoContent: number;
+  private _httpResetContent: number;
+  private _httpPartialContent: number;
+  private _httpMultiStatus: number;
+  private _httpAlreadyReported: number;
+  private _httpImUsed: number;
+  private _httpMultipleChoices: number;
+  private _httpMovedPermanently: number;
+  private _httpFound: number;
+  private _httpSeeOther: number;
+  private _httpNotModified: number;
+  private _httpUseProxy: number;
+  private _httpReserved: number;
+  private _httpTemporaryRedirect: number;
+  private _httpPermanentlyRedirect: number;
+  private _httpBadRequest: number;
+  private _httpUnauthorized: number;
+  private _httpPaymentRequired: number;
+  private _httpForbidden: number;
+  private _httpNotFound: number;
+  private _httpMethodNotAllowed: number;
+  private _httpNotAcceptable: number;
+  private _httpProxyAuthenticationRequired: number;
+  private _httpRequestTimeout: number;
+  private _httpConflict: number;
+  private _httpGone: number;
+  private _httpLengthRequired: number;
+  private _httpPreconditionFailed: number;
+  private _httpRequestEntityTooLarge: number;
+  private _httpRequestUriTooLong: number;
+  private _httpUnsupportedMediaType: number;
+  private _httpRequestedRangeNotSatisfiable: number;
+  private _httpExpectationFailed: number;
+  private _httpIAmATeapot: number;
+  private _httpMisdirectedRequest: number;
+  private _httpUnprocessableEntity: number;
+  private _httpLocked: number;
+  private _httpFailedDependency: number;
+  private _httpReservedForWebdavAdvancedCollectionsExpiredProposal: number;
+  private _httpUpgradeRequired: number;
+  private _httpPreconditionRequired: number;
+  private _httpTooManyRequests: number;
+  private _httpRequestHeaderFieldsTooLarge: number;
+  private _httpUnavailableForLegalReasons: number;
+  private _httpInternalServerError: number;
+  private _httpNotImplemented: number;
+  private _httpBadGateway: number;
+  private _httpServiceUnavailable: number;
+  private _httpGatewayTimeout: number;
+  private _httpVersionNotSupported: number;
+  private _httpVariantAlsoNegotiatesExperimental: number;
+  private _httpInsufficientStorage: number;
+  private _httpLoopDetected: number;
+  private _httpNotExtended: number;
+  private _httpNetworkAuthenticationRequired: number;
 
-    /**
-     * Create a new ErrorNumbers instance.
-     *
-     * @author Valentin Magde <valentinmagde@gmail.com>
-     * @since 2023-27-03
-     * 
-     * @return void
-     */
-    constructor() {
-        this._HTTP_CONTINUE = 100;
-        this._HTTP_SWITCHING_PROTOCOLS = 101;
-        this._HTTP_PROCESSING = 102;
-        this._HTTP_OK = 200;
-        this._HTTP_CREATED = 201;
-        this._HTTP_ACCEPTED = 202;
-        this._HTTP_NON_AUTHORITATIVE_INFORMATION = 203;
-        this._HTTP_NO_CONTENT = 204;
-        this._HTTP_RESET_CONTENT = 205;
-        this._HTTP_PARTIAL_CONTENT = 206;
-        this._HTTP_MULTI_STATUS = 207;
-        this._HTTP_ALREADY_REPORTED = 208;
-        this._HTTP_IM_USED = 226;
-        this._HTTP_MULTIPLE_CHOICES = 300;
-        this._HTTP_MOVED_PERMANENTLY = 301;
-        this._HTTP_FOUND = 302;
-        this._HTTP_SEE_OTHER = 303;
-        this._HTTP_NOT_MODIFIED = 304;
-        this._HTTP_USE_PROXY = 305;
-        this._HTTP_RESERVED = 306;
-        this._HTTP_TEMPORARY_REDIRECT = 307;
-        this._HTTP_PERMANENTLY_REDIRECT = 308;
-        this._HTTP_BAD_REQUEST = 400;
-        this._HTTP_UNAUTHORIZED = 401;
-        this._HTTP_PAYMENT_REQUIRED = 402;
-        this._HTTP_FORBIDDEN = 403;
-        this._HTTP_NOT_FOUND = 404;
-        this._HTTP_METHOD_NOT_ALLOWED = 405;
-        this._HTTP_NOT_ACCEPTABLE = 406;
-        this._HTTP_PROXY_AUTHENTICATION_REQUIRED = 407;
-        this._HTTP_REQUEST_TIMEOUT = 408;
-        this._HTTP_CONFLICT = 409;
-        this._HTTP_GONE = 410;
-        this._HTTP_LENGTH_REQUIRED = 411;
-        this._HTTP_PRECONDITION_FAILED = 412;
-        this._HTTP_REQUEST_ENTITY_TOO_LARGE = 413;
-        this._HTTP_REQUEST_URI_TOO_LONG = 414;
-        this._HTTP_UNSUPPORTED_MEDIA_TYPE = 415;
-        this._HTTP_REQUESTED_RANGE_NOT_SATISFIABLE = 416;
-        this._HTTP_EXPECTATION_FAILED = 417;
-        this._HTTP_I_AM_A_TEAPOT = 418;
-        this._HTTP_MISDIRECTED_REQUEST = 421;
-        this._HTTP_UNPROCESSABLE_ENTITY = 422;
-        this._HTTP_LOCKED = 423;
-        this._HTTP_FAILED_DEPENDENCY = 424;
-        this._HTTP_RESERVED_FOR_WEBDAV_ADVANCED_COLLECTIONS_EXPIRED_PROPOSAL = 425;
-        this._HTTP_UPGRADE_REQUIRED = 426;
-        this._HTTP_PRECONDITION_REQUIRED = 428;
-        this._HTTP_TOO_MANY_REQUESTS = 429;
-        this._HTTP_REQUEST_HEADER_FIELDS_TOO_LARGE = 431;
-        this._HTTP_UNAVAILABLE_FOR_LEGAL_REASONS = 451;
-        this._HTTP_INTERNAL_SERVER_ERROR = 500;
-        this._HTTP_NOT_IMPLEMENTED = 501;
-        this._HTTP_BAD_GATEWAY = 502;
-        this._HTTP_SERVICE_UNAVAILABLE = 503;
-        this._HTTP_GATEWAY_TIMEOUT = 504;
-        this._HTTP_VERSION_NOT_SUPPORTED = 505;
-        this._HTTP_VARIANT_ALSO_NEGOTIATES_EXPERIMENTAL = 506;
-        this._HTTP_INSUFFICIENT_STORAGE = 507;
-        this._HTTP_LOOP_DETECTED = 508;
-        this._HTTP_NOT_EXTENDED = 510;
-        this._HTTP_NETWORK_AUTHENTICATION_REQUIRED = 511;
-    }
+  /**
+   * Create a new ErrorNumbers instance.
+   *
+   * @author Valentin Magde <valentinmagde@gmail.com>
+   * @since 2023-03-27
+   */
+  constructor() {
+    this._httpContinue = 100;
+    this._httpSwitchingProtocols = 101;
+    this._httpProcessing = 102;
+    this._httpOk = 200;
+    this._httpCreated = 201;
+    this._httpAccepted = 202;
+    this._httpNonAuthoritativeInformation = 203;
+    this._httpNoContent = 204;
+    this._httpResetContent = 205;
+    this._httpPartialContent = 206;
+    this._httpMultiStatus = 207;
+    this._httpAlreadyReported = 208;
+    this._httpImUsed = 226;
+    this._httpMultipleChoices = 300;
+    this._httpMovedPermanently = 301;
+    this._httpFound = 302;
+    this._httpSeeOther = 303;
+    this._httpNotModified = 304;
+    this._httpUseProxy = 305;
+    this._httpReserved = 306;
+    this._httpTemporaryRedirect = 307;
+    this._httpPermanentlyRedirect = 308;
+    this._httpBadRequest = 400;
+    this._httpUnauthorized = 401;
+    this._httpPaymentRequired = 402;
+    this._httpForbidden = 403;
+    this._httpNotFound = 404;
+    this._httpMethodNotAllowed = 405;
+    this._httpNotAcceptable = 406;
+    this._httpProxyAuthenticationRequired = 407;
+    this._httpRequestTimeout = 408;
+    this._httpConflict = 409;
+    this._httpGone = 410;
+    this._httpLengthRequired = 411;
+    this._httpPreconditionFailed = 412;
+    this._httpRequestEntityTooLarge = 413;
+    this._httpRequestUriTooLong = 414;
+    this._httpUnsupportedMediaType = 415;
+    this._httpRequestedRangeNotSatisfiable = 416;
+    this._httpExpectationFailed = 417;
+    this._httpIAmATeapot = 418;
+    this._httpMisdirectedRequest = 421;
+    this._httpUnprocessableEntity = 422;
+    this._httpLocked = 423;
+    this._httpFailedDependency = 424;
+    this._httpReservedForWebdavAdvancedCollectionsExpiredProposal = 425;
+    this._httpUpgradeRequired = 426;
+    this._httpPreconditionRequired = 428;
+    this._httpTooManyRequests = 429;
+    this._httpRequestHeaderFieldsTooLarge = 431;
+    this._httpUnavailableForLegalReasons = 451;
+    this._httpInternalServerError = 500;
+    this._httpNotImplemented = 501;
+    this._httpBadGateway = 502;
+    this._httpServiceUnavailable = 503;
+    this._httpGatewayTimeout = 504;
+    this._httpVersionNotSupported = 505;
+    this._httpVariantAlsoNegotiatesExperimental = 506;
+    this._httpInsufficientStorage = 507;
+    this._httpLoopDetected = 508;
+    this._httpNotExtended = 510;
+    this._httpNetworkAuthenticationRequired = 511;
+  }
 
-    public get HTTP_CONTINUE() {
-        return this._HTTP_CONTINUE;
-    }
+  /**
+   * HTTP_CONTINUE
+   *
+   * @author Valentin Magde <valentinmagde@gmail.com>
+   * @since 2023-06-03
+   *
+   * @return {number} the HTTP_CONTINUE
+   */
+  public get httpContinue(): number {
+    return this._httpContinue;
+  }
 
-    public get HTTP_SWITCHING_PROTOCOLS() {
-        return this._HTTP_SWITCHING_PROTOCOLS;
-    }
+  /**
+   * HTTP_SWITCHING_PROTOCOLS
+   *
+   * @author Valentin Magde <valentinmagde@gmail.com>
+   * @since 2023-06-03
+   *
+   * @return {number} the HTTP_SWITCHING_PROTOCOLS
+   */
+  public get httpSwitchingProtocols(): number {
+    return this._httpSwitchingProtocols;
+  }
 
-    public get HTTP_PROCESSING() {
-        return this._HTTP_PROCESSING;
-    }
+  /**
+   * HTTP_PROCESSING
+   *
+   * @author Valentin Magde <valentinmagde@gmail.com>
+   * @since 2023-06-03
+   *
+   * @return {number} the HTTP_PROCESSING
+   */
+  public get httpProcessing(): number {
+    return this._httpProcessing;
+  }
 
-    public get HTTP_OK() {
-        return this._HTTP_OK;
-    }
+  /**
+   * HTTP_OK
+   *
+   * @author Valentin Magde <valentinmagde@gmail.com>
+   * @since 2023-06-03
+   *
+   * @return {number} the HTTP_OK
+   */
+  public get httpOk(): number {
+    return this._httpOk;
+  }
 
-    public get HTTP_CREATED() {
-        return this._HTTP_CREATED;
-    }
+  /**
+   * HTTP_CREATED
+   *
+   * @author Valentin Magde <valentinmagde@gmail.com>
+   * @since 2023-06-03
+   *
+   * @return {number} the HTTP_CREATED
+   */
+  public get httpCreated(): number {
+    return this._httpCreated;
+  }
 
-    public get HTTP_NON_AUTHORITATIVE_INFORMATION() {
-        return this._HTTP_NON_AUTHORITATIVE_INFORMATION;
-    }
+  /**
+   * HTTP Accepted
+   *
+   * @author Valentin Magde <valentinmagde@gmail.com>
+   * @since 2023-06-03
+   *
+   * @return {number} the http accepted
+   */
+  public get httpAccepted(): number {
+    return this._httpAccepted;
+  }
 
-    public get HTTP_NO_CONTENT() {
-        return this._HTTP_NO_CONTENT;
-    }
+  /**
+   * HTTP_NON_AUTHORITATIVE_INFORMATION
+   *
+   * @author Valentin Magde <valentinmagde@gmail.com>
+   * @since 2023-06-03
+   *
+   * @return {number} the HTTP_NON_AUTHORITATIVE_INFORMATION
+   */
+  public get httpNonAuthoritativeInformation(): number {
+    return this._httpNonAuthoritativeInformation;
+  }
 
-    public get HTTP_RESET_CONTENT() {
-        return this._HTTP_RESET_CONTENT;
-    }
+  /**
+   * HTTP_NO_CONTENT
+   *
+   * @author Valentin Magde <valentinmagde@gmail.com>
+   * @since 2023-06-03
+   *
+   * @return {number} the HTTP_NO_CONTENT
+   */
+  public get httpNoContent(): number {
+    return this._httpNoContent;
+  }
 
-    public get HTTP_PARTIAL_CONTENT() {
-       return this._HTTP_PARTIAL_CONTENT;
-    }
-    
-    public get HTTP_MULTI_STATUS() {
-        return this._HTTP_MULTI_STATUS;
-    }
+  /**
+   * HTTP_RESET_CONTENT
+   *
+   * @author Valentin Magde <valentinmagde@gmail.com>
+   * @since 2023-06-03
+   *
+   * @return {number} the HTTP_RESET_CONTENT
+   */
+  public get httpResetContent(): number {
+    return this._httpResetContent;
+  }
 
-    public get HTTP_ALREADY_REPORTED() {
-        return this._HTTP_ALREADY_REPORTED;
-    }
-        
-    public get HTTP_IM_USED() {
-        return this._HTTP_IM_USED;
-    }
+  /**
+   * HTTP_PARTIAL_CONTENT
+   *
+   * @author Valentin Magde <valentinmagde@gmail.com>
+   * @since 2023-06-03
+   *
+   * @return {number} the HTTP_PARTIAL_CONTENT
+   */
+  public get httpPartialContent(): number {
+    return this._httpPartialContent;
+  }
 
-    public get HTTP_MULTIPLE_CHOICES() {
-        return this._HTTP_MULTIPLE_CHOICES;
-    }
+  /**
+   * HTTP_MULTI_STATUS
+   *
+   * @author Valentin Magde <valentinmagde@gmail.com>
+   * @since 2023-06-03
+   *
+   * @return {number} the HTTP_MULTI_STATUS
+   */
+  public get httpMultiStatus(): number {
+    return this._httpMultiStatus;
+  }
 
-    public get HTTP_MOVED_PERMANENTLY() {
-        return this._HTTP_MOVED_PERMANENTLY;
-    }
-        
-    public get HTTP_FOUND() {
-        return this._HTTP_FOUND;
-    }
-        
-    public get HTTP_SEE_OTHER() {
-        return this._HTTP_SEE_OTHER;
-    }
-        
-    public get HTTP_NOT_MODIFIED() {
-        return this._HTTP_NOT_MODIFIED;
-    }
-        
-    public get HTTP_USE_PROXY() {
-        return this._HTTP_USE_PROXY;
-    }
-        
-    public get HTTP_RESERVED() {
-        return this._HTTP_RESERVED;
-    }
-        
-    public get HTTP_TEMPORARY_REDIRECT() {
-        return this._HTTP_TEMPORARY_REDIRECT;
-    }
-        
-    public get HTTP_PERMANENTLY_REDIRECT() {
-        return this._HTTP_PERMANENTLY_REDIRECT;
-    }
-        
-    public get HTTP_BAD_REQUEST() {
-        return this._HTTP_BAD_REQUEST;
-    }
-        
-    public get HTTP_UNAUTHORIZED() {
-        return this._HTTP_UNAUTHORIZED;
-    }
-        
-    public get HTTP_PAYMENT_REQUIRED() {
-        return this._HTTP_PAYMENT_REQUIRED;
-    }
-        
-    public get HTTP_FORBIDDEN() {
-        return this._HTTP_FORBIDDEN;
-    }
-        
-    public get HTTP_NOT_FOUND() {
-        return this._HTTP_NOT_FOUND;
-    }
-        
-    public get HTTP_METHOD_NOT_ALLOWED() {
-        return this._HTTP_METHOD_NOT_ALLOWED;
-    }
-        
-    public get HTTP_NOT_ACCEPTABLE() {
-        return this._HTTP_NOT_ACCEPTABLE;
-    }
-        
-    public get HTTP_PROXY_AUTHENTICATION_REQUIRED() {
-        return this._HTTP_PROXY_AUTHENTICATION_REQUIRED;
-    }
-        
-    public get HTTP_REQUEST_TIMEOUT() {
-        return this._HTTP_REQUEST_TIMEOUT;
-    }
-        
-    public get HTTP_CONFLICT() {
-        return this._HTTP_CONFLICT;
-    }
-        
-    public get HTTP_GONE() {
-        return this._HTTP_GONE;
-    }
-        
-    public get HTTP_LENGTH_REQUIRED() {
-        return this._HTTP_LENGTH_REQUIRED;
-    }
-        
-    public get HTTP_PRECONDITION_FAILED() {
-        return this._HTTP_PRECONDITION_FAILED;
-    }
-        
-    public get HTTP_REQUEST_ENTITY_TOO_LARGE() {
-        return this._HTTP_REQUEST_ENTITY_TOO_LARGE;
-    }
-        
-    public get HTTP_REQUEST_URI_TOO_LONG() {
-        return this._HTTP_REQUEST_URI_TOO_LONG;
-    }
-        
-    public get HTTP_UNSUPPORTED_MEDIA_TYPE() {
-        return this._HTTP_UNSUPPORTED_MEDIA_TYPE;
-    }
-        
-    public get HTTP_REQUESTED_RANGE_NOT_SATISFIABLE() {
-        return this._HTTP_REQUESTED_RANGE_NOT_SATISFIABLE;
-    }
-        
-    public get HTTP_EXPECTATION_FAILED() {
-        return this._HTTP_EXPECTATION_FAILED;
-    }
-        
-    public get HTTP_I_AM_A_TEAPOT() {
-        return this._HTTP_I_AM_A_TEAPOT;
-    }
-       
-    public get HTTP_MISDIRECTED_REQUEST() {
-        return this._HTTP_MISDIRECTED_REQUEST;
-    }
-        
-    public get HTTP_UNPROCESSABLE_ENTITY() {
-        return this._HTTP_UNPROCESSABLE_ENTITY;
-    }
-        
-    public get HTTP_LOCKED() {
-        return this._HTTP_LOCKED;
-    }
-        
-    public get HTTP_FAILED_DEPENDENCY() {
-        return this._HTTP_FAILED_DEPENDENCY;
-    }
-        
-    public get HTTP_RESERVED_FOR_WEBDAV_ADVANCED_COLLECTIONS_EXPIRED_PROPOSAL() {
-        return this._HTTP_RESERVED_FOR_WEBDAV_ADVANCED_COLLECTIONS_EXPIRED_PROPOSAL;
-    }
-        
-    public get HTTP_UPGRADE_REQUIRED() {
-        return this._HTTP_UPGRADE_REQUIRED;
-    }
-        
-    public get HTTP_PRECONDITION_REQUIRED() {
-        return this._HTTP_PRECONDITION_REQUIRED;
-    }
-        
-    public get HTTP_TOO_MANY_REQUESTS() {
-        return this._HTTP_TOO_MANY_REQUESTS;
-    }
-        
-    public get HTTP_REQUEST_HEADER_FIELDS_TOO_LARGE() {
-        return this._HTTP_REQUEST_HEADER_FIELDS_TOO_LARGE;
-    }
-        
-    public get HTTP_UNAVAILABLE_FOR_LEGAL_REASONS() {
-        return this._HTTP_UNAVAILABLE_FOR_LEGAL_REASONS;
-    }
-        
-    public get HTTP_INTERNAL_SERVER_ERROR() {
-        return this._HTTP_INTERNAL_SERVER_ERROR;
-    }
-        
-    public get HTTP_NOT_IMPLEMENTED() {
-        return this._HTTP_NOT_IMPLEMENTED;
-    }
-        
-    public get HTTP_BAD_GATEWAY() {
-        return this._HTTP_BAD_GATEWAY;
-    }
-        
-    public get HTTP_SERVICE_UNAVAILABLE() {
-        return this._HTTP_SERVICE_UNAVAILABLE;
-    }
-        
-    public get HTTP_GATEWAY_TIMEOUT() {
-        return this._HTTP_GATEWAY_TIMEOUT;
-    }
-        
-    public get HTTP_VERSION_NOT_SUPPORTED() {
-        return this._HTTP_VERSION_NOT_SUPPORTED;
-    }
-        
-    public get HTTP_VARIANT_ALSO_NEGOTIATES_EXPERIMENTAL() {
-        return this._HTTP_VARIANT_ALSO_NEGOTIATES_EXPERIMENTAL;
-    }
-        
-    public get HTTP_INSUFFICIENT_STORAGE() {
-        return this._HTTP_INSUFFICIENT_STORAGE;
-    }
+  /**
+   * HTTP_ALREADY_REPORTED
+   *
+   * @author Valentin Magde <valentinmagde@gmail.com>
+   * @since 2023-06-03
+   *
+   * @return {number} the HTTP_ALREADY_REPORTED
+   */
+  public get httpAlreadyReported(): number {
+    return this._httpAlreadyReported;
+  }
 
-    public get HTTP_LOOP_DETECTED() {
-        return this._HTTP_LOOP_DETECTED;
-    }
+  /**
+   * HTTP_IM_USED
+   *
+   * @author Valentin Magde <valentinmagde@gmail.com>
+   * @since 2023-06-03
+   *
+   * @return {number} the HTTP_IM_USED
+   */
+  public get httpImUsed(): number {
+    return this._httpImUsed;
+  }
 
-    public get HTTP_NOT_EXTENDED() {
-        return this._HTTP_NOT_EXTENDED;
-    }
+  /**
+   * HTTP_MULTIPLE_CHOICES
+   *
+   * @author Valentin Magde <valentinmagde@gmail.com>
+   * @since 2023-06-03
+   *
+   * @return {number} the HTTP_MULTIPLE_CHOICES
+   */
+  public get httpMultipleChoices(): number {
+    return this._httpMultipleChoices;
+  }
 
-    public get HTTP_NETWORK_AUTHENTICATION_REQUIRED() {
-        return this._HTTP_NETWORK_AUTHENTICATION_REQUIRED;
-    }
+  /**
+   * HTTP_MOVED_PERMANENTLY
+   *
+   * @author Valentin Magde <valentinmagde@gmail.com>
+   * @since 2023-06-03
+   *
+   * @return {number} the HTTP_MOVED_PERMANENTLY
+   */
+  public get httpMovedPermanently(): number {
+    return this._httpMovedPermanently;
+  }
+
+  /**
+   * HTTP_FOUND
+   *
+   * @author Valentin Magde <valentinmagde@gmail.com>
+   * @since 2023-06-03
+   *
+   * @return {number} the HTTP_FOUND
+   */
+  public get httpFound(): number {
+    return this._httpFound;
+  }
+
+  /**
+   * HTTP_SEE_OTHER
+   *
+   * @author Valentin Magde <valentinmagde@gmail.com>
+   * @since 2023-06-03
+   *
+   * @return {number} the HTTP_SEE_OTHER
+   */
+  public get httpSeeOther(): number {
+    return this._httpSeeOther;
+  }
+
+  /**
+   * HTTP_NOT_MODIFIED
+   *
+   * @author Valentin Magde <valentinmagde@gmail.com>
+   * @since 2023-06-03
+   *
+   * @return {number} the HTTP_NOT_MODIFIED
+   */
+  public get httpNotModified(): number {
+    return this._httpNotModified;
+  }
+
+  /**
+   * HTTP_USE_PROXY
+   *
+   * @author Valentin Magde <valentinmagde@gmail.com>
+   * @since 2023-06-03
+   *
+   * @return {number} the HTTP_USE_PROXY
+   */
+  public get httpUseProxy(): number {
+    return this._httpUseProxy;
+  }
+
+  /**
+   * HTTP_RESERVED
+   *
+   * @author Valentin Magde <valentinmagde@gmail.com>
+   * @since 2023-06-03
+   *
+   * @return {number} the HTTP_RESERVED
+   */
+  public get httpReserved(): number {
+    return this._httpReserved;
+  }
+
+  /**
+   *HTTP_TEMPORARY_REDIRECT
+   *
+   * @author Valentin Magde <valentinmagde@gmail.com>
+   * @since 2023-06-03
+   *
+   * @return {number} the HTTP_TEMPORARY_REDIRECT
+   */
+  public get httpTemporaryRedirect(): number {
+    return this._httpTemporaryRedirect;
+  }
+
+  /**
+   * HTTP_PERMANENTLY_REDIREC
+   *
+   * @author Valentin Magde <valentinmagde@gmail.com>
+   * @since 2023-06-03
+   *
+   * @return {number} the HTTP_PERMANENTLY_REDIREC
+   */
+  public get httpPermanentlyRedirect(): number {
+    return this._httpPermanentlyRedirect;
+  }
+
+  /**
+   * HTTP_BAD_REQUEST
+   *
+   * @author Valentin Magde <valentinmagde@gmail.com>
+   * @since 2023-06-03
+   *
+   * @return {number} the HTTP_BAD_REQUEST
+   */
+  public get httpBadRequest(): number {
+    return this._httpBadRequest;
+  }
+
+  /**
+   * HTTP_UNAUTHORIZED
+   *
+   * @author Valentin Magde <valentinmagde@gmail.com>
+   * @since 2023-06-03
+   *
+   * @return {number} the HTTP_UNAUTHORIZED
+   */
+  public get httpUnauthorized(): number {
+    return this._httpUnauthorized;
+  }
+
+  /**
+   * HTTP_PAYMENT_REQUIRED
+   *
+   * @author Valentin Magde <valentinmagde@gmail.com>
+   * @since 2023-06-03
+   *
+   * @return {number} the HTTP_PAYMENT_REQUIRED
+   */
+  public get httpPaymentRequired(): number {
+    return this._httpPaymentRequired;
+  }
+
+  /**
+   * HTTP_FORBIDDEN
+   *
+   * @author Valentin Magde <valentinmagde@gmail.com>
+   * @since 2023-06-03
+   *
+   * @return {number} the HTTP_FORBIDDEN
+   */
+  public get httpForbidden(): number {
+    return this._httpForbidden;
+  }
+
+  /**
+   * HTTP_NOT_FOUND
+   *
+   * @author Valentin Magde <valentinmagde@gmail.com>
+   * @since 2023-06-03
+   *
+   * @return {number} the HTTP_NOT_FOUND
+   */
+  public get httpNotFound(): number {
+    return this._httpNotFound;
+  }
+
+  /**
+   * HTTP_METHOD_NOT_ALLOWED
+   *
+   * @author Valentin Magde <valentinmagde@gmail.com>
+   * @since 2023-06-03
+   *
+   * @return {number} the HTTP_METHOD_NOT_ALLOWED
+   */
+  public get httpMethodNotAllowed(): number {
+    return this._httpMethodNotAllowed;
+  }
+
+  /**
+   * HTTP_NOT_ACCEPTABLE
+   *
+   * @author Valentin Magde <valentinmagde@gmail.com>
+   * @since 2023-06-03
+   *
+   * @return {number} the HTTP_NOT_ACCEPTABLE
+   */
+  public get httpNotAcceptable(): number {
+    return this._httpNotAcceptable;
+  }
+
+  /**
+   * HTTP_PROXY_AUTHENTICATION_REQUIRED
+   *
+   * @author Valentin Magde <valentinmagde@gmail.com>
+   * @since 2023-06-03
+   *
+   * @return {number} the HTTP_PROXY_AUTHENTICATION_REQUIRED
+   */
+  public get httpProxyAuthenticationRequired(): number {
+    return this._httpProxyAuthenticationRequired;
+  }
+
+  /**
+   * HTTP_REQUEST_TIMEOUT
+   *
+   * @author Valentin Magde <valentinmagde@gmail.com>
+   * @since 2023-06-03
+   *
+   * @return {number} the HTTP_REQUEST_TIMEOUT
+   */
+  public get httpRequestTimeout(): number {
+    return this._httpRequestTimeout;
+  }
+
+  /**
+   * HTTP_CONFLICT
+   *
+   * @author Valentin Magde <valentinmagde@gmail.com>
+   * @since 2023-06-03
+   *
+   * @return {number} the HTTP_CONFLICT
+   */
+  public get httpConflict(): number {
+    return this._httpConflict;
+  }
+
+  /**
+   * HTTP_GONE
+   *
+   * @author Valentin Magde <valentinmagde@gmail.com>
+   * @since 2023-06-03
+   *
+   * @return {number} the HTTP_GONE
+   */
+  public get httpGone(): number {
+    return this._httpGone;
+  }
+
+  /**
+   * HTTP_LENGTH_REQUIRED
+   *
+   * @author Valentin Magde <valentinmagde@gmail.com>
+   * @since 2023-06-03
+   *
+   * @return {number} the HTTP_LENGTH_REQUIRED
+   */
+  public get httpLengthRequired(): number {
+    return this._httpLengthRequired;
+  }
+
+  /**
+   * HTTP_PRECONDITION_FAILED
+   *
+   * @author Valentin Magde <valentinmagde@gmail.com>
+   * @since 2023-06-03
+   *
+   * @return {number} the HTTP_PRECONDITION_FAILED
+   */
+  public get httpPreconditionFailed(): number {
+    return this._httpPreconditionFailed;
+  }
+
+  /**
+   * HTTP_REQUEST_ENTITY_TOO_LARGE
+   *
+   * @author Valentin Magde <valentinmagde@gmail.com>
+   * @since 2023-06-03
+   *
+   * @return {number} the HTTP_REQUEST_ENTITY_TOO_LARGE
+   */
+  public get httpRequestEntityTooLarge(): number {
+    return this._httpRequestEntityTooLarge;
+  }
+
+  /**
+   * HTTP_REQUEST_URI_TOO_LONG
+   *
+   * @author Valentin Magde <valentinmagde@gmail.com>
+   * @since 2023-06-03
+   *
+   * @return {number} the HTTP_REQUEST_URI_TOO_LONG
+   */
+  public get httpRequestUriTooLong(): number {
+    return this._httpRequestUriTooLong;
+  }
+
+  /**
+   * HTTP_UNSUPPORTED_MEDIA_TYPE
+   *
+   * @author Valentin Magde <valentinmagde@gmail.com>
+   * @since 2023-06-03
+   *
+   * @return {number} the HTTP_UNSUPPORTED_MEDIA_TYPE
+   */
+  public get httpUnsupportedMediaType(): number {
+    return this._httpUnsupportedMediaType;
+  }
+
+  /**
+   * HTTP_REQUESTED_RANGE_NOT_SATISFIABLE
+   *
+   * @author Valentin Magde <valentinmagde@gmail.com>
+   * @since 2023-06-03
+   *
+   * @return {number} the HTTP_REQUESTED_RANGE_NOT_SATISFIABLE
+   */
+  public get httpRequestedRangeNotSatisfiable(): number {
+    return this._httpRequestedRangeNotSatisfiable;
+  }
+
+  /**
+   * HTTP_EXPECTATION_FAILED
+   *
+   * @author Valentin Magde <valentinmagde@gmail.com>
+   * @since 2023-06-03
+   *
+   * @return {number} the HTTP_EXPECTATION_FAILED
+   */
+  public get httpExpectationFailed(): number {
+    return this._httpExpectationFailed;
+  }
+
+  /**
+   * HTTP_I_AM_A_TEAPOT
+   *
+   * @author Valentin Magde <valentinmagde@gmail.com>
+   * @since 2023-06-03
+   *
+   * @return {number} the HTTP_I_AM_A_TEAPOT
+   */
+  public get httpIAmATeapot(): number {
+    return this._httpIAmATeapot;
+  }
+
+  /**
+   * HTTP_MISDIRECTED_REQUEST
+   *
+   * @author Valentin Magde <valentinmagde@gmail.com>
+   * @since 2023-06-03
+   *
+   * @return {number} the HTTP_MISDIRECTED_REQUEST
+   */
+  public get httpMisdirectedRequest(): number {
+    return this._httpMisdirectedRequest;
+  }
+
+  /**
+   * HTTP_UNPROCESSABLE_ENTITY
+   *
+   * @author Valentin Magde <valentinmagde@gmail.com>
+   * @since 2023-06-03
+   *
+   * @return {number} the HTTP_UNPROCESSABLE_ENTITY
+   */
+  public get httpUnprocessableEntity(): number {
+    return this._httpUnprocessableEntity;
+  }
+
+  /**
+   * HTTP_LOCKED
+   *
+   * @author Valentin Magde <valentinmagde@gmail.com>
+   * @since 2023-06-03
+   *
+   * @return {number} the HTTP_LOCKED
+   */
+  public get httpLocked(): number {
+    return this._httpLocked;
+  }
+
+  /**
+   * HTTP_FAILED_DEPENDENCY
+   *
+   * @author Valentin Magde <valentinmagde@gmail.com>
+   * @since 2023-06-03
+   *
+   * @return {number} the HTTP_FAILED_DEPENDENCY
+   */
+  public get httpFailedDependency(): number {
+    return this._httpFailedDependency;
+  }
+
+  /**
+   * HTTP_RESERVED_FOR_WEBDAV_ADVANCED_COLLECTIONS_EXPIRED_PROPOSAL
+   *
+   * @author Valentin Magde <valentinmagde@gmail.com>
+   * @since 2023-06-03
+   *
+   * @return {number} the
+   * HTTP_RESERVED_FOR_WEBDAV_ADVANCED_COLLECTIONS_EXPIRED_PROPOSAL
+   */
+  public get httpReservedForWebdavAdvancedCollectionsExpiredProposal():number {
+    return this._httpReservedForWebdavAdvancedCollectionsExpiredProposal;
+  }
+
+  /**
+   * HTTP_UPGRADE_REQUIRED
+   *
+   * @author Valentin Magde <valentinmagde@gmail.com>
+   * @since 2023-06-03
+   *
+   * @return {number} the HTTP_UPGRADE_REQUIREDSAL
+   */
+  public get httpUpgradeRequired(): number {
+    return this._httpUpgradeRequired;
+  }
+
+  /**
+   * HTTP_PRECONDITION_REQUIRE
+   *
+   * @author Valentin Magde <valentinmagde@gmail.com>
+   * @since 2023-06-03
+   *
+   * @return {number} the HTTP_PRECONDITION_REQUIRE
+   */
+  public get httpPreconditionRequired(): number {
+    return this._httpPreconditionRequired;
+  }
+
+  /**
+   * HTTP_TOO_MANY_REQUESTS
+   *
+   * @author Valentin Magde <valentinmagde@gmail.com>
+   * @since 2023-06-03
+   *
+   * @return {number} the HTTP_TOO_MANY_REQUESTS
+   */
+  public get httpTooManyRequests(): number {
+    return this._httpTooManyRequests;
+  }
+
+  /**
+   * HTTP_REQUEST_HEADER_FIELDS_TOO_LARGE
+   *
+   * @author Valentin Magde <valentinmagde@gmail.com>
+   * @since 2023-06-03
+   *
+   * @return {number} the HTTP_REQUEST_HEADER_FIELDS_TOO_LARGE
+   */
+  public get httpRequestHeaderFieldsTooLarge(): number {
+    return this._httpRequestHeaderFieldsTooLarge;
+  }
+
+  /**
+   * HTTP_UNAVAILABLE_FOR_LEGAL_REASONS
+   *
+   * @author Valentin Magde <valentinmagde@gmail.com>
+   * @since 2023-06-03
+   *
+   * @return {number} the HTTP_UNAVAILABLE_FOR_LEGAL_REASONS
+   */
+  public get httpUnavailableForLegalReasons(): number {
+    return this._httpUnavailableForLegalReasons;
+  }
+
+  /**
+   * HTTP_INTERNAL_SERVER_ERROR
+   *
+   * @author Valentin Magde <valentinmagde@gmail.com>
+   * @since 2023-06-03
+   *
+   * @return {number} the HTTP_INTERNAL_SERVER_ERROR
+   */
+  public get httpInternalServerError(): number {
+    return this._httpInternalServerError;
+  }
+
+  /**
+   * HTTP_NOT_IMPLEMENTED
+   *
+   * @author Valentin Magde <valentinmagde@gmail.com>
+   * @since 2023-06-03
+   *
+   * @return {number} the HTTP_NOT_IMPLEMENTED
+   */
+  public get httpNotImplemented(): number {
+    return this._httpNotImplemented;
+  }
+
+  /**
+   * HTTP_BAD_GATEWAY
+   *
+   * @author Valentin Magde <valentinmagde@gmail.com>
+   * @since 2023-06-03
+   *
+   * @return {number} the HTTP_BAD_GATEWAY
+   */
+  public get httpBadGateway(): number {
+    return this._httpBadGateway;
+  }
+
+  /**
+   * HTTP_SERVICE_UNAVAILABLE
+   *
+   * @author Valentin Magde <valentinmagde@gmail.com>
+   * @since 2023-06-03
+   *
+   * @return {number} the HTTP_SERVICE_UNAVAILABLE
+   */
+  public get httpServiceUnavailable(): number {
+    return this._httpServiceUnavailable;
+  }
+
+  /**
+   * HTTP_GATEWAY_TIMEOUT
+   *
+   * @author Valentin Magde <valentinmagde@gmail.com>
+   * @since 2023-06-03
+   *
+   * @return {number} the HTTP_GATEWAY_TIMEOUT
+   */
+  public get httpGatewayTimeout(): number {
+    return this._httpGatewayTimeout;
+  }
+
+  /**
+   * HTTP_VERSION_NOT_SUPPORTED
+   *
+   * @author Valentin Magde <valentinmagde@gmail.com>
+   * @since 2023-06-03
+   *
+   * @return {number} the HTTP_VERSION_NOT_SUPPORTED
+   */
+  public get httpVersionNotSupported(): number {
+    return this._httpVersionNotSupported;
+  }
+
+  /**
+   * HTTP_VARIANT_ALSO_NEGOTIATES_EXPERIMENTAL
+   *
+   * @author Valentin Magde <valentinmagde@gmail.com>
+   * @since 2023-06-03
+   *
+   * @return {number} the HTTP_VARIANT_ALSO_NEGOTIATES_EXPERIMENTAL
+   */
+  public get httpVariantAlsoNegotiatesExperimental(): number {
+    return this._httpVariantAlsoNegotiatesExperimental;
+  }
+
+  /**
+   * HTTP_INSUFFICIENT_STORAGE
+   *
+   * @author Valentin Magde <valentinmagde@gmail.com>
+   * @since 2023-06-03
+   *
+   * @return {number} the HTTP_INSUFFICIENT_STORAGE
+   */
+  public get httpInsufficientStorage(): number {
+    return this._httpInsufficientStorage;
+  }
+
+  /**
+   * HTTP_LOOP_DETECTED
+   *
+   * @author Valentin Magde <valentinmagde@gmail.com>
+   * @since 2023-06-03
+   *
+   * @return {number} the HTTP_LOOP_DETECTED
+   */
+  public get httpLoopDetected(): number {
+    return this._httpLoopDetected;
+  }
+
+  /**
+   * HTTP_NOT_EXTENDED
+   *
+   * @author Valentin Magde <valentinmagde@gmail.com>
+   * @since 2023-06-03
+   *
+   * @return {number} the HTTP_NOT_EXTENDED
+   */
+  public get httpNotExtended(): number {
+    return this._httpNotExtended;
+  }
+
+  /**
+   * HTTP_NETWORK_AUTHENTICATION_REQUIRED
+   *
+   * @author Valentin Magde <valentinmagde@gmail.com>
+   * @since 2023-06-03
+   *
+   * @return {number} the HTTP_NETWORK_AUTHENTICATION_REQUIRED
+   */
+  public get httpNetworkAuthenticationRequired(): number {
+    return this._httpNetworkAuthenticationRequired;
+  }
 }
 
 const statusCode = new StatusCode();

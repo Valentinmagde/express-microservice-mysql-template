@@ -14,12 +14,12 @@ class CustomResponse {
    * @author Valentin Magde <valentinmagde@gmail.com>
    * @since 2023-27-03
    *
-   * @param any data
-   * @param Response res
+   * @param {any} data the custom response
+   * @param {Response} res the http response
    *
-   * @return Response of customize response
+   * @return {void}
    */
-  public success(data: { status: number; data: unknown }, res: Response) {
+  public success(data: { status: number; data: unknown }, res: Response): void {
     res.status(data.status).send({ status: "OK", data: data.data });
   }
 
@@ -29,15 +29,15 @@ class CustomResponse {
    * @author Valentin Magde <valentinmagde@gmail.com>
    * @since 2023-27-03
    *
-   * @param any data
-   * @param Response res
+   * @param {any} data the custom response
+   * @param {Response} res the http response
    *
-   * @return Response of customize response
+   * @return {void}
    */
   public error(
     data: { status: number; errNo: number; errMsg: unknown },
     res: Response
-  ) {
+  ): void {
     res.status(data.status).send({
       status: "FAILED",
       data: { errNo: data.errNo, errMsg: data.errMsg },

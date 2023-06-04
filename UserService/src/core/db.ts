@@ -17,9 +17,9 @@ class DBManager {
    * Create a newDBManager instance.
    *
    * @author Valentin Magde <valentinmagde@gmail.com>
-   * @since 2023-22-03
+   * @since 2023-03-22
    *
-   * @return void
+   * @param {Application} app express application
    */
   constructor(app?: Application) {
     this.app = app;
@@ -29,27 +29,33 @@ class DBManager {
    * Connect to database.
    *
    * @author Valentin Magde <valentinmagde@gmail.com>
-   * @since 2023-22-03
+   * @since 2023-03-22
    *
-   * @return promise
+   * @param {Request} req the http request
+   * @param {Response} res the http response
+   * @param {NextFunction} next the callback
+   *
+   * @return {void}
    */
-  public onConnect(req: Request, res: Response, next: NextFunction) {
-    const swagger_base_url = config.swagger_base_url;
+  public onConnect(req: Request, res: Response, next: NextFunction): void {
+    const swaggerBaseUrl = config.swaggerBaseUrl;
 
     // Except documentation route for authentication
-    if (req.path.indexOf(swagger_base_url) > -1) return next();
+    if (req.path.indexOf(swaggerBaseUrl) > -1) return next();
     else {
       mongoose
         .connect(
-          `mongodb://${config.mongo_db_host}:${config.mongo_db_port}/${config.mongo_db_name}`
+          `mongodb://${config.mongoDbHost}:${
+            config.mongoDbPort
+          }/${config.mongoDbName}`
         )
         .then(() => {
           next();
         })
         .catch((error) => {
           const response = {
-            status: error?.status || statusCode.HTTP_INTERNAL_SERVER_ERROR,
-            errNo: errorNumbers.generic_error,
+            status: error?.status || statusCode.httpInternalServerError,
+            errNo: errorNumbers.genericError,
             errMsg: error?.message || error,
           };
 
@@ -62,11 +68,11 @@ class DBManager {
    * Set db connection
    *
    * @author Valentin Magde <valentinmagde@gmail.com>
-   * @since 2023-23-03
+   * @since 2023-03-23
    *
-   * @returns void
+   * @returns {void}
    */
-  public setDBConnection() {
+  public setDBConnection(): void {
     this.app?.use(this.onConnect); // General middleware
   }
 }

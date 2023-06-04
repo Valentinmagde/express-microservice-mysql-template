@@ -1,4 +1,6 @@
-import AuthenticationType from "../../app/modules/authentication/authentication.type"
+import
+  AuthenticationType
+from "../../app/modules/authentication/authentication.type"
 
 export { }
 

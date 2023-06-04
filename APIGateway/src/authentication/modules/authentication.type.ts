@@ -5,13 +5,18 @@ export default interface AuthenticationType {
     firstname: string,
     email: string,
     gender: string,
-    roles: Array<Role>
+    roles: Array<RoleType>
 }
 
-interface Role {
+interface RoleType {
     _id: string,
     name : string,
     createdAt: Date,
     updatedAt: Date,
     __v: number
+}
+
+export interface GenerateTokenType{
+    accessToken: string,
+    refreshToken: string
 }
