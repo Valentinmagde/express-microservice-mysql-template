@@ -27,9 +27,9 @@ class CacheManager {
 
         client.on("error", () => {
           reject(
-            `${i18n.__("cache.redis.REDIS_CONNECTION_TO")} ${
+            `${i18n.__("cache.redis.redisConnectionTo")} ${
               config.redisDbHost
-            }:${config.redisDbPort} ${i18n.__("cache.redis.FAILD")}`
+            }:${config.redisDbPort} ${i18n.__("cache.redis.failed")}`
           );
         });
 

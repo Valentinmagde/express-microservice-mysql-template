@@ -87,7 +87,7 @@ class AppRoutes {
       const response = {
         status: statusCode.httpNotFound,
         errNo: errorNumbers.resourceNotFound,
-        errMsg: i18n.__("others.ROUTE_NOT_FOUND"),
+        errMsg: i18n.__("others.routeNotFound"),
       };
 
       return customResponse.error(response, res);

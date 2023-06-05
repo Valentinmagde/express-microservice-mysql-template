@@ -36,7 +36,7 @@ class RoleController {
             const response = {
               status: statusCode.httpNotFound,
               errNo: errorNumbers.resourceNotFound,
-              errMsg: i18n.__("role.show.ROLE_NOT_FOUND"),
+              errMsg: i18n.__("role.show.roleNotFound"),
             };
 
             return customResponse.error(response, res);
@@ -62,7 +62,7 @@ class RoleController {
       const response = {
         status: statusCode.httpBadRequest,
         errNo: errorNumbers.ivalidResource,
-        errMsg: i18n.__("role.others.INVALID_ROLE_ID"),
+        errMsg: i18n.__("role.others.invalidRoleId"),
       };
 
       return customResponse.error(response, res);
@@ -88,7 +88,7 @@ class RoleController {
           const response = {
             status: statusCode.httpNotFound,
             errNo: errorNumbers.resourceNotFound,
-            errMsg: i18n.__("role.show.ROLE_NOT_FOUND"),
+            errMsg: i18n.__("role.show.roleNotFound"),
           };
 
           return customResponse.error(response, res);
@@ -214,7 +214,7 @@ class RoleController {
                     const response = {
                       status: statusCode.httpNotFound,
                       errNo: errorNumbers.resourceNotFound,
-                      errMsg: i18n.__("role.show.ROLE_NOT_FOUND"),
+                      errMsg: i18n.__("role.show.roleNotFound"),
                     };
 
                     return customResponse.error(response, res);
@@ -241,7 +241,7 @@ class RoleController {
               const response = {
                 status: statusCode.httpBadRequest,
                 errNo: errorNumbers.ivalidResource,
-                errMsg: i18n.__("role.others.INVALID_ROLE_ID"),
+                errMsg: i18n.__("role.others.invalidRoleId"),
               };
 
               return customResponse.error(response, res);
@@ -282,7 +282,7 @@ class RoleController {
             const response = {
               status: statusCode.httpNotFound,
               errNo: errorNumbers.resourceNotFound,
-              errMsg: i18n.__("role.show.ROLE_NOT_FOUND"),
+              errMsg: i18n.__("role.show.roleNotFound"),
             };
 
             return customResponse.error(response, res);
@@ -308,7 +308,7 @@ class RoleController {
       const response = {
         status: statusCode.httpBadRequest,
         errNo: errorNumbers.ivalidResource,
-        errMsg: i18n.__("role.others.INVALID_ROLE_ID"),
+        errMsg: i18n.__("role.others.invalidRoleId"),
       };
 
       return customResponse.error(response, res);

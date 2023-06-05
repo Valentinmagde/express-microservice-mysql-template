@@ -66,7 +66,7 @@ class AuthenticationController {
         const response = {
           status: statusCode.httpUnauthorized,
           errNo: errorNumbers.tokenNotFound,
-          errMsg: i18n.__("unauthorize.NO_TOKEN"),
+          errMsg: i18n.__("unauthorize.noToken"),
         }
 
         return customResponse.error(response, res);
@@ -125,7 +125,7 @@ class AuthenticationController {
             const response = {
               status: statusCode.httpUnauthorized,
               errNo: errorNumbers.tokenNotFound,
-              errMsg: i18n.__("unauthorize.NO_REFRESH_TOKEN"),
+              errMsg: i18n.__("unauthorize.noRefreshToken"),
             }
 
             return customResponse.error(response, res);
@@ -134,7 +134,7 @@ class AuthenticationController {
             const response = {
               status: statusCode.httpUnauthorized,
               errNo: errorNumbers.tokenNotFound,
-              errMsg: i18n.__("unauthorize.INVALID_REFRESH_TOKEN"),
+              errMsg: i18n.__("unauthorize.invalidRefreshToken"),
             }
 
             return customResponse.error(response, res);

@@ -36,7 +36,7 @@ class GenderController {
             const response = {
               status: statusCode.httpNotFound,
               errNo: errorNumbers.resourceNotFound,
-              errMsg: i18n.__("gender.show.GENDER_NOT_FOUND"),
+              errMsg: i18n.__("gender.show.genderNotFound"),
             };
 
             return customResponse.error(response, res);
@@ -62,7 +62,7 @@ class GenderController {
       const response = {
         status: statusCode.httpBadRequest,
         errNo: errorNumbers.ivalidResource,
-        errMsg: i18n.__("gender.others.INVALID_GENDER_ID"),
+        errMsg: i18n.__("gender.others.invalidGenderId"),
       };
 
       return customResponse.error(response, res);
@@ -88,7 +88,7 @@ class GenderController {
           const response = {
             status: statusCode.httpNotFound,
             errNo: errorNumbers.resourceNotFound,
-            errMsg: i18n.__("gender.show.GENDER_NOT_FOUND"),
+            errMsg: i18n.__("gender.show.genderNotFound"),
           };
 
           return customResponse.error(response, res);
@@ -214,7 +214,7 @@ class GenderController {
                     const response = {
                       status: statusCode.httpNotFound,
                       errNo: errorNumbers.resourceNotFound,
-                      errMsg: i18n.__("gender.show.GENDER_NOT_FOUND"),
+                      errMsg: i18n.__("gender.show.genderNotFound"),
                     };
 
                     return customResponse.error(response, res);
@@ -241,7 +241,7 @@ class GenderController {
               const response = {
                 status: statusCode.httpBadRequest,
                 errNo: errorNumbers.ivalidResource,
-                errMsg: i18n.__("gender.others.INVALID_GENDER_ID"),
+                errMsg: i18n.__("gender.others.invalidGenderId"),
               };
 
               return customResponse.error(response, res);
@@ -282,7 +282,7 @@ class GenderController {
             const response = {
               status: statusCode.httpNotFound,
               errNo: errorNumbers.resourceNotFound,
-              errMsg: i18n.__("gender.show.GENDER_NOT_FOUND"),
+              errMsg: i18n.__("gender.show.genderNotFound"),
             };
 
             return customResponse.error(response, res);
@@ -308,7 +308,7 @@ class GenderController {
       const response = {
         status: statusCode.httpBadRequest,
         errNo: errorNumbers.ivalidResource,
-        errMsg: i18n.__("gender.others.INVALID_GENDER_ID"),
+        errMsg: i18n.__("gender.others.invalidGenderId"),
       };
 
       return customResponse.error(response, res);

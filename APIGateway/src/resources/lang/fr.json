@@ -1,39 +1,36 @@
 {
 	"login": {
-		"PASSWORD_NOT_FOUND": "Le mot de passe ne peut pas être vide.",
-		"USERNAME_NOT_FOUND": "User name can't be empty",
-		"USERLASTNAME_NOT_FOUND": "User last name can't be empty.",
-		"EMAIL_NOT_FOUND": "Email can't be empty.",
-		"GENDER_NOT_FOUND": "Gender can't be empty.",
-		"USER_NOT_FOUND": "User does not exits.",
-		"USERNAME_DETAIL_FAILED": "User details failed",
-		"ROUTE_NOT_FOUND": "You are at wrong place. Shhoooo...",
-		"SERVER_ERROR_MESSAGE": "Something bad happend. It's not you, it's me.",
-		"USER_REGISTRATION_OK": "User registration successful.",
-		"USER_REGISTRATION_FAILED": "User registration unsuccessful.",
-		"USER_LOGIN_OK": "User logged in.",
-		"USER_LOGIN_FAILED": "User not found."
+		"passwordNotFound": "Le mot de passe ne peut pas être vide.",
+		"userNameNotFound": "Le nom d'utilisateur ne peut pas être vide.",
+		"userLastNameNotFound": "Le nom de famille de l'utilisateur ne peut pas être vide.",
+		"userIdNotFound": "L'identifiant de l'utilisateur ne peut pas être vide.",
+		"emailNotFound": "Le courrier électronique ne peut pas être vide.",
+		"genderNotFound": "Le genre ne peut pas être vide.",
+		"userNameDetailFailed": "Échec de la saisie des données de l'utilisateur",
+		"userRegistrationOk": "L'enregistrement de l'utilisateur a été effectué avec succès.",
+		"userRegistrationFailed": "L'enregistrement de l'utilisateur n'a pas abouti.",
+		"userLoginOk": "Utilisateur connecté.",
+		"userLoginFailed": "Nom d'utilisateur ou mot de passe incorrect."
 	},
 	"unauthorize": {
-		"NO_TOKEN": "Pas de jeton",
-		"INVALID_TOKEN": "Jeton non valide",
-		"INVALID_ADMIN_TOKEN": "Invalid Admin Token",
-		"INVALID_SELLER_TOKEN": "Invalid Seller Token",
-		"INVALID_ADMIN_OR_SELLER": "Invalid Admin or Seller Token",
-		"INVALID_REFRESH_TOKEN": "Jeton de rafraîchissement invalide",
-		"NO_REFRESH_TOKEN": "Pas de jeton de rafraîchissement"
+		"noToken": "Pas de jeton",
+		"invalidToken": "Jeton non valide",
+		"invalidAdminToken": "Jeton d'administration invalide",
+		"invalidSellerToken": "Jeton de vendeur invalide",
+		"invalidAdminOrSeller": "Jeton d'administrateur ou de vendeur invalide",
+		"invalidRefreshToken": "Jeton de rafraîchissement invalide",
+		"noRefreshToken": "Pas de jeton de rafraîchissement"
 	},
 	"profile": {
-		"USER_NOT_FOUND": "User does not exits."
+		"userNotFound": "L'utilisateur ne sort pas."
 	},
 	"others": {
-		"ROUTE_NOT_FOUND": "Route not found"
+		"routeNotFound": "Itinéraire non trouvé"
 	},
 	"cache": {
 		"redis": {
-			"REDIS_CONNECTION_TO": "La connexion Redis à",
-			"FAILD": "a échoué"
+			"redisConnectionTo": "La connexion Redis à",
+			"failed": "a échoué"
 		}
-	},
-	"login.PASSWORD_NOT_FOUND": "login.PASSWORD_NOT_FOUND"
+	}
 }

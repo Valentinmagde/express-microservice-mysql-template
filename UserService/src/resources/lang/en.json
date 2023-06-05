@@ -1,71 +1,72 @@
 {
-    "user": {
-        "login": {
-            "PASSWORD_NOT_FOUND" : "password can't be empty.",
-            "USERNAME_NOT_FOUND" : "User name can't be empty",
-            "USERLASTNAME_NOT_FOUND" : "User last name can't be empty.",
-            "USERID_NOT_FOUND" : "User Id can't be empty.",
-            "EMAIL_NOT_FOUND" : "Email can't be empty.",
-            "GENDER_NOT_FOUND" : "Gender can't be empty.",
-            "USERNAME_DETAIL_FAILED": "User details failed",
-            "SERVER_ERROR_MESSAGE" : "Something bad happend. It's not you, it's me.",
-            "USER_REGISTRATION_OK" : "User registration successful.",
-            "USER_REGISTRATION_FAILED" : "User registration unsuccessful.",
-            "USER_LOGIN_OK" : "User logged in.",
-            "USER_LOGIN_FAILED" : "Incorrect username or password."
-        },
-        "unauthorize": {
-            "NO_TOKEN" : "No Token",
-            "INVALID_TOKEN" : "Invalid Token",
-            "INVALID_ADMIN_TOKEN" : "Invalid Admin Token",
-            "INVALID_SELLER_TOKEN" : "Invalid Seller Token",
-            "INVALID_ADMIN_OR_SELLER" : "Invalid Admin or Seller Token"
-        },
-        "profile": {
-            "USER_NOT_FOUND" : "User does not exits.",
-            "INVALID_USER_ID" : "Invalid user id."
-        },
-        "update": {
-            "USER_NOT_FOUND" : "User does not exits."
-        },
-        "delete": {
-            "CANNOT_DELETE_ADMIN": "Can Not Delete Admin User"
-        },
-        "others": {
-            "INVALID_USER_ID" : "Invalid user id."
-        },
-        "assign": {
-            "ROLE_ALREADY_ASSIGNED" : "This role is already assigned to this user."
-        },
-        "unassign": {
-            "NOT_HAVE_THIS_ROLE" : "User does not have this role."
-        }
-    },
-    "others": {
-        "ROUTE_NOT_FOUND" : "Route not found"
-    },
-    "role": {
-        "show": {
-            "ROLE_NOT_FOUND": "Role does not exits."
-        },
-        "others": {
-            "INVALID_ROLE_ID" : "Invalid role id."
-        }
-    },
-    "gender": {
-        "show": {
-            "GENDER_NOT_FOUND": "Gender does not exits."
-        },
-        "others": {
-            "INVALID_GENDER_ID" : "Invalid gender id."
-        }
-    },
-    "config": {
-        "cache": {
-            "redis": {
-                "REDIS_CONNECTION_TO": "Redis connection to",
-                "FAILD": "failed"
-            }
-        }
-    }
+	"user": {
+		"login": {
+			"passwordNotFound": "Password can't be empty.",
+			"userNameNotFound": "User name can't be empty",
+			"userLastNameNotFound": "User last name can't be empty.",
+			"userIdNotFound": "User id can't be empty.",
+			"emailNotFound": "Email can't be empty.",
+			"genderNotFound": "Gender can't be empty.",
+			"userNameDetailFailed": "User details failed",
+			"userRegistrationOk": "User registration successful.",
+			"userRegistrationFailed": "User registration unsuccessful.",
+			"userLoginOk": "User logged in.",
+			"userLoginFailed": "Incorrect username or password."
+		},
+		"unauthorize": {
+			"noToken": "No token",
+			"invalidToken": "Invalid token",
+			"invalidAdminToken": "Invalid admin token",
+			"invalidSellerToken": "Invalid seller token",
+			"invalidAdminOrSeller": "Invalid admin or seller token",
+			"invalidRefreshToken": "Invalid refresh token",
+			"noRefreshToken": "No refresh token"
+		},
+		"profile": {
+			"userNotFound": "User does not exits.",
+			"invalidUserId": "Invalid user id."
+		},
+		"update": {
+			"userNotFound": "User does not exits."
+		},
+		"delete": {
+			"cannotDeleteAdmin": "Can Not Delete Admin User"
+		},
+		"others": {
+			"invalidUserId": "Invalid user id."
+		},
+		"assign": {
+			"roleAlreadyAssigned": "This role is already assigned to this user."
+		},
+		"unassign": {
+			"notHaveThisRole": "User does not have this role."
+		}
+	},
+	"others": {
+		"routeNotFound": "Route not found"
+	},
+	"role": {
+		"show": {
+			"roleNotFound": "Role does not exits."
+		},
+		"others": {
+			"invalidRoleId": "Invalid role id."
+		}
+	},
+	"gender": {
+		"show": {
+			"genderNotFound": "Gender does not exits."
+		},
+		"others": {
+			"invalidGenderId": "Invalid gender id."
+		}
+	},
+	"config": {
+		"cache": {
+			"redis": {
+				"redisConnectionTo": "Redis connection to",
+				"failed": "failed"
+			}
+		}
+	}
 }

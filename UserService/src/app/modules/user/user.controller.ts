@@ -35,7 +35,7 @@ class UserController {
             const response = {
               status: statusCode.httpNotFound,
               errNo: errorNumbers.resourceNotFound,
-              errMsg: i18n.__("user.profile.USER_NOT_FOUND"),
+              errMsg: i18n.__("user.profile.userNotFound"),
             };
 
             return customResponse.error(response, res);
@@ -61,7 +61,7 @@ class UserController {
       const response = {
         status: statusCode.httpBadRequest,
         errNo: errorNumbers.ivalidResource,
-        errMsg: i18n.__("user.others.INVALID_USER_ID"),
+        errMsg: i18n.__("user.others.invalidUserId"),
       };
 
       return customResponse.error(response, res);
@@ -87,7 +87,7 @@ class UserController {
       const response = {
         status: statusCode.httpBadRequest,
         errNo: errorNumbers.ivalidResource,
-        errMsg: i18n.__("user.others.INVALID_USER_ID"),
+        errMsg: i18n.__("user.others.invalidUserId"),
       };
 
       return customResponse.error(response, res);
@@ -95,7 +95,7 @@ class UserController {
       const response = {
         status: statusCode.httpBadRequest,
         errNo: errorNumbers.ivalidResource,
-        errMsg: i18n.__("role.others.INVALID_ROLE_ID"),
+        errMsg: i18n.__("role.others.invalidUserId"),
       };
 
       return customResponse.error(response, res);
@@ -107,7 +107,7 @@ class UserController {
             const response = {
               status: statusCode.httpNotFound,
               errNo: errorNumbers.resourceNotFound,
-              errMsg: i18n.__("role.show.ROLE_NOT_FOUND"),
+              errMsg: i18n.__("role.show.roleNotFound"),
             };
 
             return customResponse.error(response, res);
@@ -115,7 +115,7 @@ class UserController {
             const response = {
               status: statusCode.httpNotFound,
               errNo: errorNumbers.resourceNotFound,
-              errMsg: i18n.__("user.profile.USER_NOT_FOUND"),
+              errMsg: i18n.__("user.profile.userNotFound"),
             };
 
             return customResponse.error(response, res);
@@ -123,7 +123,7 @@ class UserController {
             const response = {
               status: statusCode.httpBadRequest,
               errNo: errorNumbers.resourceExist,
-              errMsg: i18n.__("user.assign.ROLE_ALREADY_ASSIGNED"),
+              errMsg: i18n.__("user.assign.roleAlreadyAssigned"),
             };
 
             return customResponse.error(response, res);
@@ -167,7 +167,7 @@ class UserController {
       const response = {
         status: statusCode.httpBadRequest,
         errNo: errorNumbers.ivalidResource,
-        errMsg: i18n.__("user.others.INVALID_USER_ID"),
+        errMsg: i18n.__("user.others.invalidUserId"),
       };
 
       return customResponse.error(response, res);
@@ -175,7 +175,7 @@ class UserController {
       const response = {
         status: statusCode.httpBadRequest,
         errNo: errorNumbers.ivalidResource,
-        errMsg: i18n.__("role.others.INVALID_ROLE_ID"),
+        errMsg: i18n.__("role.others.invalidUserId"),
       };
 
       return customResponse.error(response, res);
@@ -187,7 +187,7 @@ class UserController {
             const response = {
               status: statusCode.httpNotFound,
               errNo: errorNumbers.resourceNotFound,
-              errMsg: i18n.__("role.show.ROLE_NOT_FOUND"),
+              errMsg: i18n.__("role.show.roleNotFound"),
             };
 
             return customResponse.error(response, res);
@@ -195,7 +195,7 @@ class UserController {
             const response = {
               status: statusCode.httpNotFound,
               errNo: errorNumbers.resourceNotFound,
-              errMsg: i18n.__("user.profile.USER_NOT_FOUND"),
+              errMsg: i18n.__("user.profile.userNotFound"),
             };
 
             return customResponse.error(response, res);
@@ -203,7 +203,7 @@ class UserController {
             const response = {
               status: statusCode.httpNotFound,
               errNo: errorNumbers.resourceNotFound,
-              errMsg: i18n.__("user.unassign.NOT_HAVE_THIS_ROLE"),
+              errMsg: i18n.__("user.unassign.notHaveThisRole"),
             };
 
             return customResponse.error(response, res);
@@ -267,7 +267,7 @@ class UserController {
                   const response = {
                     status: statusCode.httpBadRequest,
                     errNo: errorNumbers.badLoginCredentials,
-                    errMsg: i18n.__("user.login.USER_LOGIN_FAILED"),
+                    errMsg: i18n.__("user.login.userLoginFailed"),
                   };
 
                   return customResponse.error(response, res);
@@ -415,7 +415,7 @@ class UserController {
                     const response = {
                       status: statusCode.httpNotFound,
                       errNo: errorNumbers.resourceNotFound,
-                      errMsg: i18n.__("user.update.USER_NOT_FOUND"),
+                      errMsg: i18n.__("user.update.userNotFound"),
                     };
 
                     return customResponse.error(response, res);
@@ -442,7 +442,7 @@ class UserController {
               const response = {
                 status: statusCode.httpBadRequest,
                 errNo: errorNumbers.ivalidResource,
-                errMsg: i18n.__("user.others.INVALID_USER_ID"),
+                errMsg: i18n.__("user.others.invalidUserId"),
               };
 
               return customResponse.error(response, res);
@@ -483,7 +483,7 @@ class UserController {
             const response = {
               status: statusCode.httpNotFound,
               errNo: errorNumbers.resourceNotFound,
-              errMsg: i18n.__("user.profile.USER_NOT_FOUND"),
+              errMsg: i18n.__("user.profile.userNotFound"),
             };
 
             return customResponse.error(response, res);
@@ -491,7 +491,7 @@ class UserController {
             const response = {
               status: statusCode.httpBadRequest,
               errNo: errorNumbers.requiredPermission,
-              errMsg: i18n.__("user.delete.CANNOT_DELETE_ADMIN"),
+              errMsg: i18n.__("user.delete.cannotDeleteAdmin"),
             };
 
             return customResponse.error(response, res);
@@ -517,7 +517,7 @@ class UserController {
       const response = {
         status: statusCode.httpBadRequest,
         errNo: errorNumbers.ivalidResource,
-        errMsg: i18n.__("user.others.INVALID_USER_ID"),
+        errMsg: i18n.__("user.others.invalidUserId"),
       };
 
       return customResponse.error(response, res);

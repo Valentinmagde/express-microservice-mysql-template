@@ -44,7 +44,7 @@ class Authorization {
             const response = {
               status: statusCode.httpUnauthorized,
               errNo: errorNumbers.invalidToken,
-              errMsg: i18n.__("unauthorize.INVALID_TOKEN"),
+              errMsg: i18n.__("unauthorize.invalidToken"),
             };
 
             return customResponse.error(response, res);
@@ -56,7 +56,7 @@ class Authorization {
                 const response = {
                   status: statusCode.httpUnauthorized,
                   errNo: errorNumbers.invalidToken,
-                  errMsg: i18n.__("unauthorize.INVALID_TOKEN"),
+                  errMsg: i18n.__("unauthorize.invalidToken"),
                 };
 
                 return customResponse.error(response, res);
@@ -80,7 +80,7 @@ class Authorization {
       const response = {
         status: statusCode.httpUnauthorized,
         errNo: errorNumbers.tokenNotFound,
-        errMsg: i18n.__("unauthorize.NO_TOKEN"),
+        errMsg: i18n.__("unauthorize.noToken"),
       };
 
       return customResponse.error(response, res);
