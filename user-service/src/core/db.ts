@@ -74,40 +74,18 @@ class DBManager {
    * @return { Sequelize } This is the main class, the entry point to sequelize.
    */
   public onConnectMysql(): Sequelize {
-    // const swaggerBaseUrl = config.swaggerBaseUrl;
+    return new Sequelize(
+      config.mysqlDbName,
+      config.mysqlDbUser,
+      config.mysqlDbPassword,
+      {
+        host: config.mysqlDbHost,
+        dialect: config.mysqlDbDialect as any,
+        // operatorsAliases: false,
 
-    // // Except documentation route for authentication
-    // if (req.path.indexOf(swaggerBaseUrl) > -1) return next();
-    // else {
-      return new Sequelize(
-        config.mysqlDbName,
-        config.mysqlDbUser,
-        config.mysqlDbPassword,
-        {
-          host: config.mysqlDbHost,
-          dialect: config.mysqlDbDialect as any,
-          // operatorsAliases: false,
-
-          // pool: config.mysqlDbPool,
-        }
-      );
-
-      // sequelize
-      // .authenticate()
-      // .then(() => {
-      //   return sequelize;
-      //   next();
-      // })
-      // .catch(error => {
-      //   const response = {
-      //     status: error?.status || statusCode.httpInternalServerError,
-      //     errNo: errorNumbers.genericError,
-      //     errMsg: error?.message || error,
-      //   };
-
-      //   return customResponse.error(response, res);
-      // });
-    // }
+        // pool: config.mysqlDbPool,
+      }
+    );
   }
 
   /**
@@ -120,8 +98,10 @@ class DBManager {
    */
   public setDBConnection(): void {
     this.app?.use(this.onConnect); // General middleware
-    // this.app?.use(this.onConnectMysql); // General middleware
   }
 }
 
+const sequelize = new DBManager().onConnectMysql();
+
+export { sequelize };
 export default DBManager;

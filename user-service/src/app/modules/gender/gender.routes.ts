@@ -302,16 +302,6 @@ class GenderRoutes {
              *     requestBody:
              *       required: true
              *       content:
-             *         application/json:
-             *           schema:
-             *             type: object
-             *             properties:
-             *               name:
-             *                 type: string
-             *                 description: The gender's name.
-             *                 example: Male
-             *             required:
-             *               - name
              *         application/x-www-form-urlencoded:
              *           schema:
              *             type: object
@@ -322,6 +312,18 @@ class GenderRoutes {
              *                 example: Male
              *             required:
              *               - name
+             *
+             *         application/json:
+             *           schema:
+             *             type: object
+             *             properties:
+             *               name:
+             *                 type: string
+             *                 description: The gender's name.
+             *                 example: Male
+             *             required:
+             *               - name
+             *
              *     responses:
              *       200:
              *         description: The gender has successfully update.

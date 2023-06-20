@@ -94,20 +94,15 @@ class GenderService {
     return new Promise((resolve, reject) => {
       (async () => {
         try {
-          const gender: any = await Gender.findByPk(genderId);
+          const updatedGender = await Gender.update(
+            { name: data.name },
+            { where: { id: genderId } }
+          );
 
-          if (gender) {
-            const name = data.name || gender.name;
-
-            const updatedGender = await Gender.update(
-              { name: name },
-              { where: { id: genderId } }
-            );
-
-            resolve(updatedGender);
-          } else {
-            resolve(gender);
-          }
+          if (updatedGender)
+            resolve(await Gender.findByPk(genderId));
+          else
+            resolve(null);
         } catch (error) {
           reject(error);
         }
@@ -128,15 +123,14 @@ class GenderService {
     return new Promise((resolve, reject) => {
       (async () => {
         try {
-          const gender = await Gender.findByPk(genderId);
+          const deletedGender = await Gender.destroy({
+            where: { id: genderId },
+          });
 
-          if (gender) {
-            const deleteGender = await Gender.destroy({where: {id: genderId}});
-
-            resolve(deleteGender);
-          } else {
-            resolve(gender);
-          }
+          if(deletedGender)
+            resolve(deletedGender);
+          else
+            resolve(null);
         } catch (error) {
           reject(error);
         }

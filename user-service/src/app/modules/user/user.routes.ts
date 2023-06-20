@@ -42,6 +42,8 @@ class UserRoutes {
              * @swagger
              * /v1/{lang}/users:
              *   post:
+             *     security:
+             *      - bearerAuth: []
              *     tags:
              *     - User
              *     operationId: register
@@ -68,7 +70,7 @@ class UserRoutes {
              *                 type: string
              *                 description: The user's name.
              *                 example: John
-             *               lastname:
+             *               last_name:
              *                 type: string
              *                 description: The user's last name.
              *                 example: Doe
@@ -77,11 +79,10 @@ class UserRoutes {
              *                 description: The user's email.
              *                 example: admin@example.com
              *                 format: email
-             *               gender:
+             *               gender_id:
              *                 description: Gender ID
              *                 required: true
-             *                 type: string
-             *                 example: 6442aa155564a41669de60cb
+             *                 type: integer
              *               password:
              *                 type: string
              *                 format: password
@@ -89,9 +90,9 @@ class UserRoutes {
              *                 example: admin
              *             required:
              *               - username
-             *               - lastname
+             *               - last_name
              *               - email
-             *               - gender
+             *               - gender_id
              *               - password
              *
              *         application/json:
@@ -102,7 +103,7 @@ class UserRoutes {
              *                 type: string
              *                 description: The user's name.
              *                 example: John
-             *               lastname:
+             *               last_name:
              *                 type: string
              *                 description: The user's last name.
              *                 example: Doe
@@ -111,11 +112,10 @@ class UserRoutes {
              *                 description: The user's email.
              *                 example: admin@example.com
              *                 format: email
-             *               gender:
+             *               gender_id:
              *                 description: Gender ID
              *                 required: true
-             *                 type: string
-             *                 example: 6442aa155564a41669de60cb
+             *                 type: integer
              *               password:
              *                 type: string
              *                 format: password
@@ -123,9 +123,9 @@ class UserRoutes {
              *                 example: admin
              *             required:
              *               - username
-             *               - lastname
+             *               - last_name
              *               - email
-             *               - gender
+             *               - gender_id
              *               - password
              *
              *     responses:
@@ -164,6 +164,73 @@ class UserRoutes {
              *
              */
             router.post("/", userController.register);
+
+            /**
+             * @swagger
+             * /v1/{lang}/users:
+             *   get:
+             *     security:
+             *      - bearerAuth: []
+             *     tags:
+             *     - User
+             *     operationId: showAllUsers
+             *     summary: Get all users.
+             *     description: Get all users from the system.
+             *     parameters:
+             *      - in: path
+             *        name: lang
+             *        schema:
+             *          type: string
+             *          example: en
+             *        required: true
+             *        description: Language for the response. Supported
+             *          languages ['en', 'fr']
+             *
+             *     responses:
+             *       200:
+             *         description: The users have been successfully recovered.
+             *         content:
+             *           application/json:
+             *             schema:
+             *                type: object
+             *                properties:
+             *                  status:
+             *                    type: string
+             *                    example: Ok
+             *                  data:
+             *                    type: array
+             *                    items:
+             *                      $ref: '#/components/schemas/User'
+             *
+             *       400:
+             *         description: Bad Request.
+             *         content:
+             *          application/json:
+             *             schema:
+             *              $ref: '#/responses/schemas/400'
+             *
+             *       '401':
+             *         description: Unauthorized.
+             *         content:
+             *          application/json:
+             *             schema:
+             *              $ref: '#/responses/schemas/401'
+             *
+             *       412:
+             *         description: Precondition Failed.
+             *         content:
+             *          application/json:
+             *             schema:
+             *              $ref: '#/responses/schemas/412'
+             *       500:
+             *         description: Internal Server Error.
+             *         content:
+             *          application/json:
+             *             schema:
+             *              $ref: '#/responses/schemas/500'
+             *
+             */
+            router.get("/", userController.showAll);
 
             /**
              * // @swagger
@@ -517,46 +584,45 @@ class UserRoutes {
              *     requestBody:
              *       required: true
              *       content:
-             *         application/json:
-             *           schema:
-             *             type: object
-             *             properties:
-             *               lastname:
-             *                 type: string
-             *                 description: The user's name.
-             *                 example: John
-             *               firstname:
-             *                 type: string
-             *                 description: The user's last name.
-             *                 example: Doe
-             *               gender:
-             *                 description: Gender ID
-             *                 required: true
-             *                 type: string
-             *                 example: 6442aa155564a41669de60cb
-             *             required:
-             *               - lastname
-             *               - gender
              *         application/x-www-form-urlencoded:
              *           schema:
              *             type: object
              *             properties:
-             *               lastname:
+             *               last_name:
              *                 type: string
              *                 description: The user's name.
              *                 example: John
-             *               firstname:
+             *               first_name:
              *                 type: string
              *                 description: The user's last name.
              *                 example: Doe
-             *               gender:
+             *               gender_id:
              *                 description: Gender ID
              *                 required: true
+             *                 type: integer
+             *             required:
+             *               - last_name
+             *               - gender_id
+             *         application/json:
+             *           schema:
+             *             type: object
+             *             properties:
+             *               last_name:
              *                 type: string
-             *                 example: 6442aa155564a41669de60cb
+             *                 description: The user's name.
+             *                 example: John
+             *               first_name:
+             *                 type: string
+             *                 description: The user's last name.
+             *                 example: Doe
+             *               gender_id:
+             *                 description: Gender ID
+             *                 required: true
+             *                 type: integer
              *             required:
              *               - lastname
              *               - gender
+             *
              *     responses:
              *       200:
              *         description: The user has successfully logged in.

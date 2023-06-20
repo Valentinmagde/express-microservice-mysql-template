@@ -302,16 +302,6 @@ class RoleRoutes {
              *     requestBody:
              *       required: true
              *       content:
-             *         application/x-www-form-urlencoded:
-             *           schema:
-             *             type: object
-             *             properties:
-             *               name:
-             *                 type: string
-             *                 description: The role's name.
-             *                 example: Admin
-             *             required:
-             *               - name
              *         application/json:
              *           schema:
              *             type: object
@@ -322,7 +312,16 @@ class RoleRoutes {
              *                 example: Admin
              *             required:
              *               - name
-             *
+             *         application/x-www-form-urlencoded:
+             *           schema:
+             *             type: object
+             *             properties:
+             *               name:
+             *                 type: string
+             *                 description: The role's name.
+             *                 example: Admin
+             *             required:
+             *               - name
              *     responses:
              *       200:
              *         description: The role has successfully update.

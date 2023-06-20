@@ -26,46 +26,79 @@ class UserController {
    * @return {Promise<void>} the eventual completion or failure
    */
   public async profile(req: Request, res: Response): Promise<void> {
-    const userid = req.params.userId;
-    if (helpers.checkObjectId(userid)) {
-      userService
-        .profile(userid)
-        .then((result) => {
-          if (result === null || result === undefined) {
-            const response = {
-              status: statusCode.httpNotFound,
-              errNo: errorNumbers.resourceNotFound,
-              errMsg: i18n.__("user.profile.userNotFound"),
-            };
-
-            return customResponse.error(response, res);
-          } else {
-            const response = {
-              status: statusCode.httpOk,
-              data: result,
-            };
-
-            return customResponse.success(response, res);
-          }
-        })
-        .catch((error) => {
+    const userId = req.params.userId;
+    userService
+      .profile(userId)
+      .then((result) => {
+        if (result === null || result === undefined) {
           const response = {
-            status: error?.status || statusCode.httpInternalServerError,
-            errNo: errorNumbers.genericError,
-            errMsg: error?.message || error,
+            status: statusCode.httpNotFound,
+            errNo: errorNumbers.resourceNotFound,
+            errMsg: i18n.__("user.profile.userNotFound"),
           };
 
           return customResponse.error(response, res);
-        });
-    } else {
-      const response = {
-        status: statusCode.httpBadRequest,
-        errNo: errorNumbers.ivalidResource,
-        errMsg: i18n.__("user.others.invalidUserId"),
-      };
+        } else {
+          const response = {
+            status: statusCode.httpOk,
+            data: result,
+          };
 
-      return customResponse.error(response, res);
-    }
+          return customResponse.success(response, res);
+        }
+      })
+      .catch((error) => {
+        const response = {
+          status: error?.status || statusCode.httpInternalServerError,
+          errNo: errorNumbers.genericError,
+          errMsg: error?.message || error,
+        };
+
+        return customResponse.error(response, res);
+      });
+  }
+
+  /**
+   * Get all users details handler
+   *
+   * @author Valentin Magde <valentinmagde@gmail.com>
+   * @since 2023-06-20
+   *
+   * @param {Request} req the http request
+   * @param {Response} res the http response
+   *
+   * @return {Promise<void>} the eventual completion or failure
+   */
+  public async showAll(req: Request, res: Response): Promise<void> {
+    userService
+      .getAll()
+      .then((result) => {
+        if (result === null || result === undefined) {
+          const response = {
+            status: statusCode.httpNotFound,
+            errNo: errorNumbers.resourceNotFound,
+            errMsg: i18n.__("user.show.userNotFound"),
+          };
+
+          return customResponse.error(response, res);
+        } else {
+          const response = {
+            status: statusCode.httpOk,
+            data: result,
+          };
+
+          return customResponse.success(response, res);
+        }
+      })
+      .catch((error) => {
+        const response = {
+          status: error?.status || statusCode.httpInternalServerError,
+          errNo: errorNumbers.genericError,
+          errMsg: error?.message || error,
+        };
+
+        return customResponse.error(response, res);
+      });
   }
 
   /**
@@ -83,69 +116,51 @@ class UserController {
     const userid = req.params.userId;
     const roleid = req.params.roleId;
 
-    if (!helpers.checkObjectId(userid)) {
-      const response = {
-        status: statusCode.httpBadRequest,
-        errNo: errorNumbers.ivalidResource,
-        errMsg: i18n.__("user.others.invalidUserId"),
-      };
-
-      return customResponse.error(response, res);
-    } else if (!helpers.checkObjectId(roleid)) {
-      const response = {
-        status: statusCode.httpBadRequest,
-        errNo: errorNumbers.ivalidResource,
-        errMsg: i18n.__("role.others.invalidUserId"),
-      };
-
-      return customResponse.error(response, res);
-    } else {
-      userService
-        .assign(userid, roleid)
-        .then((result) => {
-          if (result === "ROLE_NOT_FOUND") {
-            const response = {
-              status: statusCode.httpNotFound,
-              errNo: errorNumbers.resourceNotFound,
-              errMsg: i18n.__("role.show.roleNotFound"),
-            };
-
-            return customResponse.error(response, res);
-          } else if (result === "USER_NOT_FOUND") {
-            const response = {
-              status: statusCode.httpNotFound,
-              errNo: errorNumbers.resourceNotFound,
-              errMsg: i18n.__("user.profile.userNotFound"),
-            };
-
-            return customResponse.error(response, res);
-          } else if (result === "ALREADY_ASSIGNED") {
-            const response = {
-              status: statusCode.httpBadRequest,
-              errNo: errorNumbers.resourceExist,
-              errMsg: i18n.__("user.assign.roleAlreadyAssigned"),
-            };
-
-            return customResponse.error(response, res);
-          } else {
-            const response = {
-              status: statusCode.httpOk,
-              data: result,
-            };
-
-            return customResponse.success(response, res);
-          }
-        })
-        .catch((error) => {
+    userService
+      .assign(userid, roleid)
+      .then((result) => {
+        if (result === "ROLE_NOT_FOUND") {
           const response = {
-            status: error?.status || statusCode.httpInternalServerError,
-            errNo: errorNumbers.genericError,
-            errMsg: error?.message || error,
+            status: statusCode.httpNotFound,
+            errNo: errorNumbers.resourceNotFound,
+            errMsg: i18n.__("role.show.roleNotFound"),
           };
 
           return customResponse.error(response, res);
-        });
-    }
+        } else if (result === "USER_NOT_FOUND") {
+          const response = {
+            status: statusCode.httpNotFound,
+            errNo: errorNumbers.resourceNotFound,
+            errMsg: i18n.__("user.profile.userNotFound"),
+          };
+
+          return customResponse.error(response, res);
+        } else if (result === "ALREADY_ASSIGNED") {
+          const response = {
+            status: statusCode.httpBadRequest,
+            errNo: errorNumbers.resourceExist,
+            errMsg: i18n.__("user.assign.roleAlreadyAssigned"),
+          };
+
+          return customResponse.error(response, res);
+        } else {
+          const response = {
+            status: statusCode.httpOk,
+            data: result,
+          };
+
+          return customResponse.success(response, res);
+        }
+      })
+      .catch((error) => {
+        const response = {
+          status: error?.status || statusCode.httpInternalServerError,
+          errNo: errorNumbers.genericError,
+          errMsg: error?.message || error,
+        };
+
+        return customResponse.error(response, res);
+      });
   }
 
   /**
@@ -163,69 +178,52 @@ class UserController {
     const userid = req.params.userId;
     const roleid = req.params.roleId;
 
-    if (!helpers.checkObjectId(userid)) {
-      const response = {
-        status: statusCode.httpBadRequest,
-        errNo: errorNumbers.ivalidResource,
-        errMsg: i18n.__("user.others.invalidUserId"),
-      };
-
-      return customResponse.error(response, res);
-    } else if (!helpers.checkObjectId(roleid)) {
-      const response = {
-        status: statusCode.httpBadRequest,
-        errNo: errorNumbers.ivalidResource,
-        errMsg: i18n.__("role.others.invalidUserId"),
-      };
-
-      return customResponse.error(response, res);
-    } else {
-      userService
-        .unassign(userid, roleid)
-        .then((result) => {
-          if (result === "ROLE_NOT_FOUND") {
-            const response = {
-              status: statusCode.httpNotFound,
-              errNo: errorNumbers.resourceNotFound,
-              errMsg: i18n.__("role.show.roleNotFound"),
-            };
-
-            return customResponse.error(response, res);
-          } else if (result === "USER_NOT_FOUND") {
-            const response = {
-              status: statusCode.httpNotFound,
-              errNo: errorNumbers.resourceNotFound,
-              errMsg: i18n.__("user.profile.userNotFound"),
-            };
-
-            return customResponse.error(response, res);
-          } else if (result === "NOT_HAVE_THIS_ROLE") {
-            const response = {
-              status: statusCode.httpNotFound,
-              errNo: errorNumbers.resourceNotFound,
-              errMsg: i18n.__("user.unassign.notHaveThisRole"),
-            };
-
-            return customResponse.error(response, res);
-          } else {
-            const response = {
-              status: statusCode.httpOk,
-              data: result,
-            };
-
-            return customResponse.success(response, res);
-          }
-        })
-        .catch((error) => {
+    userService
+      .unassign(userid, roleid)
+      .then((result) => {
+        if (result === "ROLE_NOT_FOUND") {
           const response = {
-            status: error?.status || statusCode.httpInternalServerError,
-            errNo: errorNumbers.genericError,
-            errMsg: error?.message || error,
+            status: statusCode.httpNotFound,
+            errNo: errorNumbers.resourceNotFound,
+            errMsg: i18n.__("role.show.roleNotFound"),
           };
 
           return customResponse.error(response, res);
-        });
-    }
+        } else if (result === "USER_NOT_FOUND") {
+          const response = {
+            status: statusCode.httpNotFound,
+            errNo: errorNumbers.resourceNotFound,
+            errMsg: i18n.__("user.profile.userNotFound"),
+          };
+
+          return customResponse.error(response, res);
+        } else if (result === "NOT_HAVE_THIS_ROLE") {
+          const response = {
+            status: statusCode.httpNotFound,
+            errNo: errorNumbers.resourceNotFound,
+            errMsg: i18n.__("user.unassign.notHaveThisRole"),
+          };
+
+          return customResponse.error(response, res);
+        } else {
+          const response = {
+            status: statusCode.httpNoContent,
+            data: result,
+          };
+
+          return customResponse.success(response, res);
+        }
+      })
+      .catch((error) => {
+        const response = {
+          status: error?.status || statusCode.httpInternalServerError,
+          errNo: errorNumbers.genericError,
+          errMsg: error?.message || error,
+        };
+
+        return customResponse.error(response, res);
+      });
+
   }
 
   /**
@@ -318,9 +316,9 @@ class UserController {
   public async register(req: Request, res: Response): Promise<void> {
     const validationRule = {
       username: "required|string",
-      lastname: "required|string",
+      last_name: "required|string",
       email: "required|string|email",
-      gender: "required|string",
+      gender_id: "required",
       password: "required|string|min:6",
     };
 
@@ -354,7 +352,10 @@ class UserController {
                   status:
                     error?.status || statusCode.httpInternalServerError,
                   errNo: errorNumbers.genericError,
-                  errMsg: error?.message || error,
+                  errMsg:
+                    error?.errors?.find(() => true).message ||
+                    error?.message ||
+                    error
                 };
 
                 return customResponse.error(response, res);
@@ -386,8 +387,8 @@ class UserController {
    */
   public async update(req: Request, res: Response): Promise<void> {
     const validationRule = {
-      lastname: "required|string",
-      gender: "required|string",
+      last_name: "required|string",
+      gender_id: "required|string",
     };
 
     await validator
@@ -405,48 +406,38 @@ class UserController {
 
             return customResponse.error(response, res);
           } else {
-            const userid = req.params.userId;
-            // check if user id is valid
-            if (helpers.checkObjectId(userid)) {
-              userService
-                .update(userid, req.body)
-                .then((result) => {
-                  if (result === null || result === undefined) {
-                    const response = {
-                      status: statusCode.httpNotFound,
-                      errNo: errorNumbers.resourceNotFound,
-                      errMsg: i18n.__("user.update.userNotFound"),
-                    };
+            const userId = req.params.userId;
 
-                    return customResponse.error(response, res);
-                  } else {
-                    const response = {
-                      status: statusCode.httpOk,
-                      data: result,
-                    };
-
-                    return customResponse.success(response, res);
-                  }
-                })
-                .catch((error) => {
+            userService
+              .update(userId, req.body)
+              .then((result) => {
+                if (result === null || result === undefined) {
                   const response = {
-                    status:
-                      error?.status || statusCode.httpInternalServerError,
-                    errNo: errorNumbers.genericError,
-                    errMsg: error?.message || error,
+                    status: statusCode.httpNotFound,
+                    errNo: errorNumbers.resourceNotFound,
+                    errMsg: i18n.__("user.update.userNotFound"),
                   };
 
                   return customResponse.error(response, res);
-                });
-            } else {
-              const response = {
-                status: statusCode.httpBadRequest,
-                errNo: errorNumbers.ivalidResource,
-                errMsg: i18n.__("user.others.invalidUserId"),
-              };
+                } else {
+                  const response = {
+                    status: statusCode.httpOk,
+                    data: result,
+                  };
 
-              return customResponse.error(response, res);
-            }
+                  return customResponse.success(response, res);
+                }
+              })
+              .catch((error) => {
+                const response = {
+                  status:
+                    error?.status || statusCode.httpInternalServerError,
+                  errNo: errorNumbers.genericError,
+                  errMsg: error?.message || error,
+                };
+
+                return customResponse.error(response, res);
+              });
           }
         }
       )
