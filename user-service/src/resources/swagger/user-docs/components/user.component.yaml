@@ -3,11 +3,11 @@ components:
     User:
       type: object
       properties:
-        _id:
+        id:
           type: string
-        firstname:
+        first_name:
           type: string
-        lastname: 
+        last_name: 
           type: string
         username:
           type: string
@@ -15,30 +15,15 @@ components:
           type: string
         password:
           type: string
-        gender:
+        gender_id:
           type: integer
-        isAdmin:
-          type: boolean
-        isSeller:
-          type: boolean
-        seller: 
-          type: object
-          properties:
-            name:
-              type: string
-            logo:
-              type: string
-            description:
-              type: string
-            rating:
-              type: integer
-            numReviews:
-              type: integer
+        is_deleted:
+          type: integer
         online:
           type: boolean
-        createdAt:
+        created_at:
           type: string
           format: date-time
-        updatedAt:
+        updated_at:
           type: string
           format: date-time

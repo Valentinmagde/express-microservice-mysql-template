@@ -28,45 +28,35 @@ class GenderController {
   public async show(req: Request, res: Response): Promise<void> {
     const genderid = req.params.genderId;
 
-    if (helpers.checkObjectId(genderid)) {
-      genderService
-        .getById(genderid)
-        .then((result) => {
-          if (result === null || result === undefined) {
-            const response = {
-              status: statusCode.httpNotFound,
-              errNo: errorNumbers.resourceNotFound,
-              errMsg: i18n.__("gender.show.genderNotFound"),
-            };
-
-            return customResponse.error(response, res);
-          } else {
-            const response = {
-              status: statusCode.httpOk,
-              data: result,
-            };
-
-            return customResponse.success(response, res);
-          }
-        })
-        .catch((error) => {
+    genderService
+      .getById(genderid)
+      .then((result) => {
+        if (result === null || result === undefined) {
           const response = {
-            status: error?.status || statusCode.httpInternalServerError,
-            errNo: errorNumbers.genericError,
-            errMsg: error?.message || error,
+            status: statusCode.httpNotFound,
+            errNo: errorNumbers.resourceNotFound,
+            errMsg: i18n.__("gender.show.genderNotFound"),
           };
 
           return customResponse.error(response, res);
-        });
-    } else {
-      const response = {
-        status: statusCode.httpBadRequest,
-        errNo: errorNumbers.ivalidResource,
-        errMsg: i18n.__("gender.others.invalidGenderId"),
-      };
+        } else {
+          const response = {
+            status: statusCode.httpOk,
+            data: result,
+          };
 
-      return customResponse.error(response, res);
-    }
+          return customResponse.success(response, res);
+        }
+      })
+      .catch((error) => {
+        const response = {
+          status: error?.status || statusCode.httpInternalServerError,
+          errNo: errorNumbers.genericError,
+          errMsg: error?.message || error,
+        };
+
+        return customResponse.error(response, res);
+      });
   }
 
   /**
@@ -205,47 +195,37 @@ class GenderController {
             return customResponse.error(response, res);
           } else {
             const genderid = req.params.genderId;
-            // check if gender id is valid
-            if (helpers.checkObjectId(genderid)) {
-              genderService
-                .update(genderid, req.body)
-                .then((result) => {
-                  if (result === null || result === undefined) {
-                    const response = {
-                      status: statusCode.httpNotFound,
-                      errNo: errorNumbers.resourceNotFound,
-                      errMsg: i18n.__("gender.show.genderNotFound"),
-                    };
 
-                    return customResponse.error(response, res);
-                  } else {
-                    const response = {
-                      status: statusCode.httpOk,
-                      data: result,
-                    };
-
-                    return customResponse.success(response, res);
-                  }
-                })
-                .catch((error) => {
+            genderService
+              .update(genderid, req.body)
+              .then((result) => {
+                if (result === null || result === undefined) {
                   const response = {
-                    status:
-                      error?.status || statusCode.httpInternalServerError,
-                    errNo: errorNumbers.genericError,
-                    errMsg: error?.message || error,
+                    status: statusCode.httpNotFound,
+                    errNo: errorNumbers.resourceNotFound,
+                    errMsg: i18n.__("gender.show.genderNotFound"),
                   };
 
                   return customResponse.error(response, res);
-                });
-            } else {
-              const response = {
-                status: statusCode.httpBadRequest,
-                errNo: errorNumbers.ivalidResource,
-                errMsg: i18n.__("gender.others.invalidGenderId"),
-              };
+                } else {
+                  const response = {
+                    status: statusCode.httpOk,
+                    data: result,
+                  };
 
-              return customResponse.error(response, res);
-            }
+                  return customResponse.success(response, res);
+                }
+              })
+              .catch((error) => {
+                const response = {
+                  status:
+                    error?.status || statusCode.httpInternalServerError,
+                  errNo: errorNumbers.genericError,
+                  errMsg: error?.message || error,
+                };
+
+                return customResponse.error(response, res);
+              });
           }
         }
       )
@@ -273,46 +253,35 @@ class GenderController {
    */
   public async delete(req: Request, res: Response): Promise<void> {
     const genderid = req.params.genderId;
-
-    if (helpers.checkObjectId(genderid)) {
-      genderService
-        .delete(genderid)
-        .then((result) => {
-          if (result === null || result === undefined) {
-            const response = {
-              status: statusCode.httpNotFound,
-              errNo: errorNumbers.resourceNotFound,
-              errMsg: i18n.__("gender.show.genderNotFound"),
-            };
-
-            return customResponse.error(response, res);
-          } else {
-            const response = {
-              status: statusCode.httpNoContent,
-              data: result,
-            };
-
-            return customResponse.success(response, res);
-          }
-        })
-        .catch((error) => {
+    genderService
+      .delete(genderid)
+      .then((result) => {
+        if (result === null || result === undefined) {
           const response = {
-            status: error?.status || statusCode.httpInternalServerError,
-            errNo: errorNumbers.genericError,
-            errMsg: error?.message || error,
+            status: statusCode.httpNotFound,
+            errNo: errorNumbers.resourceNotFound,
+            errMsg: i18n.__("gender.show.genderNotFound"),
           };
 
           return customResponse.error(response, res);
-        });
-    } else {
-      const response = {
-        status: statusCode.httpBadRequest,
-        errNo: errorNumbers.ivalidResource,
-        errMsg: i18n.__("gender.others.invalidGenderId"),
-      };
+        } else {
+          const response = {
+            status: statusCode.httpNoContent,
+            data: result,
+          };
 
-      return customResponse.error(response, res);
-    }
+          return customResponse.success(response, res);
+        }
+      })
+      .catch((error) => {
+        const response = {
+          status: error?.status || statusCode.httpInternalServerError,
+          errNo: errorNumbers.genericError,
+          errMsg: error?.message || error,
+        };
+
+        return customResponse.error(response, res);
+      });
   }
 }
 

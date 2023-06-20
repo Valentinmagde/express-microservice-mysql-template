@@ -3,13 +3,13 @@ components:
     Gender:
       type: object
       properties:
-        _id:
+        id:
           type: string
         name:
           type: string
-        createdAt:
+        created_at:
           type: string
           format: date-time
-        updatedAt:
+        updated_at:
           type: string
           format: date-time

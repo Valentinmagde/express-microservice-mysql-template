@@ -6,15 +6,14 @@ import errorNumbers from "../../utils/error-numbers.util";
 import validator from "../../utils/validator.util";
 import { Errors } from "validatorjs";
 import helpers from "../../utils/helpers.util";
-import roleService from "./role.service";
+import roleService from "./user-roles.service";
 /**
  * @author Valentin Magde <valentinmagde@gmail.com>
- * @since 2023-04-20
+ * @since 2023-06-20
  *
- * Class RoleController
+ * Class UserRolesController
  */
-class RoleController {
-
+class UserRolesController {
   /**
    * Get role details handler
    *
@@ -27,37 +26,47 @@ class RoleController {
    * @return {Promise<void>} the eventual completion or failure
    */
   public async show(req: Request, res: Response): Promise<void> {
-    const roleId = req.params.roleId;
+    const roleid = req.params.roleId;
 
-    roleService
-      .getById(roleId)
-      .then((result) => {
-        if (result === null || result === undefined) {
+    if (helpers.checkObjectId(roleid)) {
+      roleService
+        .getById(roleid)
+        .then((result) => {
+          if (result === null || result === undefined) {
+            const response = {
+              status: statusCode.httpNotFound,
+              errNo: errorNumbers.resourceNotFound,
+              errMsg: i18n.__("role.show.roleNotFound"),
+            };
+
+            return customResponse.error(response, res);
+          } else {
+            const response = {
+              status: statusCode.httpOk,
+              data: result,
+            };
+
+            return customResponse.success(response, res);
+          }
+        })
+        .catch((error) => {
           const response = {
-            status: statusCode.httpNotFound,
-            errNo: errorNumbers.resourceNotFound,
-            errMsg: i18n.__("role.show.roleNotFound"),
+            status: error?.status || statusCode.httpInternalServerError,
+            errNo: errorNumbers.genericError,
+            errMsg: error?.message || error,
           };
 
           return customResponse.error(response, res);
-        } else {
-          const response = {
-            status: statusCode.httpOk,
-            data: result,
-          };
+        });
+    } else {
+      const response = {
+        status: statusCode.httpBadRequest,
+        errNo: errorNumbers.ivalidResource,
+        errMsg: i18n.__("role.others.invalidRoleId"),
+      };
 
-          return customResponse.success(response, res);
-        }
-      })
-      .catch((error) => {
-        const response = {
-          status: error?.status || statusCode.httpInternalServerError,
-          errNo: errorNumbers.genericError,
-          errMsg: error?.message || error,
-        };
-
-        return customResponse.error(response, res);
-      });
+      return customResponse.error(response, res);
+    }
   }
 
   /**
@@ -195,37 +204,48 @@ class RoleController {
 
             return customResponse.error(response, res);
           } else {
-            const roleId = req.params.roleId;
-            roleService
-              .update(roleId, req.body)
-              .then((result) => {
-                if (result === null || result === undefined) {
+            const roleid = req.params.roleId;
+            // check if role id is valid
+            if (helpers.checkObjectId(roleid)) {
+              roleService
+                .update(roleid, req.body)
+                .then((result) => {
+                  if (result === null || result === undefined) {
+                    const response = {
+                      status: statusCode.httpNotFound,
+                      errNo: errorNumbers.resourceNotFound,
+                      errMsg: i18n.__("role.show.roleNotFound"),
+                    };
+
+                    return customResponse.error(response, res);
+                  } else {
+                    const response = {
+                      status: statusCode.httpOk,
+                      data: result,
+                    };
+
+                    return customResponse.success(response, res);
+                  }
+                })
+                .catch((error) => {
                   const response = {
-                    status: statusCode.httpNotFound,
-                    errNo: errorNumbers.resourceNotFound,
-                    errMsg: i18n.__("role.show.roleNotFound"),
+                    status:
+                      error?.status || statusCode.httpInternalServerError,
+                    errNo: errorNumbers.genericError,
+                    errMsg: error?.message || error,
                   };
 
                   return customResponse.error(response, res);
-                } else {
-                  const response = {
-                    status: statusCode.httpOk,
-                    data: result,
-                  };
+                });
+            } else {
+              const response = {
+                status: statusCode.httpBadRequest,
+                errNo: errorNumbers.ivalidResource,
+                errMsg: i18n.__("role.others.invalidRoleId"),
+              };
 
-                  return customResponse.success(response, res);
-                }
-              })
-              .catch((error) => {
-                const response = {
-                  status:
-                    error?.status || statusCode.httpInternalServerError,
-                  errNo: errorNumbers.genericError,
-                  errMsg: error?.message || error,
-                };
-
-                return customResponse.error(response, res);
-              });
+              return customResponse.error(response, res);
+            }
           }
         }
       )
@@ -252,39 +272,49 @@ class RoleController {
    * @return {Promise<void>} the eventual completion or failure
    */
   public async delete(req: Request, res: Response): Promise<void> {
-    const roleId = req.params.roleId;
+    const roleid = req.params.roleId;
 
-    roleService
-      .delete(roleId)
-      .then((result) => {
-        if (result === null || result === undefined) {
+    if (helpers.checkObjectId(roleid)) {
+      roleService
+        .delete(roleid)
+        .then((result) => {
+          if (result === null || result === undefined) {
+            const response = {
+              status: statusCode.httpNotFound,
+              errNo: errorNumbers.resourceNotFound,
+              errMsg: i18n.__("role.show.roleNotFound"),
+            };
+
+            return customResponse.error(response, res);
+          } else {
+            const response = {
+              status: statusCode.httpNoContent,
+              data: result,
+            };
+
+            return customResponse.success(response, res);
+          }
+        })
+        .catch((error) => {
           const response = {
-            status: statusCode.httpNotFound,
-            errNo: errorNumbers.resourceNotFound,
-            errMsg: i18n.__("role.show.roleNotFound"),
+            status: error?.status || statusCode.httpInternalServerError,
+            errNo: errorNumbers.genericError,
+            errMsg: error?.message || error,
           };
 
           return customResponse.error(response, res);
-        } else {
-          const response = {
-            status: statusCode.httpNoContent,
-            data: result,
-          };
+        });
+    } else {
+      const response = {
+        status: statusCode.httpBadRequest,
+        errNo: errorNumbers.ivalidResource,
+        errMsg: i18n.__("role.others.invalidRoleId"),
+      };
 
-          return customResponse.success(response, res);
-        }
-      })
-      .catch((error) => {
-        const response = {
-          status: error?.status || statusCode.httpInternalServerError,
-          errNo: errorNumbers.genericError,
-          errMsg: error?.message || error,
-        };
-
-        return customResponse.error(response, res);
-      });
+      return customResponse.error(response, res);
+    }
   }
 }
 
-const roleController = new RoleController();
-export default roleController;
+const userRolesController = new UserRolesController();
+export default userRolesController;

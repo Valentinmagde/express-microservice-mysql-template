@@ -1,14 +1,16 @@
-import mongoose from 'mongoose';
+import { sequelize } from '../../../core/db';
+import { DataTypes } from 'sequelize';
 
-const roleSchema = new mongoose.Schema(
-  {
-    name: { type: String, required: true, unique: true }
-  },
-  {
-    timestamps: true,
-  }
-);
+const attributes = {
+  name: { type: DataTypes.STRING, allowNull: false, unique: true }
+}
 
-const Role = mongoose.model('Role', roleSchema);
+const options = {
+  timestamps: true,
+  createdAt: "created_at", // alias createdAt as created_at
+  updatedAt: "updated_at", // alias updatedAt as updated_at
+};
+
+const Role = sequelize.define('Role', attributes, options);
 
 export default Role;
