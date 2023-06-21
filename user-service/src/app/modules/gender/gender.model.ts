@@ -8,9 +8,9 @@ const attributes = {
 const options = {
   timestamps: true,
   createdAt: "created_at", // alias createdAt as created_at
-  updatedAt: "updated_at", // alias updatedAt as updated_at
+  updatedAt: "updated_at", // alias updatedAt as updated_at,
 };
 
-const Gender = sequelize.define('Gender', attributes, options);
+const Gender = sequelize.define('gender', attributes, options);
 
 export default Gender;

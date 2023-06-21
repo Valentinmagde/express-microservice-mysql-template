@@ -12,19 +12,21 @@ const attributes = {
     type: DataTypes.INTEGER,
     references: { model: Gender, key: "id" },
   },
-  is_deleted: { type: DataTypes.BOOLEAN, defaultValue: false, allowNull: true },
   online: { type: DataTypes.BOOLEAN, defaultValue: false, allowNull: true },
 };
 
 const options = {
   timestamps: true,
+  underscored: true,
+  paranoid: true,
   createdAt: "created_at", // alias createdAt as created_at
   updatedAt: "updated_at", // alias updatedAt as updated_at
+  deletedAt: "deleted_at", // alias updatedAt as deleted_at
   defaultScope: {
     attributes: { exclude: ['password'] },
   }
 };
 
-const User = sequelize.define("User", attributes, options);
+const User = sequelize.define("user", attributes, options);
 
 export default User;
