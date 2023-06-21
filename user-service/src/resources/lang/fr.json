@@ -30,7 +30,8 @@
             "userNotFound" : "L'utilisateur n'existe pas."
         },
         "delete": {
-            "cannotDeleteAdmin": "Impossible de supprimer l'utilisateur Admin"
+            "cannotDeleteAdmin": "Impossible de supprimer l'utilisateur Admin",
+            "alreadyDeleted": "Cet utilisateur a déjà été supprimé"
         },
         "others": {
             "invalidUserId" : "Identifiant de l'utilisateur invalide."

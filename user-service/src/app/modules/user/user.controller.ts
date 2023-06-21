@@ -464,55 +464,56 @@ class UserController {
    * @return {Promise<void>} the eventual completion or failure
    */
   public async delete(req: Request, res: Response): Promise<void> {
-    const userid = req.params.userId;
+    const userId = req.params.userId;
 
-    if (helpers.checkObjectId(userid)) {
-      userService
-        .delete(userid)
-        .then((result) => {
-          if (result === null || result === undefined) {
-            const response = {
-              status: statusCode.httpNotFound,
-              errNo: errorNumbers.resourceNotFound,
-              errMsg: i18n.__("user.profile.userNotFound"),
-            };
-
-            return customResponse.error(response, res);
-          } else if (result == "isAdmin") {
-            const response = {
-              status: statusCode.httpBadRequest,
-              errNo: errorNumbers.requiredPermission,
-              errMsg: i18n.__("user.delete.cannotDeleteAdmin"),
-            };
-
-            return customResponse.error(response, res);
-          } else {
-            const response = {
-              status: statusCode.httpNoContent,
-              data: result,
-            };
-
-            return customResponse.success(response, res);
-          }
-        })
-        .catch((error) => {
+    userService
+      .delete(userId)
+      .then((result) => {
+        if (result === null || result === undefined) {
           const response = {
-            status: error?.status || statusCode.httpInternalServerError,
-            errNo: errorNumbers.genericError,
-            errMsg: error?.message || error,
+            status: statusCode.httpNotFound,
+            errNo: errorNumbers.resourceNotFound,
+            errMsg: i18n.__("user.profile.userNotFound"),
           };
 
           return customResponse.error(response, res);
-        });
-    } else {
-      const response = {
-        status: statusCode.httpBadRequest,
-        errNo: errorNumbers.ivalidResource,
-        errMsg: i18n.__("user.others.invalidUserId"),
-      };
+        }
+        else if (result == "isAdmin") {
+          const response = {
+            status: statusCode.httpBadRequest,
+            errNo: errorNumbers.requiredPermission,
+            errMsg: i18n.__("user.delete.cannotDeleteAdmin"),
+          };
 
-      return customResponse.error(response, res);
-    }
+          return customResponse.error(response, res);
+        }
+        else if (result == "alreadyDeleted") {
+          const response = {
+            status: statusCode.httpBadRequest,
+            errNo: errorNumbers.requiredPermission,
+            errMsg: i18n.__("user.delete.alreadyDeleted"),
+          };
+
+          return customResponse.error(response, res);
+        }
+        else {
+          const response = {
+            status: statusCode.httpNoContent,
+            data: result,
+          };
+
+          return customResponse.success(response, res);
+        }
+      })
+      .catch((error) => {
+        const response = {
+          status: error?.status || statusCode.httpInternalServerError,
+          errNo: errorNumbers.genericError,
+          errMsg: error?.message || error,
+        };
+
+        return customResponse.error(response, res);
+      });
   }
 }
 

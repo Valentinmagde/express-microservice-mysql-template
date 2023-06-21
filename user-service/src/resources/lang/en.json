@@ -30,7 +30,8 @@
 			"userNotFound": "User does not exits."
 		},
 		"delete": {
-			"cannotDeleteAdmin": "Can Not Delete Admin User"
+			"cannotDeleteAdmin": "Unable to delete user Admin",
+			"alreadyDeleted": "This user has already been deleted"
 		},
 		"others": {
 			"invalidUserId": "Invalid user id."

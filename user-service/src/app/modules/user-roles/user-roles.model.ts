@@ -20,8 +20,14 @@ const attributes = {
   }
 }
 
-const options = { timestamps: true };
+const options = {
+  timestamps: true,
+  underscored: true,
+};
 
-const UserRole = sequelize.define('User_Role', attributes, options);
+const UserRole = sequelize.define('user_role', attributes, options);
+
+User.belongsToMany(Role, { through: 'user_role', foreignKey: 'user_id', });
+Role.belongsToMany(User, { through: 'user_role', foreignKey: 'role_id' });
 
 export default UserRole;

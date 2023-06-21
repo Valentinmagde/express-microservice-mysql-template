@@ -40,6 +40,13 @@ class UserService {
               "password",
             ],
             where: { email: data.email },
+            include: [
+              {
+                model: Role,
+                attributes: ["name"],
+                through: { attributes: [] },
+              },
+            ],
           });
 
           if (user && passwordHash.compareHash(data.password, user.password)) {
@@ -48,9 +55,6 @@ class UserService {
               { where: { email: data.email } }
             );
 
-            console.log(user);
-            const roles: Array<string> = [];
-
             const loginRes = {
               _id: user.id,
               username: user.username,
@@ -58,7 +62,9 @@ class UserService {
               firstname: user.first_name,
               email: user.email,
               gender: user.gender_id,
-              roles: roles,
+              roles: user.roles.map(
+                (role: RoleType) => role.name
+              ),
             };
 
             resolve(loginRes);
@@ -131,7 +137,18 @@ class UserService {
     return new Promise((resolve, reject) => {
       (async () => {
         try {
-          const user: any = await User.findByPk(userId);
+          const user: any = await User.findOne({
+            attributes: ["id", "deleted_at"],
+            paranoid: false,
+            where: { id: userId },
+            include: [
+              {
+                model: Role,
+                attributes: ["name"],
+                through: { attributes: [] },
+              },
+            ],
+          });
 
           if (user) {
             const role: any = await Role.findByPk(roleId);
@@ -139,20 +156,10 @@ class UserService {
             if (role) {
               await UserRole.sync();
 
-              // Check if the user doesn't already have this role
-              const hasRole = await UserRole.findOne({
-                where: {
-                  user_id: userId,
-                  role_id: roleId,
-                },
-              });
-
-              if (hasRole) resolve("ALREADY_ASSIGNED");
+              if (user.roles.some((r: any) => r.name == role.name))
+                resolve("ALREADY_ASSIGNED");
               else {
-                const userRoleCreated = await UserRole.create({
-                  user_id: userId,
-                  role_id: roleId,
-                });
+                const userRoleCreated = await user.addRole(role);
 
                 resolve(userRoleCreated);
               }
@@ -183,27 +190,32 @@ class UserService {
     return new Promise((resolve, reject) => {
       (async () => {
         try {
-          const user: any = await User.findByPk(userId);
+          const user: any = await User.findOne({
+            attributes: ["id", "deleted_at"],
+            paranoid: false,
+            where: { id: userId },
+            include: [
+              {
+                model: Role,
+                attributes: ["name"],
+                through: { attributes: [] },
+              },
+            ],
+          });
 
           if (user) {
             const role: any = await Role.findByPk(roleId);
 
             if (role) {
               // Check if the user have this role
-              const hasRole = await UserRole.findOne({
-                where: {
-                  user_id: userId,
-                  role_id: roleId,
-                }
-              });
-
-              if (!hasRole) resolve("NOT_HAVE_THIS_ROLE");
+              if (!user.roles.some((r: any) => r.name == role.name))
+                resolve("NOT_HAVE_THIS_ROLE");
               else {
                 const deletedUserRole = await UserRole.destroy({
                   where: {
                     user_id: userId,
                     role_id: roleId,
-                  }
+                  },
                 });
 
                 resolve(deletedUserRole);
@@ -302,19 +314,31 @@ class UserService {
     return new Promise((resolve, reject) => {
       (async () => {
         try {
-          const user: any = await User.findByPk(userId);
+          const user: any = await User.findOne({
+            attributes: ["id", "deleted_at"],
+            paranoid: false,
+            where: { id: userId },
+            include: [
+              {
+                model: Role,
+                attributes: ["name"],
+                through: { attributes: [] },
+              },
+            ],
+          });
 
-          if (user) {
+          if (user && !user.deleted_at) {
             let roles: Array<RoleType> = user?.roles as Array<RoleType>;
             roles = roles.filter((role) => role.name == "Admin");
+
             if (roles.length) resolve("isAdmin");
             else {
-              // const deleteUser = await new User(user).deleteOne();
-              // resolve(deleteUser);
+              const deleteUser = await user.destroy();
+
+              resolve(deleteUser);
             }
-          } else {
-            resolve(user);
-          }
+          } else if (user) resolve("alreadyDeleted");
+          else resolve(user);
         } catch (error) {
           reject(error);
         }

@@ -11,6 +11,6 @@ const options = {
   updatedAt: "updated_at", // alias updatedAt as updated_at
 };
 
-const Role = sequelize.define('Role', attributes, options);
+const Role = sequelize.define('role', attributes, options);
 
 export default Role;
